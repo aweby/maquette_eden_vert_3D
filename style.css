@@ -1641,15 +1641,17 @@ h3 { font-size: 1.3rem; }
   display: block;
 }
 .equipe-hero-caption {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
+  display: block;
   text-align: center;
-  padding: 48px 24px 28px;
-  background: linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.4) 60%, transparent 100%);
+  background: var(--dark);
   color: var(--white);
   font-size: 1.6rem;
   font-weight: 800;
   letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+@media (max-width: 768px) {
+  .equipe-hero-caption { font-size: 4.5vw; }
 }
 .equipe-hero-caption em {
   font-style: normal;
