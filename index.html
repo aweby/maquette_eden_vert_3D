@@ -25,7 +25,7 @@
 <header class="header" id="header">
   <nav class="nav container">
     <a href="#" class="logo">
-      <img src="logo.avif" alt="Eden Vert 3D" width="100" height="80" />
+      <img src="logo.avif" alt="Eden Vert 3D" width="400" height="80" />
     </a>
     <div class="nav-desktop">
       <ul class="nav-links" id="navLinksDesktop">
@@ -172,31 +172,88 @@
 
 
 <section class="hero hero2" id="home">
-  <!-- Photo full-bleed -->
+  <!-- Vidéo full-bleed -->
   <div class="h2-bg">
-    <img src="images/equipe.jpg" alt="Équipe Eden Vert 3D" class="h2-bg-img" />
+    <video class="h2-bg-video h2-bg-video--desktop" autoplay muted loop playsinline>
+      <source src="images/video.mp4" type="video/mp4">
+    </video>
+    <video class="h2-bg-video h2-bg-video--mobile" autoplay muted loop playsinline>
+      <source src="images/video_2.mp4" type="video/mp4">
+    </video>
     <div class="h2-bg-overlay"></div>
   </div>
-
-  <!-- Contenu ancré en bas à gauche -->
-  <div class="container h2-content">
-
+  <!-- Texte centré sur la vidéo -->
+  <div class="h2-center-text">
     <h1 class="h2-title">
       votre partenaire national<br />
-      <em>contre les nuisibles.</em>
+      <em>contre tous les nuisibles.</em>
     </h1>
+  </div>
+</section>
 
+<!-- ===== EQUIPE + CHIFFRES ===== -->
+<section class="equipe-hero">
+  <!-- Stats en ligne au-dessus -->
+  <div class="container equipe-stats-row">
+    <div class="equipe-stat">
+      <div class="equipe-stat-icon">
+        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="20" stroke="currentColor" stroke-width="2.5"/><path d="M8.5 32c2-4 8-7 15.5-7s13.5 3 15.5 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><circle cx="24" cy="18" r="5" stroke="currentColor" stroke-width="2.5"/><circle cx="11" cy="20" r="3.5" stroke="currentColor" stroke-width="2"/><circle cx="37" cy="20" r="3.5" stroke="currentColor" stroke-width="2"/></svg>
+      </div>
+      <div class="equipe-stat-body">
+        <strong>Réseau national</strong>
+        <span>Techniciens certifiés partout en France</span>
+      </div>
+    </div>
+    <div class="equipe-stat-divider"></div>
+    <div class="equipe-stat">
+      <div class="equipe-stat-icon">
+        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="6" y="10" width="36" height="28" rx="4" stroke="currentColor" stroke-width="2.5"/><path d="M6 18h36" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><path d="M16 10V6M32 10V6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><path d="M14 28h6M14 34h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </div>
+      <div class="equipe-stat-body">
+        <strong>Entreprise française</strong>
+        <span>Fondée en France, au service des Français</span>
+      </div>
+    </div>
+    <div class="equipe-stat-divider"></div>
+    <div class="equipe-stat">
+      <div class="equipe-stat-icon">
+        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M24 4L6 14v10c0 10.5 7.7 20.3 18 22.6C34.3 44.3 42 34.5 42 24V14L24 4z" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/><path d="M16 24l5 5 11-11" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="equipe-stat-body">
+        <strong>3 000 interventions / mois</strong>
+        <span>Réactivité et fiabilité garanties</span>
+      </div>
+    </div>
+    <div class="equipe-stat-divider"></div>
+    <div class="equipe-stat">
+      <div class="equipe-stat-icon">
+        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M24 4C16.3 4 10 10.3 10 18c0 10.5 14 26 14 26s14-15.5 14-26c0-7.7-6.3-14-14-14z" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/><circle cx="24" cy="18" r="4" stroke="currentColor" stroke-width="2.5"/></svg>
+      </div>
+      <div class="equipe-stat-body">
+        <strong>35 départements couverts</strong>
+        <span>Et en constante expansion</span>
+      </div>
+    </div>
+  </div>
+  <!-- Photo pleine largeur -->
+  <div class="equipe-hero-photo">
+    <img src="images/equipe.jpg" alt="Équipe Eden Vert 3D" class="equipe-hero-img" />
+    <span class="equipe-hero-caption">une équipe <em>à votre service</em></span>
   </div>
 </section>
 
 <!-- ===== URGENCE BANNER ===== -->
 <div class="urgence-banner">
   <div class="container urgence-inner">
+    <div class="urgence-pulse"></div>
     <div class="urgence-icon">⚡</div>
     <div class="urgence-text">
-      <strong>Situation d'urgence ?</strong> Eden Vert 3D intervient en moins de 24h
+      <strong>Situation d'urgence ?</strong> Eden Vert 3D intervient en <strong>moins de 24h</strong> — disponible 7j/7
     </div>
-    <a href="tel:+33123456789" class="btn-urgence">Appeler d'urgence</a>
+    <a href="tel:+33123456789" class="btn-urgence">
+      <span>Appeler maintenant</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>
+    </a>
   </div>
 </div>
 
