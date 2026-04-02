@@ -1851,6 +1851,8 @@ h3 { font-size: 1.3rem; }
 
 @media (max-width: 768px) {
   .section { padding: 70px 0; }
+  .header { padding: 0; }
+  .header.scrolled { padding: 0; }
 
 
   /* Clients grid */
