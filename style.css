@@ -401,17 +401,35 @@ h3 { font-size: 1.3rem; }
 .mm-link--parent[aria-expanded="true"] { color: var(--white); }
 .mm-link--parent[aria-expanded="true"]::before { transform: scaleY(1); }
 
-/* Sous-menu déroulant — grille 2 colonnes */
-.mm-sub {
-  max-height: 0; overflow: hidden;
-  transition: max-height 0.42s cubic-bezier(0.4, 0, 0.2, 1);
-  background: rgba(0,0,0,0.25);
+/* Prestations — section toujours visible */
+.mm-presta-section {
+  background: rgba(0,0,0,0.2);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
 }
-.mm-sub.open { max-height: 1400px; }
+.mm-presta-label {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 20px 8px;
+  pointer-events: none;
+}
+.mm-presta-label .mm-num {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--orange);
+  letter-spacing: 0.08em;
+}
+.mm-presta-label .mm-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--gray-400);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
 
 .mm-sub-grid {
   display: grid; grid-template-columns: 1fr 1fr;
-  padding: 8px 12px 10px;
+  padding: 0 12px 12px;
   gap: 6px;
 }
 
@@ -589,12 +607,7 @@ h3 { font-size: 1.3rem; }
 .presta-img-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    180deg,
-    transparent 30%,
-    rgba(0,0,0,0.4) 60%,
-    rgba(0,0,0,0.7) 100%
-  );
+  
 }
 /* Ligne orange en haut au hover */
 .presta-card::before {
