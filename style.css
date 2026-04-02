@@ -404,10 +404,10 @@ h3 { font-size: 1.3rem; }
 /* Sous-menu déroulant — grille 2 colonnes */
 .mm-sub {
   max-height: 0; overflow: hidden;
-  transition: max-height 0.38s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: max-height 0.42s cubic-bezier(0.4, 0, 0.2, 1);
   background: rgba(0,0,0,0.25);
 }
-.mm-sub.open { max-height: 600px; }
+.mm-sub.open { max-height: 1400px; }
 
 .mm-sub-grid {
   display: grid; grid-template-columns: 1fr 1fr;
@@ -2021,7 +2021,9 @@ h3 { font-size: 1.3rem; }
   grid-template-columns: 1fr 1fr;
   gap: 28px;
   align-items: start;
+  min-width: 0;
 }
+.sp1-grid > * { min-width: 0; }
 
 /* En-tête colonne */
 .sp1-col-header {
@@ -2253,11 +2255,18 @@ h3 { font-size: 1.3rem; }
 }
 @media (max-width: 600px) {
   .sp1-ig-grid { grid-template-columns: repeat(3, 1fr); }
+  .sp1-fb-post { overflow: hidden; }
   .sp2-fb-feed { grid-template-columns: 1fr; }
   .sp2-reels-row { grid-template-columns: repeat(2, 1fr); }
   .sp2-ig-masonry { columns: 2; }
-  .sp2-tabs { width: 100%; }
+  .sp2-tabs { width: 100%; overflow-x: auto; }
   .sp2-tab { flex: 1; justify-content: center; padding: 9px 8px; font-size: 13px; }
+}
+
+@media (max-width: 430px) {
+  .sp1-ig-grid { grid-template-columns: repeat(2, 1fr); }
+  .sp2-reels-row { grid-template-columns: 1fr 1fr; }
+  .sp2-ig-masonry { columns: 1; }
 }
 
 .section-sub {
@@ -2861,6 +2870,7 @@ h3 { font-size: 1.3rem; }
   width: 44px;
   height: 44px;
   border-radius: 50%;
+  object-fit: cover;
   flex-shrink: 0;
   border: 2px solid rgba(234,95,10,0.3);
 }
@@ -3355,6 +3365,7 @@ h3 { font-size: 1.3rem; }
   width: 48px;
   height: 48px;
   border-radius: 50%;
+  object-fit: cover;
   flex-shrink: 0;
   border: 2px solid rgba(234,95,10,0.35);
 }
@@ -3524,6 +3535,9 @@ h3 { font-size: 1.3rem; }
   justify-content: center;
   overflow: hidden;
   position: relative;
+  isolation: isolate; /* force Chrome à clipper overflow dans contexte animé */
+  -webkit-transform: translateZ(0); /* active GPU layer pour Safari */
+  transform: translateZ(0);
   transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
   box-shadow: 0 4px 20px rgba(0,0,0,0.4), 0 0 18px rgba(234,95,10,0.12);
 }
