@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Cascade vidéos — 12 métiers (grille)</title>
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      -webkit-text-size-adjust: 100%;
+      height: 100%;
+    }
+
+    body {
+      margin: 0;
+      height: 100%;
+      min-height: 100dvh;
+      overflow: hidden;
+      background: #0a0a0a;
+    }
+
+    .vc-hero {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    video-cascade-grid {
+      display: block;
+      width: 100%;
+      height: 100%;
+      --vc-aspect: unset;
+      --vc-max-h: none;
+    }
+
+    video-cascade-grid:not(:defined) > video {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="vc-hero">
+    <video-cascade-grid
+      id="demo"
+      delay-ms="1400"
+      duration-ms="1850"
+      auto-start="true"
+      fill-screen
+      cols="6"
+      rows="2"
+    >
+      <video src="images/vignettes_videos_metiers/1.mp4" playsinline></video>
+      <video src="images/vignettes_videos_metiers/2.mp4" playsinline></video>
+      <video src="images/vignettes_videos_metiers/3.mp4" playsinline></video>
+      <video src="images/vignettes_videos_metiers/4.mp4" playsinline></video>
+      <video src="images/vignettes_videos_metiers/5.mp4" playsinline></video>
+      <video src="images/vignettes_videos_metiers/6.mp4" playsinline></video>
+      <video src="images/vignettes_videos_metiers/7.mp4" playsinline></video>
+      <video src="images/vignettes_videos_metiers/8.mp4" playsinline></video>
+      <video src="images/vignettes_videos_metiers/9.mp4" playsinline></video>
+      <video src="images/vignettes_videos_metiers/10.mp4" playsinline></video>
+      <video src="images/vignettes_videos_metiers/11.mp4" playsinline></video>
+      <video src="images/vignettes_videos_metiers/12.mp4" playsinline></video>
+    </video-cascade-grid>
+  </div>
+
+  <script>
+    function distributeSegmentLayout(total, n) {
+      if (n <= 0) return [];
+      const out = [];
+      let used = 0;
+      for (let i = 0; i < n; i++) {
+        const remaining = n - i;
+        const size = Math.round((total - used) / remaining);
+        out.push({ offset: used, size });
+        used += size;
+      }
+      return out;
+    }
+
+    function gridCellLayout(w, h, cols, rows, index) {
+      const col = index % cols;
+      const row = Math.min(Math.floor(index / cols), rows - 1);
+      const colSeg = distributeSegmentLayout(w, cols);
+      const rowSeg = distributeSegmentLayout(h, rows);
+      const c = colSeg[col];
+      const r = rowSeg[row];
+      return {
+        left: c.offset,
+        width: c.size,
+        top: r.offset,
+        height: r.size,
+      };
+    }
+
+    const CASCADE_GRID_STYLE = `
+      :host {
+        display: block;
+        width: 100%;
+      }
+
+      :host([fill-screen]) {
+        height: 100%;
+        min-height: 100%;
+      }
+
+      :host([fill-screen]) .vc-root {
+        aspect-ratio: unset;
+        max-height: none;
+        height: 100%;
+        min-height: 100%;
+      }
+
+      .vc-root {
+        position: relative;
+        width: 100%;
+        aspect-ratio: var(--vc-aspect, 16 / 9);
+        max-height: var(--vc-max-h, 72vh);
+        background: #111;
+        contain: layout style paint;
+      }
+
+      .vc-panel {
+        position: absolute;
+        overflow: hidden;
+        container-type: size;
+        transform: translateZ(0);
+        backface-visibility: hidden;
+        transition:
+          left var(--vc-dur, 0.85s) cubic-bezier(0.45, 0, 0.2, 1),
+          top var(--vc-dur, 0.85s) cubic-bezier(0.45, 0, 0.2, 1),
+          width var(--vc-dur, 0.85s) cubic-bezier(0.45, 0, 0.2, 1),
+          height var(--vc-dur, 0.85s) cubic-bezier(0.45, 0, 0.2, 1),
+          box-shadow 0.25s ease,
+          filter 0.25s ease;
+      }
+
+      .vc-panel.is-animating {
+        will-change: left, top, width, height;
+      }
+
+      .vc-panel.is-done {
+        cursor: pointer;
+      }
+
+      @media (hover: hover) and (pointer: fine) {
+        .vc-panel.is-done:hover {
+          z-index: 50;
+          box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.35);
+          filter: brightness(1.06);
+        }
+
+        .vc-panel.is-done:hover .vc-video {
+          transform: translateZ(0) scale(1.04);
+        }
+      }
+
+      .vc-video {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        pointer-events: none;
+        transform: translateZ(0);
+        transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+    `;
+
+    class VideoCascadeGrid extends HTMLElement {
+      static get observedAttributes() {
+        return ['delay-ms', 'duration-ms', 'auto-start', 'cols', 'rows'];
+      }
+
+      constructor() {
+        super();
+        this.attachShadow({ mode: 'open' });
+        this._panels = [];
+        this._resizeObserver = null;
+        this._collapseStep = 0;
+        this._running = false;
+        this._cascadeComplete = false;
+        this._staggerTimer = null;
+        this._completeTimer = null;
+        this._panelFinishTimers = [];
+      }
+
+      get _cols() {
+        const v = parseInt(this.getAttribute('cols'), 10);
+        return Number.isFinite(v) && v > 0 ? v : 6;
+      }
+
+      get _rows() {
+        const v = parseInt(this.getAttribute('rows'), 10);
+        return Number.isFinite(v) && v > 0 ? v : 2;
+      }
+
+      connectedCallback() {
+        this._ensureDom();
+        this._readVideosFromLightDom();
+        this._bindResize();
+        this._applyHostVars();
+        if (this.getAttribute('auto-start') === 'true') {
+          requestAnimationFrame(() => this.startCascade());
+        }
+      }
+
+      disconnectedCallback() {
+        this._resizeObserver?.disconnect();
+        this._clearStagger();
+        this._clearCompleteTimer();
+        this._clearPanelFinishTimers();
+      }
+
+      attributeChangedCallback(name, _old, val) {
+        if (!this.shadowRoot) return;
+        if (name === 'delay-ms' || name === 'duration-ms') this._applyHostVars();
+        if (name === 'auto-start' && val === 'true' && this.isConnected) {
+          requestAnimationFrame(() => this.startCascade());
+        }
+      }
+
+      _applyHostVars() {
+        const dur = parseFloat(this.getAttribute('duration-ms')) || 850;
+        const root = this.shadowRoot?.querySelector('.vc-root');
+        if (root) root.style.setProperty('--vc-dur', `${dur}ms`);
+      }
+
+      get staggerDelay() {
+        const v = parseFloat(this.getAttribute('delay-ms'));
+        return Number.isFinite(v) ? Math.min(2500, Math.max(200, v)) : 650;
+      }
+
+      _ensureDom() {
+        if (this.shadowRoot.querySelector('.vc-root')) return;
+        const style = document.createElement('style');
+        style.textContent = CASCADE_GRID_STYLE;
+        const root = document.createElement('div');
+        root.className = 'vc-root';
+        this.shadowRoot.append(style, root);
+      }
+
+      _readVideosFromLightDom() {
+        const root = this.shadowRoot.querySelector('.vc-root');
+        root.replaceChildren();
+        this._panels = [];
+
+        const videos = Array.from(this.querySelectorAll(':scope > video'));
+        videos.forEach((video, index) => {
+          video.muted = true;
+          video.loop = true;
+          video.autoplay = true;
+          video.playsInline = true;
+          video.classList.add('vc-video');
+
+          const panel = document.createElement('div');
+          panel.className = 'vc-panel';
+          panel.dataset.index = String(index);
+          panel.style.zIndex = String(videos.length - index);
+
+          panel.appendChild(video);
+          root.appendChild(panel);
+          this._panels.push(panel);
+
+          video.play().catch(() => {});
+        });
+
+        this._layoutInitial();
+        this._setupHover();
+      }
+
+      _viewportSize() {
+        const root = this.shadowRoot.querySelector('.vc-root');
+        if (!root) return { w: 0, h: 0 };
+        return { w: root.clientWidth, h: root.clientHeight };
+      }
+
+      _layoutInitial() {
+        const { w, h } = this._viewportSize();
+        this._panels.forEach((panel) => {
+          panel.classList.remove('is-done', 'is-animating');
+          panel.style.left = '0px';
+          panel.style.top = '0px';
+          panel.style.width = `${w}px`;
+          panel.style.height = `${h}px`;
+        });
+        this._collapseStep = 0;
+        this._cascadeComplete = false;
+      }
+
+      _bindResize() {
+        this._resizeObserver?.disconnect();
+        this._resizeObserver = new ResizeObserver(() => {
+          if (this._running) return;
+          const { w, h } = this._viewportSize();
+          if (w <= 0 || h <= 0) return;
+          if (this._cascadeComplete) {
+            this._applyFinalLayout();
+          } else {
+            this._layoutInitial();
+          }
+        });
+        const root = this.shadowRoot.querySelector('.vc-root');
+        if (root) this._resizeObserver.observe(root);
+      }
+
+      _applyFinalLayout() {
+        const { w, h } = this._viewportSize();
+        const n = this._panels.length;
+        const cols = this._cols;
+        const rows = this._rows;
+        if (!n || w <= 0 || h <= 0) return;
+        this._panels.forEach((panel, i) => {
+          const cell = gridCellLayout(w, h, cols, rows, i);
+          panel.style.left = `${cell.left}px`;
+          panel.style.top = `${cell.top}px`;
+          panel.style.width = `${cell.width}px`;
+          panel.style.height = `${cell.height}px`;
+        });
+      }
+
+      reset() {
+        this._clearStagger();
+        this._clearCompleteTimer();
+        this._clearPanelFinishTimers();
+        this._running = false;
+        this._layoutInitial();
+        this.dispatchEvent(new CustomEvent('vc-cascade-reset', { bubbles: true }));
+      }
+
+      startCascade() {
+        if (!this._panels.length) return;
+        this._clearStagger();
+        this._clearCompleteTimer();
+        this._clearPanelFinishTimers();
+        this._running = true;
+        this._cascadeComplete = false;
+        this._collapseStep = 0;
+        this._layoutInitial();
+        this.dispatchEvent(new CustomEvent('vc-cascade-start', { bubbles: true }));
+        this._staggerNext();
+      }
+
+      _clearStagger() {
+        if (this._staggerTimer != null) {
+          clearTimeout(this._staggerTimer);
+          this._staggerTimer = null;
+        }
+      }
+
+      _clearCompleteTimer() {
+        if (this._completeTimer != null) {
+          clearTimeout(this._completeTimer);
+          this._completeTimer = null;
+        }
+      }
+
+      _clearPanelFinishTimers() {
+        this._panelFinishTimers.forEach((id) => clearTimeout(id));
+        this._panelFinishTimers.length = 0;
+      }
+
+      _staggerNext() {
+        const n = this._panels.length;
+        const step = this._collapseStep;
+        const cols = this._cols;
+        const rows = this._rows;
+        const { w, h } = this._viewportSize();
+
+        if (step >= n) {
+          this._running = false;
+          this._cascadeComplete = true;
+          this._panels.forEach((p) => p.classList.add('is-done'));
+          const durComplete = parseFloat(this.getAttribute('duration-ms')) || 850;
+          this._completeTimer = window.setTimeout(() => {
+            this._completeTimer = null;
+            this.dispatchEvent(new CustomEvent('vc-cascade-complete', { bubbles: true }));
+          }, durComplete);
+          return;
+        }
+
+        for (let i = 0; i <= step; i++) {
+          const panel = this._panels[i];
+          const cell = gridCellLayout(w, h, cols, rows, i);
+          panel.classList.add('is-animating');
+          panel.style.left = `${cell.left}px`;
+          panel.style.top = `${cell.top}px`;
+          panel.style.width = `${cell.width}px`;
+          panel.style.height = `${cell.height}px`;
+        }
+
+        for (let j = step + 1; j < n; j++) {
+          const panel = this._panels[j];
+          panel.style.left = '0px';
+          panel.style.top = '0px';
+          panel.style.width = `${w}px`;
+          panel.style.height = `${h}px`;
+        }
+
+        this._collapseStep += 1;
+
+        const panelJustMoved = this._panels[step];
+        const dur = parseFloat(this.getAttribute('duration-ms')) || 850;
+
+        const finishTid = window.setTimeout(() => {
+          panelJustMoved?.classList.remove('is-animating');
+        }, dur);
+        this._panelFinishTimers.push(finishTid);
+
+        this._staggerTimer = window.setTimeout(() => {
+          this._staggerTimer = null;
+          this._staggerNext();
+        }, this.staggerDelay);
+      }
+
+      _setupHover() {
+        if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+        this._panels.forEach((panel, i) => {
+          const video = panel.querySelector('video');
+          if (!video) return;
+
+          panel.addEventListener('mouseenter', () => {
+            if (!this._cascadeComplete) return;
+            const { w, h } = this._viewportSize();
+            const cols = this._cols;
+            const rows = this._rows;
+            const cell = gridCellLayout(w, h, cols, rows, i);
+            const growW = cell.width * 0.12;
+            const growH = cell.height * 0.12;
+            const newWidth = cell.width + growW;
+            const newHeight = cell.height + growH;
+            let newLeft = cell.left - growW / 2;
+            let newTop = cell.top - growH / 2;
+            newLeft = Math.max(0, Math.min(newLeft, w - newWidth));
+            newTop = Math.max(0, Math.min(newTop, h - newHeight));
+            panel.style.zIndex = '60';
+            panel.style.left = `${newLeft}px`;
+            panel.style.top = `${newTop}px`;
+            panel.style.width = `${newWidth}px`;
+            panel.style.height = `${newHeight}px`;
+          });
+
+          panel.addEventListener('mouseleave', () => {
+            if (!this._cascadeComplete) return;
+            panel.style.zIndex = String(this._panels.length - i);
+            this._applyFinalLayout();
+          });
+        });
+      }
+    }
+
+    if (!customElements.get('video-cascade-grid')) {
+      customElements.define('video-cascade-grid', VideoCascadeGrid);
+    }
+  </script>
+</body>
+</html>

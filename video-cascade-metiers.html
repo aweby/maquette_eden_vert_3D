@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="fr" class="vc-immersive">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Cascade vidéos métiers</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* -------------------------------------------------------------------------
+       Base + hôte du web component
+       ------------------------------------------------------------------------- */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html.vc-immersive,
+    body.vc-immersive {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      min-height: 100dvh;
+      font-family: var(--font, system-ui, sans-serif);
+      background: var(--black, #0a0a0a);
+      color: var(--gray-300, #f2f2f2);
+    }
+
+    body.vc-immersive .page {
+      max-width: none;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      min-height: 100dvh;
+    }
+
+    body.vc-immersive .page h1,
+    body.vc-immersive .page p,
+    body.vc-immersive .toolbar {
+      display: none;
+    }
+
+    body.vc-immersive .vc-hero {
+      position: fixed;
+      inset: 0;
+      z-index: 2147483000;
+      width: 100%;
+      height: 100%;
+      max-width: none;
+      margin: 0;
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    body.vc-immersive video-cascade {
+      height: 100%;
+    }
+
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.5rem clamp(1rem, 4vw, 2rem);
+    }
+
+    .page h1 {
+      font-size: clamp(1.25rem, 3vw, 1.75rem);
+      font-weight: 600;
+      margin: 0 0 0.75rem;
+    }
+
+    .page p {
+      margin: 0 0 1rem;
+      opacity: 0.85;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .toolbar button {
+      cursor: pointer;
+      border: none;
+      border-radius: 8px;
+      padding: 0.6rem 1.1rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      background: #e8e8ed;
+      color: #111;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+
+    .toolbar button:hover {
+      background: #fff;
+    }
+
+    .toolbar button:active {
+      transform: scale(0.98);
+    }
+
+    .toolbar label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.85rem;
+      opacity: 0.9;
+    }
+
+    /* Bloc vidéo + titre superposé (coins arrondis et ombre sur le conteneur) */
+    .vc-hero {
+      position: relative;
+      width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+    }
+
+    /* Hôte : hauteur responsive (ratio 16/9 avec plafond en vh) */
+    video-cascade {
+      display: block;
+      width: 100%;
+      --vc-aspect: 16 / 9;
+      --vc-max-h: min(72vh, 900px);
+    }
+
+    body.vc-immersive video-cascade {
+      --vc-aspect: unset;
+      --vc-max-h: none;
+    }
+
+    /* Même bloc que index.html (section hero) : .h2-center-text + .h2-title viennent de style.css */
+    .vc-hero .h2-center-text {
+      pointer-events: none;
+      z-index: 10;
+      opacity: 0;
+      visibility: hidden;
+      transition:
+        opacity 1s cubic-bezier(0.4, 0, 0.2, 1),
+        visibility 0s linear 1s;
+    }
+
+    /* Affiché en fade-in une fois la cascade terminée (classe posée par JS) */
+    .vc-hero.is-cascade-done .h2-center-text {
+      opacity: 1;
+      visibility: visible;
+      transition:
+        opacity 1s cubic-bezier(0.4, 0, 0.2, 1),
+        visibility 0s linear 0s;
+    }
+
+    /* Évite l’affichage des <video> légers avant transfert dans le shadow (flash) */
+    video-cascade:not(:defined) > video {
+      display: none;
+    }
+
+    /* -------------------------------------------------------------------------
+       Styles encapsulés (injectés dans le shadow root par le composant)
+       ------------------------------------------------------------------------- */
+  </style>
+</head>
+<body class="vc-immersive">
+  <div class="page">
+    <h1>Cascade de vidéos métiers</h1>
+    <p>
+      Les panneaux sont empilés en pleine largeur puis se replient un par un de la gauche vers la droite.
+      Passez la souris sur un panneau une fois l’animation terminée pour un léger effet d’agrandissement.
+      Dès qu’un bandeau a fini de se replier, son métier apparaît en vertical en capitales (attribut <code>data-vertical-label</code> sur chaque <code>&lt;video&gt;</code>).
+    </p>
+    <div class="toolbar">
+      <button type="button" id="btn-cascade">Lancer la cascade</button>
+      <button type="button" id="btn-reset">Réinitialiser</button>
+      <label>
+        <input type="checkbox" id="chk-auto" checked />
+        Démarrage automatique au chargement
+      </label>
+    </div>
+
+    <!-- Les 13 sources : le composant fonctionne avec tout nombre de <video> enfants -->
+    <div class="vc-hero">
+      <video-cascade id="demo" delay-ms="1400" duration-ms="1850" auto-start="true" fill-screen>
+        <video src="images/vignettes_videos_metiers/1.mp4" playsinline data-vertical-label="Dératisation"></video>
+        <video src="images/vignettes_videos_metiers/2.mp4" playsinline data-vertical-label="Guêpes -- Frelons"></video>
+        <video src="images/vignettes_videos_metiers/3.mp4" playsinline data-vertical-label="Chenilles --  Process."></video>
+        <video src="images/vignettes_videos_metiers/4.mp4" playsinline data-vertical-label="Cafards -- Blattes"></video>
+        <video src="images/vignettes_videos_metiers/5.mp4" playsinline data-vertical-label="Insectes"></video>
+        <video src="images/vignettes_videos_metiers/6.mp4" playsinline data-vertical-label="Fourmis"></video>
+        <video src="images/vignettes_videos_metiers/7.mp4" playsinline data-vertical-label="Moustiques"></video>
+        <video src="images/vignettes_videos_metiers/8.mp4" playsinline data-vertical-label="Piegeons"></video>
+        <video src="images/vignettes_videos_metiers/9.mp4" playsinline data-vertical-label="Taupes"></video>
+        <video src="images/vignettes_videos_metiers/10.mp4" playsinline data-vertical-label="Désinfection"></video>
+        <video src="images/vignettes_videos_metiers/11.mp4" playsinline data-vertical-label="Punaises -- Puces"></video>
+        <video src="images/vignettes_videos_metiers/12.mp4" playsinline data-vertical-label="Démoussage"></video>
+        <video src="images/vignettes_videos_metiers/13.mp4" playsinline data-vertical-label="Termites"></video>
+      </video-cascade>
+      
+    </div>
+  </div>
+
+  <script>
+    /**
+     * Répartition en pixels sans trou ni débordement (arrondi cumulatif).
+     * @param {number} totalWidth - largeur conteneur
+     * @param {number} n - nombre de segments
+     * @returns {{ left: number, width: number }[]}
+     */
+    function distributeSegmentLayout(totalWidth, n) {
+      if (n <= 0) return [];
+      const out = [];
+      let used = 0;
+      for (let i = 0; i < n; i++) {
+        const remaining = n - i;
+        const w = Math.round((totalWidth - used) / remaining);
+        out.push({ left: used, width: w });
+        used += w;
+      }
+      return out;
+    }
+
+    /**
+     * Libellé vertical : chaque caractère (hors espaces) = une ligne, ordre haut → bas.
+     * @param {string} text
+     * @returns {HTMLDivElement}
+     */
+    function createVerticalLabelElement(text) {
+      const chars = [...String(text || '').trim()].filter((ch) => !/\s/.test(ch));
+      if (!chars.length) return null;
+
+      const wrap = document.createElement('div');
+      wrap.className = 'vc-vertical-label';
+      wrap.setAttribute('aria-hidden', 'true');
+      chars.forEach((ch) => {
+        const span = document.createElement('span');
+        span.className = 'vc-vertical-label__char';
+        span.textContent = ch;
+        wrap.appendChild(span);
+      });
+      return wrap;
+    }
+
+    const CASCADE_STYLE = `
+      :host {
+        display: block;
+        width: 100%;
+      }
+
+      :host([fill-screen]) {
+        height: 100%;
+        min-height: 100%;
+      }
+
+      :host([fill-screen]) .vc-root {
+        aspect-ratio: unset;
+        max-height: none;
+        height: 100%;
+        min-height: 100%;
+      }
+
+      .vc-root {
+        position: relative;
+        width: 100%;
+        aspect-ratio: var(--vc-aspect, 16 / 9);
+        max-height: var(--vc-max-h, 72vh);
+        background: #111;
+        contain: layout style paint;
+      }
+
+      .vc-panel {
+        position: absolute;
+        top: 0;
+        height: 100%;
+        overflow: hidden;
+        container-type: size;
+        /* GPU layer pendant l’anim */
+        transform: translateZ(0);
+        backface-visibility: hidden;
+        transition:
+          left var(--vc-dur, 0.85s) cubic-bezier(0.45, 0, 0.2, 1),
+          width var(--vc-dur, 0.85s) cubic-bezier(0.45, 0, 0.2, 1),
+          box-shadow 0.25s ease,
+          filter 0.25s ease;
+      }
+
+      .vc-panel.is-animating {
+        will-change: left, width;
+      }
+
+      .vc-panel.is-done {
+        cursor: pointer;
+      }
+
+      /* Effet hover une fois la cascade terminée (scale pour ne pas recalculer les voisins) */
+      .vc-panel.is-done:hover {
+        z-index: 50;
+        box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.35);
+        filter: brightness(1.06);
+      }
+
+      .vc-panel.is-done:hover .vc-video {
+        transform: translateZ(0) scale(1.04);
+      }
+
+      .vc-video {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        pointer-events: none;
+        transform: translateZ(0);
+        transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      /* Titre vertical : une lettre par ligne, de haut en bas ; taille fixe, bloc centré dans le panneau */
+      .vc-vertical-label {
+        position: absolute;
+        inset: 0;
+        z-index: 3;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        align-content: center;
+        padding: min(6px, 1cqh) min(4px, 1cqw);
+        box-sizing: border-box;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+        overflow: hidden;
+      }
+
+      /* Dès que ce panneau a fini son repli (classe posée par JS après duration-ms) */
+      .vc-panel.is-label-visible .vc-vertical-label {
+        opacity: 1;
+      }
+
+      .vc-vertical-label__char {
+        display: block;
+        line-height: 1;
+        font-family: var(--vc-label-font, 'Inter', system-ui, sans-serif);
+        font-weight: 800;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+        color: #fff;
+        text-shadow:
+          0 1px 4px rgba(0, 0, 0, 0.95),
+          0 0 22px rgba(0, 0, 0, 0.55);
+        /* Même taille pour toutes les lettres ; minimum 30px, monte avec la cellule */
+        font-size: clamp(30px, min(8cqw, 7.5cqh), 72px);
+      }
+    `;
+
+    class VideoCascade extends HTMLElement {
+      static get observedAttributes() {
+        return ['delay-ms', 'duration-ms', 'auto-start'];
+      }
+
+      constructor() {
+        super();
+        this.attachShadow({ mode: 'open' });
+        /** @type {HTMLDivElement[]} */
+        this._panels = [];
+        this._resizeObserver = null;
+        this._collapseStep = 0;
+        this._running = false;
+        this._cascadeComplete = false;
+        this._staggerTimer = null;
+        this._completeTimer = null;
+        /** @type {number[]} Timers fin de repli + affichage titre par panneau */
+        this._panelFinishTimers = [];
+      }
+
+      connectedCallback() {
+        this._ensureDom();
+        this._readVideosFromLightDom();
+        this._bindResize();
+        this._applyHostVars();
+        if (this.getAttribute('auto-start') === 'true') {
+          requestAnimationFrame(() => this.startCascade());
+        }
+      }
+
+      disconnectedCallback() {
+        this._resizeObserver?.disconnect();
+        this._clearStagger();
+        this._clearCompleteTimer();
+        this._clearPanelFinishTimers();
+      }
+
+      attributeChangedCallback(name, _old, val) {
+        if (!this.shadowRoot) return;
+        if (name === 'delay-ms' || name === 'duration-ms') this._applyHostVars();
+        if (name === 'auto-start' && val === 'true' && this.isConnected) {
+          requestAnimationFrame(() => this.startCascade());
+        }
+      }
+
+      _applyHostVars() {
+        const dur = parseFloat(this.getAttribute('duration-ms')) || 850;
+        const root = this.shadowRoot?.querySelector('.vc-root');
+        if (root) root.style.setProperty('--vc-dur', `${dur}ms`);
+      }
+
+      get staggerDelay() {
+        const v = parseFloat(this.getAttribute('delay-ms'));
+        /* Entre chaque panneau ; plafond relevé pour une cascade plus lente */
+        return Number.isFinite(v) ? Math.min(2500, Math.max(200, v)) : 650;
+      }
+
+      _ensureDom() {
+        if (this.shadowRoot.querySelector('.vc-root')) return;
+        const style = document.createElement('style');
+        style.textContent = CASCADE_STYLE;
+        const root = document.createElement('div');
+        root.className = 'vc-root';
+        this.shadowRoot.append(style, root);
+      }
+
+      /** Récupère les <video> enfants directs (hors shadow) et construit les panneaux */
+      _readVideosFromLightDom() {
+        const root = this.shadowRoot.querySelector('.vc-root');
+        root.replaceChildren();
+        this._panels = [];
+
+        const videos = Array.from(this.querySelectorAll(':scope > video'));
+        videos.forEach((video, index) => {
+          video.muted = true;
+          video.loop = true;
+          video.autoplay = true;
+          video.playsInline = true;
+          video.classList.add('vc-video');
+
+          const panel = document.createElement('div');
+          panel.className = 'vc-panel';
+          panel.dataset.index = String(index);
+          /* Premier index = dessus de la pile pour voir la 1ère vidéo en premier */
+          panel.style.zIndex = String(videos.length - index);
+
+          /* Déplacement dans le shadow : une seule instance par fichier (pas de double décodage) */
+          panel.appendChild(video);
+          const vLabel = video.getAttribute('data-vertical-label');
+          if (vLabel != null && vLabel.trim() !== '') {
+            const labelNode = createVerticalLabelElement(vLabel);
+            if (labelNode) panel.appendChild(labelNode);
+          }
+          root.appendChild(panel);
+          this._panels.push(panel);
+
+          video.play().catch(() => {
+            /* autoplay bloqué : l’utilisateur pourra cliquer sur la page */
+          });
+        });
+
+        this._layoutInitial();
+        this._setupHover();
+      }
+
+      _viewportWidth() {
+        const root = this.shadowRoot.querySelector('.vc-root');
+        return root ? root.clientWidth : 0;
+      }
+
+      /** Tous les panneaux pleine largeur, gauche 0 */
+      _layoutInitial() {
+        const w = this._viewportWidth();
+        this._panels.forEach((panel) => {
+          panel.classList.remove('is-done', 'is-animating', 'is-label-visible');
+          panel.style.left = '0px';
+          panel.style.width = `${w}px`;
+        });
+        this._collapseStep = 0;
+        this._cascadeComplete = false;
+      }
+
+      _bindResize() {
+        this._resizeObserver?.disconnect();
+        this._resizeObserver = new ResizeObserver(() => {
+          if (this._running) return;
+          const w = this._viewportWidth();
+          if (w <= 0) return;
+          if (this._cascadeComplete) {
+            this._applyFinalLayout();
+          } else {
+            this._layoutInitial();
+          }
+        });
+        const root = this.shadowRoot.querySelector('.vc-root');
+        if (root) this._resizeObserver.observe(root);
+      }
+
+      /** Positions finales : colonnes égales, sans erreur d’arrondi */
+      _applyFinalLayout() {
+        const w = this._viewportWidth();
+        const n = this._panels.length;
+        if (!n || w <= 0) return;
+        const layout = distributeSegmentLayout(w, n);
+        this._panels.forEach((panel, i) => {
+          const { left, width } = layout[i];
+          panel.style.left = `${left}px`;
+          panel.style.width = `${width}px`;
+        });
+      }
+
+      reset() {
+        this._clearStagger();
+        this._clearCompleteTimer();
+        this._clearPanelFinishTimers();
+        this._running = false;
+        this._layoutInitial();
+        this.dispatchEvent(new CustomEvent('vc-cascade-reset', { bubbles: true }));
+      }
+
+      startCascade() {
+        if (!this._panels.length) return;
+        this._clearStagger();
+        this._clearCompleteTimer();
+        this._clearPanelFinishTimers();
+        this._running = true;
+        this._cascadeComplete = false;
+        this._collapseStep = 0;
+        this._layoutInitial();
+        this.dispatchEvent(new CustomEvent('vc-cascade-start', { bubbles: true }));
+        this._staggerNext();
+      }
+
+      _clearStagger() {
+        if (this._staggerTimer != null) {
+          clearTimeout(this._staggerTimer);
+          this._staggerTimer = null;
+        }
+      }
+
+      _clearCompleteTimer() {
+        if (this._completeTimer != null) {
+          clearTimeout(this._completeTimer);
+          this._completeTimer = null;
+        }
+      }
+
+      _clearPanelFinishTimers() {
+        this._panelFinishTimers.forEach((id) => clearTimeout(id));
+        this._panelFinishTimers.length = 0;
+      }
+
+      /** Enchaîne les animations : panneau k passe de plein écran à sa colonne k */
+      _staggerNext() {
+        const n = this._panels.length;
+        const step = this._collapseStep;
+        if (step >= n) {
+          this._running = false;
+          this._cascadeComplete = true;
+          this._panels.forEach((p) => p.classList.add('is-done'));
+          /* Fade-in du titre après la fin du dernier transition CSS (left/width) */
+          const durComplete = parseFloat(this.getAttribute('duration-ms')) || 850;
+          this._completeTimer = window.setTimeout(() => {
+            this._completeTimer = null;
+            this.dispatchEvent(new CustomEvent('vc-cascade-complete', { bubbles: true }));
+          }, durComplete);
+          return;
+        }
+
+        const w = this._viewportWidth();
+        const layout = distributeSegmentLayout(w, n);
+
+        for (let i = 0; i <= step; i++) {
+          const panel = this._panels[i];
+          const { left, width } = layout[i];
+          panel.classList.add('is-animating');
+          panel.style.left = `${left}px`;
+          panel.style.width = `${width}px`;
+        }
+
+        /* Panneaux pas encore animés : restent pleine largeur sous les autres */
+        for (let j = step + 1; j < n; j++) {
+          const panel = this._panels[j];
+          panel.style.left = '0px';
+          panel.style.width = `${w}px`;
+        }
+
+        this._collapseStep += 1;
+
+        const panelJustMoved = this._panels[step];
+        const dur = parseFloat(this.getAttribute('duration-ms')) || 850;
+
+        /* Fin du repli de CE panneau : retrait will-change + titre vertical */
+        const finishTid = window.setTimeout(() => {
+          panelJustMoved?.classList.remove('is-animating');
+          panelJustMoved?.classList.add('is-label-visible');
+        }, dur);
+        this._panelFinishTimers.push(finishTid);
+
+        this._staggerTimer = window.setTimeout(() => {
+          this._staggerTimer = null;
+          this._staggerNext();
+        }, this.staggerDelay);
+      }
+
+      _setupHover() {
+        this._panels.forEach((panel, i) => {
+          const video = panel.querySelector('video');
+          if (!video) return;
+
+          panel.addEventListener('mouseenter', () => {
+            if (!this._cascadeComplete) return;
+            const w = this._viewportWidth();
+            const n = this._panels.length;
+            const layout = distributeSegmentLayout(w, n);
+            const { left, width } = layout[i];
+            const grow = width * 0.12;
+            const newWidth = width + grow;
+            const newLeft = Math.max(0, left - grow / 2);
+            const maxLeft = w - newWidth;
+            panel.style.zIndex = '60';
+            panel.style.left = `${Math.min(newLeft, maxLeft)}px`;
+            panel.style.width = `${newWidth}px`;
+          });
+
+          panel.addEventListener('mouseleave', () => {
+            if (!this._cascadeComplete) return;
+            panel.style.zIndex = String(this._panels.length - i);
+            this._applyFinalLayout();
+          });
+        });
+      }
+    }
+
+    customElements.define('video-cascade', VideoCascade);
+
+    /**
+     * Alternative GSAP : passer à true et recharger la page.
+     * Charge gsap.min.js puis branche « Lancer la cascade » sur une timeline stagger.
+     */
+    const useGsap = false;
+
+    const el = document.getElementById('demo');
+    const hero = el.closest('.vc-hero');
+    el.addEventListener('vc-cascade-complete', () => hero?.classList.add('is-cascade-done'));
+    el.addEventListener('vc-cascade-start', () => hero?.classList.remove('is-cascade-done'));
+    el.addEventListener('vc-cascade-reset', () => hero?.classList.remove('is-cascade-done'));
+
+    function requestHeroFullscreen() {
+      if (!hero) return;
+      const req = hero.requestFullscreen || hero.webkitRequestFullscreen;
+      if (typeof req === 'function') {
+        req.call(hero).catch(() => {});
+      }
+    }
+
+    function leaveImmersive() {
+      const fsEl = document.fullscreenElement || document.webkitFullscreenElement;
+      const done = () => {
+        document.documentElement.classList.remove('vc-immersive');
+        document.body.classList.remove('vc-immersive');
+      };
+      if (fsEl) {
+        const exit = document.exitFullscreen || document.webkitExitFullscreen;
+        if (typeof exit === 'function') {
+          exit.call(document).then(done).catch(done);
+          return;
+        }
+      }
+      done();
+    }
+
+    window.addEventListener('load', () => {
+      requestAnimationFrame(() => requestHeroFullscreen());
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') leaveImmersive();
+    });
+
+    document.getElementById('btn-reset').addEventListener('click', () => el.reset());
+
+    const chk = document.getElementById('chk-auto');
+    chk.addEventListener('change', () => {
+      if (chk.checked) el.setAttribute('auto-start', 'true');
+      else el.removeAttribute('auto-start');
+    });
+
+    if (useGsap) {
+      const s = document.createElement('script');
+      s.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js';
+      s.onload = () => {
+        const host = document.getElementById('demo');
+        if (!host || typeof gsap === 'undefined') return;
+
+        const panels = host.shadowRoot.querySelectorAll('.vc-panel');
+        const n = panels.length;
+        const root = host.shadowRoot.querySelector('.vc-root');
+
+        function runGsapCascade() {
+          host.reset();
+          panels.forEach((p) => p.classList.remove('is-done', 'is-label-visible'));
+          const L = distributeSegmentLayout(root.clientWidth, n);
+          const tl = gsap.timeline({
+            onComplete: () => {
+              panels.forEach((p) => p.classList.add('is-done'));
+              host.dispatchEvent(new CustomEvent('vc-cascade-complete', { bubbles: true }));
+            },
+          });
+          const stagger = 1.4;
+          const dur = 0.85;
+          panels.forEach((panel, step) => {
+            tl.to(
+              panel,
+              {
+                left: L[step].left,
+                width: L[step].width,
+                duration: dur,
+                ease: 'power2.inOut',
+                onComplete: () => panel.classList.add('is-label-visible'),
+              },
+              step * stagger
+            );
+          });
+        }
+
+        const oldBtn = document.getElementById('btn-cascade');
+        const fresh = oldBtn.cloneNode(true);
+        oldBtn.parentNode.replaceChild(fresh, oldBtn);
+        fresh.id = 'btn-cascade';
+        fresh.addEventListener('click', () => runGsapCascade());
+      };
+      document.head.appendChild(s);
+    } else {
+      document.getElementById('btn-cascade').addEventListener('click', () => el.startCascade());
+    }
+
+  </script>
+</body>
+</html>
