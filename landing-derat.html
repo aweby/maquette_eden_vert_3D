@@ -1854,6 +1854,11 @@
       transform: scale(0.95);
     }
 
+    /* Clic reçu par le <button.chatbot> (pas par le SVG) → GTM « Classes du clic » voit bien « chatbot » */
+    .chat-send-btn svg {
+      pointer-events: none;
+    }
+
     @media (max-width: 768px) {
       .chat-window {
         max-width: none;
@@ -2252,7 +2257,7 @@
 
     <div class="contact-form-wrapper">
       <form class="contact-form" id="contactForm" action="#" method="post" onsubmit="handleContactSubmit(event)">
-        <div id="contactFormSuccess" class="contact-form-success" hidden role="status">
+        <div id="message_envoye" class="contact-form-success" hidden role="status">
           Merci ! Votre demande a bien été prise en compte. Nous vous recontactons rapidement.
         </div>
 
@@ -2307,9 +2312,7 @@
         </div>
 
         <button type="submit" class="btn btn-primary">
-          <svg class="icon" viewBox="0 0 24 24">
-            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-          </svg>
+         
           Envoyer la demande
         </button>
 
@@ -2427,7 +2430,7 @@
           </svg>
         </div>
         <textarea class="chat-input" id="chatInput" placeholder="Posez votre question pour commencer la conversation…" rows="1" onkeydown="chatKeyDown(event)" oninput="chatAutoResize(this)"></textarea>
-        <button class="chat-send-btn chatbot" id="chatSendBtn" onclick="chatSend()" aria-label="Envoyer">
+        <button type="button" class="chat-send-btn chatbot" id="chatSendBtn" onclick="chatSend()" aria-label="Envoyer">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
         </button>
       </div>
@@ -2527,7 +2530,7 @@
           if (typeof gtag !== 'undefined') {
             gtag('event', 'contact_form_submit', { form_name: 'contact_form' });
           }
-          var banner = document.getElementById('contactFormSuccess');
+          var banner = document.getElementById('message_envoye');
           if (banner) banner.hidden = false;
           button.innerHTML = '✓ Demande enregistrée !';
           button.style.background = 'var(--orange)';
