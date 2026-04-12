@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eden Vert 3D - Dératisation, Désinsectisation, Désinfection | Île-de-France</title>
+  <meta name="description" content="Eden Vert 3D, expert en dératisation, désinsectisation et désinfection en Île-de-France. Intervention 7j/7, techniciens certifiés, résultats garantis. Devis gratuit." />
+  <meta name="keywords" content="dératisation, désinsectisation, désinfection, nuisibles, rats, cafards, punaises de lit, frelons, pigeons, Île-de-France, Paris, Eden Vert 3D" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          brand: { 50: '#fff7ed', 100: '#ffedd5', 200: '#fed7aa', 300: '#fdba74', 400: '#fb923c', 500: '#EA5F0A', 600: '#d4540a', 700: '#b8480a', 800: '#9a3412', 900: '#7c2d12' },
+        },
+        fontFamily: { sans: ['Inter', 'sans-serif'] },
+      }
+    }
+  }
+  </script>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    html { scroll-behavior: smooth; }
+    /* Marquee animations */
+    @keyframes marquee-left { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    @keyframes marquee-right { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
+    .marquee-left { animation: marquee-left 40s linear infinite; }
+    .marquee-right { animation: marquee-right 40s linear infinite; }
+    .marquee-left:hover, .marquee-right:hover { animation-play-state: paused; }
+    /* Pulse animation for urgency */
+    @keyframes pulse-ring { 0% { transform: scale(0.8); opacity: 1; } 100% { transform: scale(2.2); opacity: 0; } }
+    .pulse-ring::before { content: ''; position: absolute; inset: 0; border-radius: 50%; background: #ef4444; animation: pulse-ring 1.5s ease-out infinite; }
+    /* Fade in on scroll */
+    .reveal-el { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal-el.visible { opacity: 1; transform: translateY(0); }
+    /* Counter animation */
+    @keyframes count-up { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    /* Chat typing dots */
+    @keyframes chat-dot-bounce { 0%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-6px); } }
+    .chat-dot-anim span:nth-child(1) { animation: chat-dot-bounce 1.4s infinite 0s; }
+    .chat-dot-anim span:nth-child(2) { animation: chat-dot-bounce 1.4s infinite 0.2s; }
+    .chat-dot-anim span:nth-child(3) { animation: chat-dot-bounce 1.4s infinite 0.4s; }
+    /* FAQ transition */
+    .faq-answer-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+    .faq-item-open .faq-answer-content { max-height: 200px; }
+    /* Social tab active */
+    .sp-pane { display: none; }
+    .sp-pane.active { display: block; }
+    /* Modal styles */
+    .modal-overlay-v2 { display: none; }
+    .modal-overlay-v2.active { display: flex; }
+  </style>
+</head>
+<body class="font-sans text-gray-800 antialiased">
+
+<!-- ===== 1. STICKY MOBILE CTA ===== -->
+<div id="stickyCta" class="fixed bottom-0 left-0 right-0 z-50 flex md:hidden bg-white border-t border-gray-200 shadow-lg p-2 gap-2">
+  <a href="tel:+33123456789" class="flex-1 flex items-center justify-center gap-2 bg-gray-900 text-white rounded-xl py-3 text-sm font-semibold">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="w-4 h-4"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11.5 19.79 19.79 0 01.22 2.84 2 2 0 012.18 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.15a16 16 0 006.73 6.73l1.52-1.52a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+    Appeler
+  </a>
+  <a href="#contact" class="flex-1 flex items-center justify-center bg-brand-500 text-white rounded-xl py-3 text-sm font-semibold">Devis gratuit</a>
+</div>
+
+<!-- ===== 2. HEADER / NAV ===== -->
+<header id="header" class="fixed top-0 left-0 right-0 z-40 transition-all duration-300">
+  <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16 lg:h-20">
+    <a href="#" class="flex-shrink-0">
+      <img src="logo.png" alt="Eden Vert 3D" class="h-10 lg:h-12 w-auto" />
+    </a>
+    <div class="hidden md:flex items-center gap-8">
+      <a href="#prestations" class="text-sm font-medium text-gray-700 hover:text-brand-500 transition-colors">Prestations</a>
+      <a href="#avis" class="text-sm font-medium text-gray-700 hover:text-brand-500 transition-colors">Avis clients</a>
+    </div>
+    <div class="flex items-center gap-3">
+      <a href="tel:+33123456789" class="hidden sm:flex items-center gap-2 text-sm font-semibold text-gray-800 hover:text-brand-500 transition-colors">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="w-4 h-4"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11.5 19.79 19.79 0 01.22 2.84 2 2 0 012.18 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.15a16 16 0 006.73 6.73l1.52-1.52a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        01 23 45 67 89
+      </a>
+      <a href="#contact" class="hidden sm:inline-flex px-5 py-2.5 bg-brand-500 hover:bg-brand-600 text-white text-sm font-semibold rounded-xl transition-all duration-300 shadow-sm">Devis gratuit</a>
+      <button id="navToggle" class="md:hidden flex flex-col gap-1.5 p-2" aria-label="Menu">
+        <span class="block w-6 h-0.5 bg-gray-800 transition-all duration-300" id="burger1"></span>
+        <span class="block w-6 h-0.5 bg-gray-800 transition-all duration-300" id="burger2"></span>
+        <span class="block w-4 h-0.5 bg-gray-800 transition-all duration-300 ml-auto" id="burger3"></span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<!-- Mobile menu overlay -->
+<div id="mobileMenu" class="fixed inset-0 z-50 hidden">
+  <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" id="mobileMenuBackdrop"></div>
+  <div class="absolute right-0 top-0 bottom-0 w-80 bg-white shadow-2xl flex flex-col transform translate-x-full transition-transform duration-300" id="mobileMenuPanel">
+    <div class="flex items-center justify-between p-5 border-b border-gray-100">
+      <img src="logo.png" alt="Eden Vert 3D" class="h-8 w-auto" />
+      <button id="mobileMenuClose" class="p-2 rounded-lg hover:bg-gray-100" aria-label="Fermer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="w-5 h-5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <nav class="flex-1 overflow-y-auto p-5 space-y-2">
+      <a href="#prestations" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gray-50 text-gray-700 font-medium mobile-menu-link">Prestations</a>
+      <a href="#avis" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gray-50 text-gray-700 font-medium mobile-menu-link">Avis clients</a>
+      <a href="#process" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gray-50 text-gray-700 font-medium mobile-menu-link">Processus</a>
+      <a href="#zones" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gray-50 text-gray-700 font-medium mobile-menu-link">Zones</a>
+      <a href="#faq" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gray-50 text-gray-700 font-medium mobile-menu-link">FAQ</a>
+      <a href="#chat" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gray-50 text-gray-700 font-medium mobile-menu-link">Chat</a>
+    </nav>
+    <div class="p-5 border-t border-gray-100 space-y-3">
+      <a href="tel:+33123456789" class="flex items-center justify-center gap-2 w-full py-3 bg-gray-900 text-white rounded-xl font-semibold">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="w-4 h-4"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11.5 19.79 19.79 0 01.22 2.84 2 2 0 012.18 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.15a16 16 0 006.73 6.73l1.52-1.52a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        01 23 45 67 89
+      </a>
+      <a href="#contact" class="flex items-center justify-center w-full py-3 bg-brand-500 text-white rounded-xl font-semibold mobile-menu-link">Devis gratuit</a>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 3. HERO SECTION ===== -->
+<section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+  <div class="absolute inset-0">
+    <video class="hidden md:block w-full h-full object-cover" autoplay muted loop playsinline>
+      <source src="images/video.mp4" type="video/mp4">
+    </video>
+    <video class="md:hidden w-full h-full object-cover" autoplay muted loop playsinline>
+      <source src="images/video_2.mp4" type="video/mp4">
+    </video>
+    <div class="absolute inset-0 bg-black/60"></div>
+  </div>
+  <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
+    <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight">
+      votre partenaire national<br />
+      <em class="not-italic bg-gradient-to-r from-brand-500 to-orange-400 bg-clip-text text-transparent">contre tous les nuisibles.</em>
+    </h1>
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
+      <a href="#contact" class="px-8 py-4 bg-brand-500 hover:bg-brand-600 text-white font-semibold rounded-xl text-lg transition-all duration-300 shadow-lg hover:shadow-xl">Devis gratuit</a>
+      <a href="tel:+33123456789" class="px-8 py-4 bg-white/10 hover:bg-white/20 backdrop-blur-md text-white font-semibold rounded-xl text-lg transition-all duration-300 border border-white/20">Appeler maintenant</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 4. STATS BAR + TEAM PHOTO ===== -->
+<section class="bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 reveal-el">
+      <div class="text-center">
+        <div class="text-brand-500 font-bold text-lg">Réseau national</div>
+        <p class="text-sm text-gray-500 mt-1">Techniciens certifiés partout en France</p>
+      </div>
+      <div class="text-center">
+        <div class="text-brand-500 font-bold text-lg">Entreprise française</div>
+        <p class="text-sm text-gray-500 mt-1">Fondée en France, au service des Français</p>
+      </div>
+      <div class="text-center">
+        <div class="text-brand-500 font-bold text-lg">3 000 interventions / mois</div>
+        <p class="text-sm text-gray-500 mt-1">Réactivité et fiabilité garanties</p>
+      </div>
+      <div class="text-center">
+        <div class="text-brand-500 font-bold text-lg">35 départements couverts</div>
+        <p class="text-sm text-gray-500 mt-1">Et en constante expansion</p>
+      </div>
+    </div>
+  </div>
+  <div class="reveal-el">
+    <img src="images/equipe.jpg" alt="Équipe Eden Vert 3D" class="w-full h-64 md:h-96 object-cover" />
+  </div>
+</section>
+
+<!-- ===== 5. URGENCE BANNER ===== -->
+<div class="bg-gray-900 py-4">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+    <div class="flex items-center gap-3">
+      <div class="relative w-3 h-3">
+        <span class="absolute inset-0 rounded-full bg-red-500 pulse-ring"></span>
+        <span class="relative block w-3 h-3 rounded-full bg-red-500"></span>
+      </div>
+      <span class="text-white font-semibold">Situation d'urgence ?</span>
+      <span class="text-gray-300 text-sm">Eden Vert 3D intervient en <strong class="text-white">moins de 24h</strong> - disponible 7j/7</span>
+    </div>
+    <a href="tel:+33123456789" class="flex items-center gap-2 px-5 py-2.5 bg-red-600 hover:bg-red-700 text-white text-sm font-semibold rounded-xl transition-all duration-300">
+      Appeler maintenant
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>
+    </a>
+  </div>
+</div>
+
+<!-- ===== 6. PRESTATIONS GRID (p2 compact style) ===== -->
+<section class="py-16 md:py-24 bg-gray-50" id="prestations">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-12 reveal-el">
+      <span class="inline-block px-4 py-1.5 bg-brand-50 text-brand-600 text-xs font-semibold rounded-full uppercase tracking-wider mb-4">Nos prestations</span>
+      <h2 class="text-3xl md:text-4xl font-extrabold">Quel nuisible <span class="bg-gradient-to-r from-brand-500 to-orange-400 bg-clip-text text-transparent">vous concerne ?</span></h2>
+      <p class="text-gray-500 mt-3 max-w-xl mx-auto">12 spécialités pour une élimination complète et durable</p>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 reveal-el">
+
+      <div class="flex items-center gap-4 bg-white rounded-2xl p-3 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer group" onclick="openModal('rats')">
+        <div class="w-16 h-16 flex-shrink-0 rounded-xl overflow-hidden"><img src="images/deratisation.jpg" alt="Dératisation" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" loading="lazy" /></div>
+        <div class="flex-1 min-w-0">
+          <h3 class="font-semibold text-gray-900 text-sm">Dératisation</h3>
+          <p class="text-xs text-gray-500 mt-0.5">Rats, souris, campagnols</p>
+        </div>
+        <span class="text-brand-500 text-lg group-hover:translate-x-1 transition-transform duration-300">&rarr;</span>
+      </div>
+
+      <div class="flex items-center gap-4 bg-white rounded-2xl p-3 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer group" onclick="openModal('cafards')">
+        <div class="w-16 h-16 flex-shrink-0 rounded-xl overflow-hidden"><img src="images/cafards.jpg" alt="Cafards" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" loading="lazy" /></div>
+        <div class="flex-1 min-w-0">
+          <h3 class="font-semibold text-gray-900 text-sm">Cafards & Blattes</h3>
+          <p class="text-xs text-gray-500 mt-0.5">Résultats en 72h</p>
+        </div>
+        <span class="text-brand-500 text-lg group-hover:translate-x-1 transition-transform duration-300">&rarr;</span>
+      </div>
+
+      <div class="flex items-center gap-4 bg-white rounded-2xl p-3 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer group" onclick="openModal('punaises')">
+        <div class="w-16 h-16 flex-shrink-0 rounded-xl overflow-hidden"><img src="images/punaises.jpg" alt="Punaises" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" loading="lazy" /></div>
+        <div class="flex-1 min-w-0">
+          <h3 class="font-semibold text-gray-900 text-sm">Punaises de lit</h3>
+          <p class="text-xs text-gray-500 mt-0.5">Traitement thermique ou chimique</p>
+        </div>
+        <span class="text-brand-500 text-lg group-hover:translate-x-1 transition-transform duration-300">&rarr;</span>
+      </div>
+
+      <div class="flex items-center gap-4 bg-white rounded-2xl p-3 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer group" onclick="openModal('frelons')">
+        <div class="w-16 h-16 flex-shrink-0 rounded-xl overflow-hidden"><img src="images/frelons.jpg" alt="Frelons" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" loading="lazy" /></div>
+        <div class="flex-1 min-w-0">
+          <h3 class="font-semibold text-gray-900 text-sm">Frelons & Guêpes</h3>
+          <p class="text-xs text-gray-500 mt-0.5">Destruction de nids sécurisée</p>
+        </div>
+        <span class="text-brand-500 text-lg group-hover:translate-x-1 transition-transform duration-300">&rarr;</span>
+      </div>
+
+      <div class="flex items-center gap-4 bg-white rounded-2xl p-3 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer group" onclick="openModal('fourmis')">
+        <div class="w-16 h-16 flex-shrink-0 rounded-xl overflow-hidden"><img src="images/fourmis.jpg" alt="Fourmis" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" loading="lazy" /></div>
+        <div class="flex-1 min-w-0">
+          <h3 class="font-semibold text-gray-900 text-sm">Fourmis</h3>
+          <p class="text-xs text-gray-500 mt-0.5">Élimination de la colonie</p>
+        </div>
+        <span class="text-brand-500 text-lg group-hover:translate-x-1 transition-transform duration-300">&rarr;</span>
+      </div>
+
+      <div class="flex items-center gap-4 bg-white rounded-2xl p-3 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer group" onclick="openModal('moustiques')">
+        <div class="w-16 h-16 flex-shrink-0 rounded-xl overflow-hidden"><img src="images/moustiques.jpg" alt="Moustiques" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" loading="lazy" /></div>
+        <div class="flex-1 min-w-0">
+          <h3 class="font-semibold text-gray-900 text-sm">Moustiques</h3>
+          <p class="text-xs text-gray-500 mt-0.5">Nébulisation, gîtes larvaires</p>
+        </div>
+        <span class="text-brand-500 text-lg group-hover:translate-x-1 transition-transform duration-300">&rarr;</span>
+      </div>
+
+      <div class="flex items-center gap-4 bg-white rounded-2xl p-3 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer group" onclick="openModal('pigeons')">
+        <div class="w-16 h-16 flex-shrink-0 rounded-xl overflow-hidden"><img src="images/pigeons.jpg" alt="Pigeons" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" loading="lazy" /></div>
+        <div class="flex-1 min-w-0">
+          <h3 class="font-semibold text-gray-900 text-sm">Pigeons & Volants</h3>
+          <p class="text-xs text-gray-500 mt-0.5">Pics, filets, répulsifs</p>
+        </div>
+        <span class="text-brand-500 text-lg group-hover:translate-x-1 transition-transform duration-300">&rarr;</span>
+      </div>
+
+      <div class="flex items-center gap-4 bg-white rounded-2xl p-3 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer group" onclick="openModal('chenilles')">
+        <div class="w-16 h-16 flex-shrink-0 rounded-xl overflow-hidden"><img src="images/chenilles.jpg" alt="Chenilles" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" loading="lazy" /></div>
+        <div class="flex-1 min-w-0">
+          <h3 class="font-semibold text-gray-900 text-sm">Chenilles processionnaires</h3>
+          <p class="text-xs text-gray-500 mt-0.5">Danger allergique éliminé</p>
+        </div>
+        <span class="text-brand-500 text-lg group-hover:translate-x-1 transition-transform duration-300">&rarr;</span>
+      </div>
+
+      <div class="flex items-center gap-4 bg-white rounded-2xl p-3 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer group" onclick="openModal('demoussage')">
+        <div class="w-16 h-16 flex-shrink-0 rounded-xl overflow-hidden"><img src="images/demoussage.jpg" alt="Démoussage" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" loading="lazy" /></div>
+        <div class="flex-1 min-w-0">
+          <h3 class="font-semibold text-gray-900 text-sm">Démoussage toiture</h3>
+          <p class="text-xs text-gray-500 mt-0.5">Nettoyage & hydrofuge</p>
+        </div>
+        <span class="text-brand-500 text-lg group-hover:translate-x-1 transition-transform duration-300">&rarr;</span>
+      </div>
+
+      <div class="flex items-center gap-4 bg-white rounded-2xl p-3 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer group" onclick="openModal('desinfection')">
+        <div class="w-16 h-16 flex-shrink-0 rounded-xl overflow-hidden"><img src="images/desinfection.jpg" alt="Désinfection" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" loading="lazy" /></div>
+        <div class="flex-1 min-w-0">
+          <h3 class="font-semibold text-gray-900 text-sm">Désinfection</h3>
+          <p class="text-xs text-gray-500 mt-0.5">Virale, bactérienne, fongique</p>
+        </div>
+        <span class="text-brand-500 text-lg group-hover:translate-x-1 transition-transform duration-300">&rarr;</span>
+      </div>
+
+      <div class="flex items-center gap-4 bg-white rounded-2xl p-3 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer group" onclick="openModal('taupes')">
+        <div class="w-16 h-16 flex-shrink-0 rounded-xl overflow-hidden"><img src="images/taupes.jpg" alt="Taupes" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" loading="lazy" /></div>
+        <div class="flex-1 min-w-0">
+          <h3 class="font-semibold text-gray-900 text-sm">Taupes</h3>
+          <p class="text-xs text-gray-500 mt-0.5">Piégeage sélectif</p>
+        </div>
+        <span class="text-brand-500 text-lg group-hover:translate-x-1 transition-transform duration-300">&rarr;</span>
+      </div>
+
+      <div class="flex items-center gap-4 bg-white rounded-2xl p-3 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer group" onclick="openModal('insectes')">
+        <div class="w-16 h-16 flex-shrink-0 rounded-xl overflow-hidden"><img src="images/insectes.jpg" alt="Insectes" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" loading="lazy" /></div>
+        <div class="flex-1 min-w-0">
+          <h3 class="font-semibold text-gray-900 text-sm">Insectes nuisibles</h3>
+          <p class="text-xs text-gray-500 mt-0.5">Traitement par espèce</p>
+        </div>
+        <span class="text-brand-500 text-lg group-hover:translate-x-1 transition-transform duration-300">&rarr;</span>
+      </div>
+
+    </div>
+    <div class="text-center mt-10 reveal-el">
+      <a href="#contact" class="inline-flex px-8 py-3.5 bg-brand-500 hover:bg-brand-600 text-white font-semibold rounded-xl transition-all duration-300 shadow-sm">Demander un diagnostic gratuit</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 7. SERVICES 3-COLUMN CARDS ===== -->
+<section class="py-16 md:py-24 bg-white" id="services">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-12 reveal-el">
+      <span class="inline-block px-4 py-1.5 bg-brand-50 text-brand-600 text-xs font-semibold rounded-full uppercase tracking-wider mb-4">Nos expertises</span>
+      <h2 class="text-3xl md:text-4xl font-extrabold">Services de <span class="bg-gradient-to-r from-brand-500 to-orange-400 bg-clip-text text-transparent">lutte antiparasitaire</span></h2>
+      <p class="text-gray-500 mt-3">Solutions professionnelles adaptées à chaque type d'infestation</p>
+    </div>
+    <div class="grid md:grid-cols-3 gap-8">
+      <!-- Dératisation -->
+      <div class="bg-white rounded-2xl border border-gray-100 p-8 hover:shadow-lg transition-all duration-300 reveal-el">
+        <div class="w-14 h-14 bg-brand-50 rounded-2xl flex items-center justify-center mb-5">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#EA5F0A" stroke-width="1.5" class="w-7 h-7"><circle cx="12" cy="14" r="6"/><path d="M9 10c-.75-1.25-2.5-1.5-3.5-.75M15 10c.75-1.25 2.5-1.5 3.5-.75"/><circle cx="10" cy="12.5" r=".75" fill="#EA5F0A"/><circle cx="14" cy="12.5" r=".75" fill="#EA5F0A"/></svg>
+        </div>
+        <span class="inline-block px-3 py-1 bg-brand-50 text-brand-600 text-xs font-semibold rounded-full mb-3">Populaire</span>
+        <h3 class="text-xl font-bold mb-2">Dératisation</h3>
+        <p class="text-gray-500 text-sm mb-4">Élimination définitive des rongeurs par méthodes certifiées. Prévention des réinfestations incluse.</p>
+        <ul class="space-y-2 text-sm text-gray-600 mb-6">
+          <li class="flex items-center gap-2"><span class="text-brand-500">&#10003;</span> Rats et souris</li>
+          <li class="flex items-center gap-2"><span class="text-brand-500">&#10003;</span> Campagnols & mulots</li>
+          <li class="flex items-center gap-2"><span class="text-brand-500">&#10003;</span> Suivi 3 mois</li>
+        </ul>
+        <a href="#contact" class="text-brand-500 font-semibold text-sm hover:text-brand-600 transition-colors">Demander un devis &rarr;</a>
+      </div>
+      <!-- Désinsectisation -->
+      <div class="bg-white rounded-2xl border-2 border-brand-500 p-8 shadow-lg relative reveal-el">
+        <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-brand-500 text-white text-xs font-semibold rounded-full">Le + demandé</div>
+        <div class="w-14 h-14 bg-brand-50 rounded-2xl flex items-center justify-center mb-5">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#EA5F0A" stroke-width="1.5" class="w-7 h-7"><ellipse cx="12" cy="14" rx="4" ry="5"/><ellipse cx="12" cy="11" rx="2.5" ry="2"/><path d="M8 12s-2.5-.5-3 1M16 12s2.5-.5 3 1M8 14s-3 0-3 1.5M16 14s3 0 3 1.5"/></svg>
+        </div>
+        <h3 class="text-xl font-bold mb-2">Désinsectisation</h3>
+        <p class="text-gray-500 text-sm mb-4">Traitement complet contre tous les insectes nuisibles. Protocoles sur-mesure selon l'espèce.</p>
+        <ul class="space-y-2 text-sm text-gray-600 mb-6">
+          <li class="flex items-center gap-2"><span class="text-brand-500">&#10003;</span> Cafards, punaises, frelons</li>
+          <li class="flex items-center gap-2"><span class="text-brand-500">&#10003;</span> Fourmis, moustiques, mites</li>
+          <li class="flex items-center gap-2"><span class="text-brand-500">&#10003;</span> Chenilles processionnaires</li>
+          <li class="flex items-center gap-2"><span class="text-brand-500">&#10003;</span> Pigeons & nuisibles volants</li>
+        </ul>
+        <a href="#contact" class="text-brand-500 font-semibold text-sm hover:text-brand-600 transition-colors">Demander un devis &rarr;</a>
+      </div>
+      <!-- Désinfection 3D -->
+      <div class="bg-white rounded-2xl border border-gray-100 p-8 hover:shadow-lg transition-all duration-300 reveal-el">
+        <div class="w-14 h-14 bg-brand-50 rounded-2xl flex items-center justify-center mb-5">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#EA5F0A" stroke-width="1.5" class="w-7 h-7"><circle cx="12" cy="12" r="8" stroke-dasharray="3 2"/><circle cx="12" cy="12" r="3" fill="rgba(234,95,10,0.2)"/><path d="M12 4v2M12 18v2M4 12h2M18 12h2"/></svg>
+        </div>
+        <span class="inline-block px-3 py-1 bg-brand-50 text-brand-600 text-xs font-semibold rounded-full mb-3">Certifié</span>
+        <h3 class="text-xl font-bold mb-2">Désinfection 3D</h3>
+        <p class="text-gray-500 text-sm mb-4">Désinfection complète de vos locaux. Élimination bactéries, virus et agents pathogènes.</p>
+        <ul class="space-y-2 text-sm text-gray-600 mb-6">
+          <li class="flex items-center gap-2"><span class="text-brand-500">&#10003;</span> Désinfection surfaces</li>
+          <li class="flex items-center gap-2"><span class="text-brand-500">&#10003;</span> Traitement de l'air</li>
+          <li class="flex items-center gap-2"><span class="text-brand-500">&#10003;</span> Attestation fournie</li>
+        </ul>
+        <a href="#contact" class="text-brand-500 font-semibold text-sm hover:text-brand-600 transition-colors">Demander un devis &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 8. WHY CHOOSE US ===== -->
+<section class="py-16 md:py-24 bg-gray-50" id="pourquoi">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-12 reveal-el">
+      <span class="inline-block px-4 py-1.5 bg-brand-50 text-brand-600 text-xs font-semibold rounded-full uppercase tracking-wider mb-4">Nos engagements</span>
+      <h2 class="text-3xl md:text-4xl font-extrabold">Pourquoi choisir <span class="bg-gradient-to-r from-brand-500 to-orange-400 bg-clip-text text-transparent">Eden Vert 3D ?</span></h2>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300 reveal-el">
+        <div class="text-3xl mb-3">&#9889;</div>
+        <h3 class="font-bold text-lg mb-2">Intervention rapide</h3>
+        <p class="text-gray-500 text-sm">Nous intervenons sous <strong>24 à 48h</strong> après votre appel. En urgence, disponible en moins de 4h.</p>
+      </div>
+      <div class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300 reveal-el">
+        <div class="text-3xl mb-3">&#128300;</div>
+        <h3 class="font-bold text-lg mb-2">Produits professionnels</h3>
+        <p class="text-gray-500 text-sm">Produits <strong>biocides homologués</strong>, sécurisés pour l'homme, les enfants et les animaux domestiques.</p>
+      </div>
+      <div class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300 reveal-el">
+        <div class="text-3xl mb-3">&#127941;</div>
+        <h3 class="font-bold text-lg mb-2">Expertise certifiée</h3>
+        <p class="text-gray-500 text-sm">Techniciens <strong>Certibiocide</strong> certifiés, formation continue et équipements de pointe.</p>
+      </div>
+      <div class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300 reveal-el">
+        <div class="text-3xl mb-3">&#128737;&#65039;</div>
+        <h3 class="font-bold text-lg mb-2">Résultats garantis</h3>
+        <p class="text-gray-500 text-sm"><strong>Garantie satisfaction</strong> sur chaque intervention. Retour gratuit si récidive dans les 3 mois.</p>
+      </div>
+      <div class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300 reveal-el">
+        <div class="text-3xl mb-3">&#128203;</div>
+        <h3 class="font-bold text-lg mb-2">Devis gratuit</h3>
+        <p class="text-gray-500 text-sm">Diagnostic gratuit et devis <strong>transparent sans surprise</strong>. Tarification claire dès le départ.</p>
+      </div>
+      <div class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300 reveal-el">
+        <div class="text-3xl mb-3">&#127807;</div>
+        <h3 class="font-bold text-lg mb-2">Éco-responsable</h3>
+        <p class="text-gray-500 text-sm">Solutions <strong>respectueuses de l'environnement</strong> privilégiées quand c'est possible.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 9. ANIMATED COUNTERS ===== -->
+<section class="py-16 bg-gray-900">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+      <div class="reveal-el">
+        <div class="text-4xl md:text-5xl font-extrabold text-white counter-num" data-count="6000">0</div>
+        <div class="text-gray-400 mt-2 text-sm">Interventions réalisées</div>
+      </div>
+      <div class="reveal-el">
+        <div class="text-4xl md:text-5xl font-extrabold text-white counter-num" data-count="98">0</div>
+        <div class="text-gray-400 mt-2 text-sm">% de satisfaction client</div>
+      </div>
+      <div class="reveal-el">
+        <div class="text-4xl md:text-5xl font-extrabold text-white counter-num" data-count="50">0</div>
+        <div class="text-gray-400 mt-2 text-sm">Ans d'expérience</div>
+      </div>
+      <div class="reveal-el">
+        <div class="text-4xl md:text-5xl font-extrabold text-white counter-num" data-count="35">0</div>
+        <div class="text-gray-400 mt-2 text-sm">Départements couverts</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 10. CLIENTS MARQUEE ===== -->
+<section class="py-16 md:py-24 bg-white" id="clients">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-12 reveal-el">
+      <span class="inline-block px-4 py-1.5 bg-brand-50 text-brand-600 text-xs font-semibold rounded-full uppercase tracking-wider mb-4">Nos clients</span>
+      <h2 class="text-3xl md:text-4xl font-extrabold">Nous intervenons <span class="bg-gradient-to-r from-brand-500 to-orange-400 bg-clip-text text-transparent">pour tous</span></h2>
+      <p class="text-gray-500 mt-3">Particuliers, professionnels ou collectivités - une solution adaptée à chaque contexte</p>
+    </div>
+  </div>
+  <!-- Row 1: left scroll -->
+  <div class="overflow-hidden mb-4">
+    <div class="flex gap-4 marquee-left" style="width: max-content;">
+      <a href="#contact" class="relative flex-shrink-0 w-64 h-40 rounded-2xl overflow-hidden group"><img src="images/particuliers.jpg" alt="Particuliers" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" /><div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div><span class="absolute bottom-3 left-4 text-white font-semibold text-sm">Particuliers</span></a>
+      <a href="#contact" class="relative flex-shrink-0 w-64 h-40 rounded-2xl overflow-hidden group"><img src="images/restaurants.jpg" alt="Restauration" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" /><div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div><span class="absolute bottom-3 left-4 text-white font-semibold text-sm">Restauration</span></a>
+      <a href="#contact" class="relative flex-shrink-0 w-64 h-40 rounded-2xl overflow-hidden group"><img src="images/boulangerie.jpg" alt="Boulangeries" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" /><div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div><span class="absolute bottom-3 left-4 text-white font-semibold text-sm">Boulangeries & Commerces</span></a>
+      <a href="#contact" class="relative flex-shrink-0 w-64 h-40 rounded-2xl overflow-hidden group"><img src="images/mairies.jpg" alt="Mairies" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" /><div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div><span class="absolute bottom-3 left-4 text-white font-semibold text-sm">Mairies & Collectivités</span></a>
+      <a href="#contact" class="relative flex-shrink-0 w-64 h-40 rounded-2xl overflow-hidden group"><img src="images/entrepot.jpg" alt="Entrepôts" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" /><div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div><span class="absolute bottom-3 left-4 text-white font-semibold text-sm">Entrepôts & Logistique</span></a>
+      <!-- Duplicate for infinite loop -->
+      <a href="#contact" class="relative flex-shrink-0 w-64 h-40 rounded-2xl overflow-hidden group"><img src="images/particuliers.jpg" alt="Particuliers" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" /><div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div><span class="absolute bottom-3 left-4 text-white font-semibold text-sm">Particuliers</span></a>
+      <a href="#contact" class="relative flex-shrink-0 w-64 h-40 rounded-2xl overflow-hidden group"><img src="images/restaurants.jpg" alt="Restauration" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" /><div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div><span class="absolute bottom-3 left-4 text-white font-semibold text-sm">Restauration</span></a>
+      <a href="#contact" class="relative flex-shrink-0 w-64 h-40 rounded-2xl overflow-hidden group"><img src="images/boulangerie.jpg" alt="Boulangeries" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" /><div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div><span class="absolute bottom-3 left-4 text-white font-semibold text-sm">Boulangeries & Commerces</span></a>
+      <a href="#contact" class="relative flex-shrink-0 w-64 h-40 rounded-2xl overflow-hidden group"><img src="images/mairies.jpg" alt="Mairies" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" /><div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div><span class="absolute bottom-3 left-4 text-white font-semibold text-sm">Mairies & Collectivités</span></a>
+      <a href="#contact" class="relative flex-shrink-0 w-64 h-40 rounded-2xl overflow-hidden group"><img src="images/entrepot.jpg" alt="Entrepôts" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" /><div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div><span class="absolute bottom-3 left-4 text-white font-semibold text-sm">Entrepôts & Logistique</span></a>
+    </div>
+  </div>
+  <!-- Row 2: right scroll -->
+  <div class="overflow-hidden">
+    <div class="flex gap-4 marquee-right" style="width: max-content;">
+      <a href="#contact" class="relative flex-shrink-0 w-64 h-40 rounded-2xl overflow-hidden group"><img src="images/professionnels.jpg" alt="Entreprises" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" /><div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div><span class="absolute bottom-3 left-4 text-white font-semibold text-sm">Entreprises & Bureaux</span></a>
+      <a href="#contact" class="relative flex-shrink-0 w-64 h-40 rounded-2xl overflow-hidden group"><img src="images/hotel.jpg" alt="Hôtellerie" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" /><div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div><span class="absolute bottom-3 left-4 text-white font-semibold text-sm">Hôtellerie</span></a>
+      <a href="#contact" class="relative flex-shrink-0 w-64 h-40 rounded-2xl overflow-hidden group"><img src="images/syndics.jpg" alt="Syndics" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" /><div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div><span class="absolute bottom-3 left-4 text-white font-semibold text-sm">Syndics & Copropriétés</span></a>
+      <a href="#contact" class="relative flex-shrink-0 w-64 h-40 rounded-2xl overflow-hidden group"><img src="images/ecoles.jpg" alt="Écoles" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" /><div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div><span class="absolute bottom-3 left-4 text-white font-semibold text-sm">Établissements scolaires</span></a>
+      <!-- Duplicate -->
+      <a href="#contact" class="relative flex-shrink-0 w-64 h-40 rounded-2xl overflow-hidden group"><img src="images/professionnels.jpg" alt="Entreprises" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" /><div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div><span class="absolute bottom-3 left-4 text-white font-semibold text-sm">Entreprises & Bureaux</span></a>
+      <a href="#contact" class="relative flex-shrink-0 w-64 h-40 rounded-2xl overflow-hidden group"><img src="images/hotel.jpg" alt="Hôtellerie" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" /><div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div><span class="absolute bottom-3 left-4 text-white font-semibold text-sm">Hôtellerie</span></a>
+      <a href="#contact" class="relative flex-shrink-0 w-64 h-40 rounded-2xl overflow-hidden group"><img src="images/syndics.jpg" alt="Syndics" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" /><div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div><span class="absolute bottom-3 left-4 text-white font-semibold text-sm">Syndics & Copropriétés</span></a>
+      <a href="#contact" class="relative flex-shrink-0 w-64 h-40 rounded-2xl overflow-hidden group"><img src="images/ecoles.jpg" alt="Écoles" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" /><div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div><span class="absolute bottom-3 left-4 text-white font-semibold text-sm">Établissements scolaires</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 11. TRUST LOGOS MARQUEE ===== -->
+<section class="py-16 md:py-24 bg-gray-50" id="confiance">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-10 reveal-el">
+      <span class="inline-block px-4 py-1.5 bg-brand-50 text-brand-600 text-xs font-semibold rounded-full uppercase tracking-wider mb-4">Références</span>
+      <h2 class="text-3xl md:text-4xl font-extrabold">Ils nous font <span class="bg-gradient-to-r from-brand-500 to-orange-400 bg-clip-text text-transparent">confiance</span></h2>
+    </div>
+    <div class="flex items-center justify-center gap-8 md:gap-16 mb-10 reveal-el">
+      <div class="text-center"><span class="block text-3xl font-extrabold text-gray-900">500<sup class="text-brand-500">+</sup></span><span class="text-sm text-gray-500">Clients actifs</span></div>
+      <div class="w-px h-10 bg-gray-200"></div>
+      <div class="text-center"><span class="block text-3xl font-extrabold text-gray-900">98<sup class="text-brand-500">%</sup></span><span class="text-sm text-gray-500">Taux de satisfaction</span></div>
+      <div class="w-px h-10 bg-gray-200"></div>
+      <div class="text-center"><span class="block text-3xl font-extrabold text-gray-900">50<sup class="text-brand-500">+</sup></span><span class="text-sm text-gray-500">Années d'expérience</span></div>
+    </div>
+  </div>
+  <!-- Row 1 -->
+  <div class="overflow-hidden mb-4">
+    <div class="flex items-center gap-8 marquee-left" style="width: max-content;">
+      <div class="flex-shrink-0 w-28 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center p-2"><img src="images/confiance/1.jpg" alt="Client 1" class="max-h-full max-w-full object-contain" loading="lazy" /></div>
+      <div class="flex-shrink-0 w-28 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center p-2"><img src="images/confiance/2.jpg" alt="Client 2" class="max-h-full max-w-full object-contain" loading="lazy" /></div>
+      <div class="flex-shrink-0 w-28 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center p-2"><img src="images/confiance/3.jpg" alt="Client 3" class="max-h-full max-w-full object-contain" loading="lazy" /></div>
+      <div class="flex-shrink-0 w-28 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center p-2"><img src="images/confiance/4.jpg" alt="Client 4" class="max-h-full max-w-full object-contain" loading="lazy" /></div>
+      <div class="flex-shrink-0 w-28 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center p-2"><img src="images/confiance/5.jpg" alt="Client 5" class="max-h-full max-w-full object-contain" loading="lazy" /></div>
+      <div class="flex-shrink-0 w-28 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center p-2"><img src="images/confiance/6.jpg" alt="Client 6" class="max-h-full max-w-full object-contain" loading="lazy" /></div>
+      <div class="flex-shrink-0 w-28 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center p-2"><img src="images/confiance/7.jpg" alt="Client 7" class="max-h-full max-w-full object-contain" loading="lazy" /></div>
+      <div class="flex-shrink-0 w-28 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center p-2"><img src="images/confiance/8.jpg" alt="Client 8" class="max-h-full max-w-full object-contain" loading="lazy" /></div>
+      <div class="flex-shrink-0 w-28 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center p-2"><img src="images/confiance/9.jpg" alt="Client 9" class="max-h-full max-w-full object-contain" loading="lazy" /></div>
+      <div class="flex-shrink-0 w-28 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center p-2"><img src="images/confiance/10.jpg" alt="Client 10" class="max-h-full max-w-full object-contain" loading="lazy" /></div>
+      <div class="flex-shrink-0 w-28 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center p-2"><img src="images/confiance/11.jpg" alt="Client 11" class="max-h-full max-w-full object-contain" loading="lazy" /></div>
+      <div class="flex-shrink-0 w-28 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center p-2"><img src="images/confiance/12.jpg" alt="Client 12" class="max-h-full max-w-full object-contain" loading="lazy" /></div>
+      <!-- Duplicate -->
+      <div class="flex-shrink-0 w-28 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center p-2"><img src="images/confiance/1.jpg" alt="Client 1" class="max-h-full max-w-full object-contain" loading="lazy" /></div>
+      <div class="flex-shrink-0 w-28 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center p-2"><img src="images/confiance/2.jpg" alt="Client 2" class="max-h-full max-w-full object-contain" loading="lazy" /></div>
+      <div class="flex-shrink-0 w-28 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center p-2"><img src="images/confiance/3.jpg" alt="Client 3" class="max-h-full max-w-full object-contain" loading="lazy" /></div>
+      <div class="flex-shrink-0 w-28 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center p-2"><img src="images/confiance/4.jpg" alt="Client 4" class="max-h-full max-w-full object-contain" loading="lazy" /></div>
+      <div class="flex-shrink-0 w-28 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center p-2"><img src="images/confiance/5.jpg" alt="Client 5" class="max-h-full max-w-full object-contain" loading="lazy" /></div>
+      <div class="flex-shrink-0 w-28 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center p-2"><img src="images/confiance/6.jpg" alt="Client 6" class="max-h-full max-w-full object-contain" loading="lazy" /></div>
+      <div class="flex-shrink-0 w-28 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center p-2"><img src="images/confiance/7.jpg" alt="Client 7" class="max-h-full max-w-full object-contain" loading="lazy" /></div>
+      <div class="flex-shrink-0 w-28 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center p-2"><img src="images/confiance/8.jpg" alt="Client 8" class="max-h-full max-w-full object-contain" loading="lazy" /></div>
+      <div class="flex-shrink-0 w-28 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center p-2"><img src="images/confiance/9.jpg" alt="Client 9" class="max-h-full max-w-full object-contain" loading="lazy" /></div>
+      <div class="flex-shrink-0 w-28 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center p-2"><img src="images/confiance/10.jpg" alt="Client 10" class="max-h-full max-w-full object-contain" loading="lazy" /></div>
+      <div class="flex-shrink-0 w-28 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center p-2"><img src="images/confiance/11.jpg" alt="Client 11" class="max-h-full max-w-full object-contain" loading="lazy" /></div>
+      <div class="flex-shrink-0 w-28 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center p-2"><img src="images/confiance/12.jpg" alt="Client 12" class="max-h-full max-w-full object-contain" loading="lazy" /></div>
+    </div>
+  </div>
+  <!-- Row 2 -->
+  <div class="overflow-hidden">
+    <div class="flex items-center gap-8 marquee-right" style="width: max-content;">
+      <div class="flex-shrink-0 w-28 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center p-2"><img src="images/confiance/13.jpg" alt="Client 13" class="max-h-full max-w-full object-contain" loading="lazy" /></div>
+      <div class="flex-shrink-0 w-28 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center p-2"><img src="images/confiance/14.jpg" alt="Client 14" class="max-h-full max-w-full object-contain" loading="lazy" /></div>
+      <div class="flex-shrink-0 w-28 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center p-2"><img src="images/confiance/15.jpg" alt="Client 15" class="max-h-full max-w-full object-contain" loading="lazy" /></div>
+      <div class="flex-shrink-0 w-28 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center p-2"><img src="images/confiance/16.jpg" alt="Client 16" class="max-h-full max-w-full object-contain" loading="lazy" /></div>
+      <div class="flex-shrink-0 w-28 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center p-2"><img src="images/confiance/17.jpg" alt="Client 17" class="max-h-full max-w-full object-contain" loading="lazy" /></div>
+      <div class="flex-shrink-0 w-28 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center p-2"><img src="images/confiance/18.jpg" alt="Client 18" class="max-h-full max-w-full object-contain" loading="lazy" /></div>
+      <div class="flex-shrink-0 w-28 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center p-2"><img src="images/confiance/19.jpg" alt="Client 19" class="max-h-full max-w-full object-contain" loading="lazy" /></div>
+      <div class="flex-shrink-0 w-28 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center p-2"><img src="images/confiance/20.jpg" alt="Client 20" class="max-h-full max-w-full object-contain" loading="lazy" /></div>
+      <div class="flex-shrink-0 w-28 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center p-2"><img src="images/confiance/21.jpg" alt="Client 21" class="max-h-full max-w-full object-contain" loading="lazy" /></div>
+      <div class="flex-shrink-0 w-28 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center p-2"><img src="images/confiance/22.jpg" alt="Client 22" class="max-h-full max-w-full object-contain" loading="lazy" /></div>
+      <div class="flex-shrink-0 w-28 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center p-2"><img src="images/confiance/23.jpg" alt="Client 23" class="max-h-full max-w-full object-contain" loading="lazy" /></div>
+      <div class="flex-shrink-0 w-28 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center p-2"><img src="images/confiance/24.jpg" alt="Client 24" class="max-h-full max-w-full object-contain" loading="lazy" /></div>
+      <!-- Duplicate -->
+      <div class="flex-shrink-0 w-28 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center p-2"><img src="images/confiance/13.jpg" alt="Client 13" class="max-h-full max-w-full object-contain" loading="lazy" /></div>
+      <div class="flex-shrink-0 w-28 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center p-2"><img src="images/confiance/14.jpg" alt="Client 14" class="max-h-full max-w-full object-contain" loading="lazy" /></div>
+      <div class="flex-shrink-0 w-28 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center p-2"><img src="images/confiance/15.jpg" alt="Client 15" class="max-h-full max-w-full object-contain" loading="lazy" /></div>
+      <div class="flex-shrink-0 w-28 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center p-2"><img src="images/confiance/16.jpg" alt="Client 16" class="max-h-full max-w-full object-contain" loading="lazy" /></div>
+      <div class="flex-shrink-0 w-28 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center p-2"><img src="images/confiance/17.jpg" alt="Client 17" class="max-h-full max-w-full object-contain" loading="lazy" /></div>
+      <div class="flex-shrink-0 w-28 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center p-2"><img src="images/confiance/18.jpg" alt="Client 18" class="max-h-full max-w-full object-contain" loading="lazy" /></div>
+      <div class="flex-shrink-0 w-28 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center p-2"><img src="images/confiance/19.jpg" alt="Client 19" class="max-h-full max-w-full object-contain" loading="lazy" /></div>
+      <div class="flex-shrink-0 w-28 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center p-2"><img src="images/confiance/20.jpg" alt="Client 20" class="max-h-full max-w-full object-contain" loading="lazy" /></div>
+      <div class="flex-shrink-0 w-28 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center p-2"><img src="images/confiance/21.jpg" alt="Client 21" class="max-h-full max-w-full object-contain" loading="lazy" /></div>
+      <div class="flex-shrink-0 w-28 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center p-2"><img src="images/confiance/22.jpg" alt="Client 22" class="max-h-full max-w-full object-contain" loading="lazy" /></div>
+      <div class="flex-shrink-0 w-28 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center p-2"><img src="images/confiance/23.jpg" alt="Client 23" class="max-h-full max-w-full object-contain" loading="lazy" /></div>
+      <div class="flex-shrink-0 w-28 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center p-2"><img src="images/confiance/24.jpg" alt="Client 24" class="max-h-full max-w-full object-contain" loading="lazy" /></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 12. TESTIMONIALS (temo2 alternating) ===== -->
+<section class="py-16 md:py-24 bg-white" id="temoignages">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-12 reveal-el">
+      <span class="inline-block px-4 py-1.5 bg-brand-50 text-brand-600 text-xs font-semibold rounded-full uppercase tracking-wider mb-4">Cas clients</span>
+      <h2 class="text-3xl md:text-4xl font-extrabold">Ce que disent nos <span class="bg-gradient-to-r from-brand-500 to-orange-400 bg-clip-text text-transparent">professionnels</span></h2>
+      <p class="text-gray-500 mt-3">Restaurants, hôtels, boulangeries, syndics... ils nous font confiance pour protéger leur activite</p>
+    </div>
+    <div class="space-y-8">
+      <!-- 1. Boulangerie -->
+      <article class="flex flex-col md:flex-row gap-6 items-stretch reveal-el">
+        <div class="md:w-2/5 relative rounded-2xl overflow-hidden min-h-[220px]"><img src="images/boulangerie.jpg" alt="Boulangerie" class="absolute inset-0 w-full h-full object-cover" loading="lazy" /><span class="absolute top-4 left-4 px-3 py-1 bg-white/90 backdrop-blur-sm text-xs font-semibold rounded-full">Boulangerie</span></div>
+        <div class="md:w-3/5 flex flex-col justify-center">
+          <div class="flex items-center gap-2 mb-3"><span class="text-yellow-400 text-sm">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span class="text-xs text-green-600 font-medium flex items-center gap-1"><svg viewBox="0 0 20 20" fill="currentColor" class="w-3.5 h-3.5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414L8.414 15l-4.121-4.121a1 1 0 011.414-1.414L8.414 12.172l6.879-6.879a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Vérifié</span></div>
+          <blockquote class="text-gray-600 text-sm leading-relaxed mb-4">"Infestation de cafards dans notre fournil - un cauchemar pour notre réputation et notre conformite HACCP. Eden Vert 3D est intervenu le soir même, discrétion totale. Traitement en gel ciblé, zero produit en suspension dans l'air. Aucune récidive depuis 10 mois."</blockquote>
+          <div class="flex items-center gap-3"><img src="https://ui-avatars.com/api/?name=Marie+Fontaine&background=b45309&color=fff&size=64&bold=true&format=svg" alt="Marie Fontaine" class="w-10 h-10 rounded-full" /><div><strong class="text-sm">Marie Fontaine</strong><span class="block text-xs text-gray-500">Gérante - Boulangerie des Arènes - Paris 5<sup>e</sup></span></div></div>
+        </div>
+      </article>
+      <!-- 2. Restaurant (reversed) -->
+      <article class="flex flex-col md:flex-row-reverse gap-6 items-stretch reveal-el">
+        <div class="md:w-2/5 relative rounded-2xl overflow-hidden min-h-[220px]"><img src="images/restaurants.jpg" alt="Restaurant" class="absolute inset-0 w-full h-full object-cover" loading="lazy" /><span class="absolute top-4 left-4 px-3 py-1 bg-white/90 backdrop-blur-sm text-xs font-semibold rounded-full">Restauration</span></div>
+        <div class="md:w-3/5 flex flex-col justify-center">
+          <div class="flex items-center gap-2 mb-3"><span class="text-yellow-400 text-sm">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span class="text-xs text-green-600 font-medium flex items-center gap-1"><svg viewBox="0 0 20 20" fill="currentColor" class="w-3.5 h-3.5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414L8.414 15l-4.121-4.121a1 1 0 011.414-1.414L8.414 12.172l6.879-6.879a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Vérifié</span></div>
+          <blockquote class="text-gray-600 text-sm leading-relaxed mb-4">"Une inspection sanitaire inattendue et des traces de rongeurs dans la réserve... J'ai appele Eden Vert 3D en urgence. Le technicien était là deux heures plus tard avec un plan d'action complet. Professionnalisme exemplaire."</blockquote>
+          <div class="flex items-center gap-3"><img src="https://ui-avatars.com/api/?name=Thomas+Mercier&background=1e3a5f&color=fff&size=64&bold=true&format=svg" alt="Thomas Mercier" class="w-10 h-10 rounded-full" /><div><strong class="text-sm">Thomas Mercier</strong><span class="block text-xs text-gray-500">Directeur de salle - Le Bistrot Parisien - Vincennes</span></div></div>
+        </div>
+      </article>
+      <!-- 3. Hôtel -->
+      <article class="flex flex-col md:flex-row gap-6 items-stretch reveal-el">
+        <div class="md:w-2/5 relative rounded-2xl overflow-hidden min-h-[220px]"><img src="images/hotel.jpg" alt="Hôtel" class="absolute inset-0 w-full h-full object-cover" loading="lazy" /><span class="absolute top-4 left-4 px-3 py-1 bg-white/90 backdrop-blur-sm text-xs font-semibold rounded-full">Hôtellerie</span></div>
+        <div class="md:w-3/5 flex flex-col justify-center">
+          <div class="flex items-center gap-2 mb-3"><span class="text-yellow-400 text-sm">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span class="text-xs text-green-600 font-medium flex items-center gap-1"><svg viewBox="0 0 20 20" fill="currentColor" class="w-3.5 h-3.5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414L8.414 15l-4.121-4.121a1 1 0 011.414-1.414L8.414 12.172l6.879-6.879a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Vérifié</span></div>
+          <blockquote class="text-gray-600 text-sm leading-relaxed mb-4">"Signalement de punaises de lit dans une chambre - le pire scénario pour un hôtel. Eden Vert 3D a réalisé une inspection complète en une nuit, avec traitement thermique. Zero fermeture le lendemain, zero plainte depuis."</blockquote>
+          <div class="flex items-center gap-3"><img src="https://ui-avatars.com/api/?name=Sophie+Blanchard&background=065f46&color=fff&size=64&bold=true&format=svg" alt="Sophie Blanchard" class="w-10 h-10 rounded-full" /><div><strong class="text-sm">Sophie Blanchard</strong><span class="block text-xs text-gray-500">Responsable Exploitation - Hôtel Le Jardin - Versailles</span></div></div>
+        </div>
+      </article>
+      <!-- 4. École (reversed) -->
+      <article class="flex flex-col md:flex-row-reverse gap-6 items-stretch reveal-el">
+        <div class="md:w-2/5 relative rounded-2xl overflow-hidden min-h-[220px]"><img src="images/ecoles.jpg" alt="École" class="absolute inset-0 w-full h-full object-cover" loading="lazy" /><span class="absolute top-4 left-4 px-3 py-1 bg-white/90 backdrop-blur-sm text-xs font-semibold rounded-full">Établissement scolaire</span></div>
+        <div class="md:w-3/5 flex flex-col justify-center">
+          <div class="flex items-center gap-2 mb-3"><span class="text-yellow-400 text-sm">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span class="text-xs text-green-600 font-medium flex items-center gap-1"><svg viewBox="0 0 20 20" fill="currentColor" class="w-3.5 h-3.5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414L8.414 15l-4.121-4.121a1 1 0 011.414-1.414L8.414 12.172l6.879-6.879a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Vérifié</span></div>
+          <blockquote class="text-gray-600 text-sm leading-relaxed mb-4">"Des nids de guêpes découverts en préau la veille de la rentrée. Eden Vert 3D a tout traite le soir même, avec des produits homologués sans danger pour les enfants. Service impeccable."</blockquote>
+          <div class="flex items-center gap-3"><img src="https://ui-avatars.com/api/?name=Jean-Pierre+Aubert&background=374151&color=fff&size=64&bold=true&format=svg" alt="Jean-Pierre Aubert" class="w-10 h-10 rounded-full" /><div><strong class="text-sm">Jean-Pierre Aubert</strong><span class="block text-xs text-gray-500">Directeur d'école - École J. Moulin - Créteil</span></div></div>
+        </div>
+      </article>
+      <!-- 5. Entrepôt -->
+      <article class="flex flex-col md:flex-row gap-6 items-stretch reveal-el">
+        <div class="md:w-2/5 relative rounded-2xl overflow-hidden min-h-[220px]"><img src="images/entrepot.jpg" alt="Entrepôt" class="absolute inset-0 w-full h-full object-cover" loading="lazy" /><span class="absolute top-4 left-4 px-3 py-1 bg-white/90 backdrop-blur-sm text-xs font-semibold rounded-full">Logistique</span></div>
+        <div class="md:w-3/5 flex flex-col justify-center">
+          <div class="flex items-center gap-2 mb-3"><span class="text-yellow-400 text-sm">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span class="text-xs text-green-600 font-medium flex items-center gap-1"><svg viewBox="0 0 20 20" fill="currentColor" class="w-3.5 h-3.5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414L8.414 15l-4.121-4.121a1 1 0 011.414-1.414L8.414 12.172l6.879-6.879a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Vérifié</span></div>
+          <blockquote class="text-gray-600 text-sm leading-relaxed mb-4">"Infestation de rats dans notre entrepôt de 4 000 m2. Eden Vert 3D a mis en place un protocole complet avec suivi mensuel. En moins de 3 semaines, le problème était éradiqué."</blockquote>
+          <div class="flex items-center gap-3"><img src="https://ui-avatars.com/api/?name=Frédéric+Dubois&background=1e3a5f&color=fff&size=64&bold=true&format=svg" alt="Frédéric Dubois" class="w-10 h-10 rounded-full" /><div><strong class="text-sm">Frédéric Dubois</strong><span class="block text-xs text-gray-500">Responsable Logistique - TransLog IDF - Rungis</span></div></div>
+        </div>
+      </article>
+      <!-- 6. Syndic (reversed) -->
+      <article class="flex flex-col md:flex-row-reverse gap-6 items-stretch reveal-el">
+        <div class="md:w-2/5 relative rounded-2xl overflow-hidden min-h-[220px]"><img src="images/syndics.jpg" alt="Syndic" class="absolute inset-0 w-full h-full object-cover" loading="lazy" /><span class="absolute top-4 left-4 px-3 py-1 bg-white/90 backdrop-blur-sm text-xs font-semibold rounded-full">Syndic de copropriété</span></div>
+        <div class="md:w-3/5 flex flex-col justify-center">
+          <div class="flex items-center gap-2 mb-3"><span class="text-yellow-400 text-sm">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span class="text-xs text-green-600 font-medium flex items-center gap-1"><svg viewBox="0 0 20 20" fill="currentColor" class="w-3.5 h-3.5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414L8.414 15l-4.121-4.121a1 1 0 011.414-1.414L8.414 12.172l6.879-6.879a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Vérifié</span></div>
+          <blockquote class="text-gray-600 text-sm leading-relaxed mb-4">"Je gère 12 copropriétés en Île-de-France. Eden Vert 3D est mon partenaire exclusif pour tous les problèmes de nuisibles. Ils interviennent vite, rédigent des rapports clairs pour les AG, et leurs tarifs sont cohérents."</blockquote>
+          <div class="flex items-center gap-3"><img src="https://ui-avatars.com/api/?name=Isabelle+Moreau&background=9f1239&color=fff&size=64&bold=true&format=svg" alt="Isabelle Moreau" class="w-10 h-10 rounded-full" /><div><strong class="text-sm">Isabelle Moreau</strong><span class="block text-xs text-gray-500">Gestionnaire de copropriété - Syndic Horizon - Neuilly-sur-Seine</span></div></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 13. GOOGLE REVIEWS ===== -->
+<section class="py-16 md:py-24 bg-gray-50" id="avis">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-12 reveal-el">
+      <span class="inline-block px-4 py-1.5 bg-brand-50 text-brand-600 text-xs font-semibold rounded-full uppercase tracking-wider mb-4">Avis clients</span>
+      <h2 class="text-3xl md:text-4xl font-extrabold">Ce que disent <span class="bg-gradient-to-r from-brand-500 to-orange-400 bg-clip-text text-transparent">nos clients</span></h2>
+      <p class="text-gray-500 mt-3">Plus de 500 avis vérifiés sur Google - Note moyenne 4.9 / 5</p>
+    </div>
+    <!-- Score bar -->
+    <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm mb-10 flex flex-col md:flex-row items-center gap-8 reveal-el">
+      <div class="flex items-center gap-4">
+        <span class="text-5xl font-extrabold text-gray-900">4.9</span>
+        <div>
+          <div class="flex gap-0.5 text-yellow-400 text-lg">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <span class="text-sm text-gray-500">Basé sur <strong>512 avis</strong></span>
+        </div>
+      </div>
+      <div class="flex-1 space-y-1.5 w-full max-w-md">
+        <div class="flex items-center gap-2 text-xs"><span class="w-8 text-gray-500">5 &#9733;</span><div class="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden"><div class="h-full bg-yellow-400 rounded-full" style="width:88%"></div></div><span class="w-8 text-right text-gray-500">88%</span></div>
+        <div class="flex items-center gap-2 text-xs"><span class="w-8 text-gray-500">4 &#9733;</span><div class="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden"><div class="h-full bg-yellow-400 rounded-full" style="width:9%"></div></div><span class="w-8 text-right text-gray-500">9%</span></div>
+        <div class="flex items-center gap-2 text-xs"><span class="w-8 text-gray-500">3 &#9733;</span><div class="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden"><div class="h-full bg-yellow-400 rounded-full" style="width:2%"></div></div><span class="w-8 text-right text-gray-500">2%</span></div>
+        <div class="flex items-center gap-2 text-xs"><span class="w-8 text-gray-500">2 &#9733;</span><div class="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden"><div class="h-full bg-yellow-400 rounded-full" style="width:1%"></div></div><span class="w-8 text-right text-gray-500">1%</span></div>
+        <div class="flex items-center gap-2 text-xs"><span class="w-8 text-gray-500">1 &#9733;</span><div class="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden"><div class="h-full bg-yellow-400 rounded-full" style="width:0%"></div></div><span class="w-8 text-right text-gray-500">0%</span></div>
+      </div>
+      <div class="flex items-center gap-2 text-sm text-gray-500">
+        <svg viewBox="0 0 48 48" class="w-8 h-8"><path fill="#FFC107" d="M43.6 20H24v8h11.3C33.8 33.7 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c2.9 0 5.5 1.1 7.6 2.8L37 9.3C33.7 6.3 29.1 4.5 24 4.5 13.2 4.5 4.5 13.2 4.5 24S13.2 43.5 24 43.5 43.5 34.8 43.5 24c0-1.3-.1-2.7-.4-4z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.6 16 19 13 24 13c2.9 0 5.5 1.1 7.6 2.8L37 9.3C33.7 6.3 29.1 4.5 24 4.5c-7.6 0-14.1 4.3-17.7 10.2z"/><path fill="#4CAF50" d="M24 43.5c5 0 9.5-1.7 12.9-4.5l-6.5-5.2C28.5 35.4 26.3 36 24 36c-5.3 0-9.8-3.4-11.4-8.1l-6.6 5.1C9.6 39.2 16.2 43.5 24 43.5z"/><path fill="#1976D2" d="M43.6 20H24v8h11.3c-.8 2.3-2.4 4.3-4.4 5.7l6.5 5.2C41 35.4 43.5 30.1 43.5 24c0-1.3-.1-2.7-.4-4z"/></svg>
+        Google Reviews
+      </div>
+    </div>
+    <!-- Review cards masonry -->
+    <div class="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
+      <div class="bg-white rounded-2xl p-5 shadow-sm break-inside-avoid reveal-el"><div class="flex items-center gap-3 mb-3"><img src="https://ui-avatars.com/api/?name=Marie+Laurent&background=EA5F0A&color=fff&size=48&bold=true&format=svg" alt="Marie L." class="w-9 h-9 rounded-full" /><div><div class="font-semibold text-sm">Marie Laurent</div><div class="text-xs text-gray-400">12 mars 2024</div></div></div><div class="text-yellow-400 text-xs mb-2">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="text-gray-600 text-sm">Intervention le lendemain de mon appel pour une infestation de cafards dans ma cuisine. Technicien très professionnel, ponctuel et discret. Résultat impeccable dès le premier passage. Je recommande vivement Eden Vert 3D !</p></div>
+      <div class="bg-white rounded-2xl p-5 shadow-sm break-inside-avoid reveal-el"><div class="flex items-center gap-3 mb-3"><img src="https://ui-avatars.com/api/?name=Thomas+Renaud&background=1e3a5f&color=fff&size=48&bold=true&format=svg" alt="Thomas R." class="w-9 h-9 rounded-full" /><div><div class="font-semibold text-sm">Thomas Renaud</div><div class="text-xs text-gray-400">2 février 2024</div></div></div><div class="text-yellow-400 text-xs mb-2">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="text-gray-600 text-sm">Problème de rats dans mon restaurant depuis plusieurs semaines. Eden Vert 3D est intervenu rapidement, de manière très discrète. Suivi sérieux sur 3 semaines, comptes-rendus détaillés. Aucune récidive depuis 6 mois.</p></div>
+      <div class="bg-white rounded-2xl p-5 shadow-sm break-inside-avoid reveal-el"><div class="flex items-center gap-3 mb-3"><img src="https://ui-avatars.com/api/?name=Sophie+Clément&background=065f46&color=fff&size=48&bold=true&format=svg" alt="Sophie C." class="w-9 h-9 rounded-full" /><div><div class="font-semibold text-sm">Sophie Clément</div><div class="text-xs text-gray-400">24 mars 2024</div></div></div><div class="text-yellow-400 text-xs mb-2">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="text-gray-600 text-sm">Punaises de lit detectees un vendredi soir. Intervention le samedi matin ! Traitement thermique très efficace, rien a redire sur le sérieux. Merci pour la réactivité extraordinaire.</p></div>
+      <div class="bg-white rounded-2xl p-5 shadow-sm break-inside-avoid reveal-el"><div class="flex items-center gap-3 mb-3"><img src="https://ui-avatars.com/api/?name=Nicolas+Faure&background=374151&color=fff&size=48&bold=true&format=svg" alt="Nicolas F." class="w-9 h-9 rounded-full" /><div><div class="font-semibold text-sm">Nicolas Faure</div><div class="text-xs text-gray-400">8 janvier 2024</div></div></div><div class="text-yellow-400 text-xs mb-2">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="text-gray-600 text-sm">Nid de frelons asiatiques dans mon jardin. Ils sont venus en moins de 2h après mon appel. Intervention sécurisée, nid entièrement détruit. Tarif très correct pour ce type de prestation urgente.</p></div>
+      <div class="bg-white rounded-2xl p-5 shadow-sm break-inside-avoid reveal-el"><div class="flex items-center gap-3 mb-3"><img src="https://ui-avatars.com/api/?name=Isabelle+Moreau&background=9f1239&color=fff&size=48&bold=true&format=svg" alt="Isabelle M." class="w-9 h-9 rounded-full" /><div><div class="font-semibold text-sm">Isabelle Moreau</div><div class="text-xs text-gray-400">15 novembre 2023</div></div></div><div class="text-yellow-400 text-xs mb-2">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="text-gray-600 text-sm">Je gère une copropriété de 48 lots et j'ai fait appel a Eden Vert 3D pour un problème récurrent de blattes dans les parties communes. Contrat annuel mis en place, passages réguliers, rapports clairs. Je recommande sans hésitation pour les syndics.</p></div>
+      <div class="bg-white rounded-2xl p-5 shadow-sm break-inside-avoid reveal-el"><div class="flex items-center gap-3 mb-3"><img src="https://ui-avatars.com/api/?name=Kevin+Brun&background=b45309&color=fff&size=48&bold=true&format=svg" alt="Kevin B." class="w-9 h-9 rounded-full" /><div><div class="font-semibold text-sm">Kevin Brun</div><div class="text-xs text-gray-400">4 avril 2024</div></div></div><div class="text-yellow-400 text-xs mb-2">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="text-gray-600 text-sm">Super expérience. Devis reçu en moins d'une heure, technicien sympa et compétent. Mon problème de souris est réglé en un seul passage. Prix honnête.</p></div>
+      <div class="bg-white rounded-2xl p-5 shadow-sm break-inside-avoid reveal-el"><div class="flex items-center gap-3 mb-3"><img src="https://ui-avatars.com/api/?name=Aurélie+Petit&background=1e3a5f&color=fff&size=48&bold=true&format=svg" alt="Aurélie P." class="w-9 h-9 rounded-full" /><div><div class="font-semibold text-sm">Aurélie Petit</div><div class="text-xs text-gray-400">19 décembre 2023</div></div></div><div class="text-yellow-400 text-xs mb-2">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="text-gray-600 text-sm">J'avais des fourmis partout dans ma cuisine depuis des semaines. Eden Vert 3D a réglé le problème définitivement en un seul passage. Le technicien m'a aussi explique comment éviter que ça revienne. Service impeccable.</p></div>
+      <div class="bg-white rounded-2xl p-5 shadow-sm break-inside-avoid reveal-el"><div class="flex items-center gap-3 mb-3"><img src="https://ui-avatars.com/api/?name=Marc+Dupuis&background=374151&color=fff&size=48&bold=true&format=svg" alt="Marc D." class="w-9 h-9 rounded-full" /><div><div class="font-semibold text-sm">Marc Dupuis</div><div class="text-xs text-gray-400">27 octobre 2023</div></div></div><div class="text-yellow-400 text-xs mb-2">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="text-gray-600 text-sm">Directeur d'école primaire. Intervention le week-end pour ne pas impacter les élèves. Produits utilisés certifiés sans danger. Attestation fournie pour l'inspection académique. Très sérieux.</p></div>
+      <div class="bg-white rounded-2xl p-5 shadow-sm break-inside-avoid reveal-el"><div class="flex items-center gap-3 mb-3"><img src="https://ui-avatars.com/api/?name=Camille+Vasseur&background=065f46&color=fff&size=48&bold=true&format=svg" alt="Camille V." class="w-9 h-9 rounded-full" /><div><div class="font-semibold text-sm">Camille Vasseur</div><div class="text-xs text-gray-400">5 mars 2024</div></div></div><div class="text-yellow-400 text-xs mb-2">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="text-gray-600 text-sm">Moustiques dans le jardin, impossible de profiter de la terrasse l'été dernier. Traitement efficace, on a pu retrouver notre extérieur sans problème. Technicien disponible et à l'écoute.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 14. SOCIAL MEDIA (tabbed sp2 style) ===== -->
+<section class="py-16 md:py-24 bg-white" id="social">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-8 reveal-el">
+      <span class="inline-block px-4 py-1.5 bg-brand-50 text-brand-600 text-xs font-semibold rounded-full uppercase tracking-wider mb-4">Nos réseaux</span>
+      <h2 class="text-3xl md:text-4xl font-extrabold">Suivez-nous sur <span class="bg-gradient-to-r from-brand-500 to-orange-400 bg-clip-text text-transparent">les réseaux</span></h2>
+    </div>
+    <!-- Tabs -->
+    <div class="flex justify-center gap-2 mb-8 reveal-el">
+      <button class="sp-tab px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 bg-brand-500 text-white" data-tab="fb">Facebook</button>
+      <button class="sp-tab px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 bg-gray-100 text-gray-600 hover:bg-gray-200" data-tab="ig">Instagram</button>
+      <button class="sp-tab px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 bg-gray-100 text-gray-600 hover:bg-gray-200" data-tab="reels">Reels</button>
+    </div>
+    <!-- Facebook pane -->
+    <div class="sp-pane active" id="sp-fb">
+      <div class="grid md:grid-cols-3 gap-6">
+        <article class="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-md transition-all duration-300">
+          <img src="images/pigeons.jpg" alt="Pigeons" class="w-full h-48 object-cover" loading="lazy" />
+          <div class="p-5">
+            <div class="flex items-center gap-2 mb-3"><img src="images/equipe.jpg" alt="" class="w-8 h-8 rounded-full object-cover" /><div><strong class="text-sm">Eden Vert 3D</strong><span class="block text-xs text-gray-400">Hier à 14h32</span></div></div>
+            <p class="text-sm text-gray-600 mb-3">Lutte anti-pigeons sur un immeuble haussmannien à Paris 16e. Pose de pics, filets et répulsifs. Le batiment est désormais protégé durablement.</p>
+            <div class="flex items-center justify-between text-xs text-gray-400"><span>214 réactions</span><span>38 commentaires</span></div>
+          </div>
+        </article>
+        <article class="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-md transition-all duration-300">
+          <img src="images/desinfection.jpg" alt="Désinfection" class="w-full h-48 object-cover" loading="lazy" />
+          <div class="p-5">
+            <div class="flex items-center gap-2 mb-3"><img src="images/equipe.jpg" alt="" class="w-8 h-8 rounded-full object-cover" /><div><strong class="text-sm">Eden Vert 3D</strong><span class="block text-xs text-gray-400">3 mars à 9h15</span></div></div>
+            <p class="text-sm text-gray-600 mb-3">Désinfection complète d'une école maternelle en Seine-et-Marne avant la rentrée. 100% produits homologués, sans danger pour les enfants.</p>
+            <div class="flex items-center justify-between text-xs text-gray-400"><span>178 réactions</span><span>22 commentaires</span></div>
+          </div>
+        </article>
+        <article class="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-md transition-all duration-300">
+          <img src="images/taupes.jpg" alt="Taupes" class="w-full h-48 object-cover" loading="lazy" />
+          <div class="p-5">
+            <div class="flex items-center gap-2 mb-3"><img src="images/equipe.jpg" alt="" class="w-8 h-8 rounded-full object-cover" /><div><strong class="text-sm">Eden Vert 3D</strong><span class="block text-xs text-gray-400">28 fév. à 11h00</span></div></div>
+            <p class="text-sm text-gray-600 mb-3">Dégâts de taupes sur un terrain de golf en Essonne. Notre équipe est intervenue en moins de 24h. Terrain remis en état, client satisfait !</p>
+            <div class="flex items-center justify-between text-xs text-gray-400"><span>156 réactions</span><span>14 commentaires</span></div>
+          </div>
+        </article>
+      </div>
+    </div>
+    <!-- Instagram pane -->
+    <div class="sp-pane" id="sp-ig">
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+        <div class="relative rounded-2xl overflow-hidden aspect-square group cursor-pointer"><img src="images/frelons.jpg" alt="Frelons" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" /><div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-white font-semibold text-sm">421 likes</div></div>
+        <div class="relative rounded-2xl overflow-hidden aspect-square group cursor-pointer"><img src="images/boulangerie.jpg" alt="Boulangerie" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" /><div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-white font-semibold text-sm">247 likes</div></div>
+        <div class="relative rounded-2xl overflow-hidden aspect-square group cursor-pointer"><img src="images/demoussage.jpg" alt="Démoussage" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" /><div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-white font-semibold text-sm">183 likes</div></div>
+        <div class="relative rounded-2xl overflow-hidden aspect-square group cursor-pointer"><img src="images/hotel.jpg" alt="Hôtel" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" /><div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-white font-semibold text-sm">312 likes</div></div>
+        <div class="relative rounded-2xl overflow-hidden aspect-square group cursor-pointer"><img src="images/entrepot.jpg" alt="Entrepôt" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" /><div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-white font-semibold text-sm">196 likes</div></div>
+        <div class="relative rounded-2xl overflow-hidden aspect-square group cursor-pointer"><img src="images/insectes.jpg" alt="Insectes" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" /><div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-white font-semibold text-sm">408 likes</div></div>
+      </div>
+    </div>
+    <!-- Reels pane -->
+    <div class="sp-pane" id="sp-reels">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="relative rounded-2xl overflow-hidden aspect-[9/16] group cursor-pointer"><img src="images/frelons.jpg" alt="Reel frelons" class="w-full h-full object-cover" loading="lazy" /><div class="absolute inset-0 bg-black/30 flex flex-col items-center justify-center"><svg viewBox="0 0 24 24" fill="#fff" class="w-10 h-10 opacity-80"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><div class="absolute bottom-3 left-3 right-3"><span class="text-white text-xs font-semibold">12,4K vues</span><p class="text-white text-xs mt-1">Destruction nid frelons en 60s</p></div></div>
+        <div class="relative rounded-2xl overflow-hidden aspect-[9/16] group cursor-pointer"><img src="images/cafards.jpg" alt="Reel cafards" class="w-full h-full object-cover" loading="lazy" /><div class="absolute inset-0 bg-black/30 flex flex-col items-center justify-center"><svg viewBox="0 0 24 24" fill="#fff" class="w-10 h-10 opacity-80"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><div class="absolute bottom-3 left-3 right-3"><span class="text-white text-xs font-semibold">8,7K vues</span><p class="text-white text-xs mt-1">Traitement anti-cafards cuisine pro</p></div></div>
+        <div class="relative rounded-2xl overflow-hidden aspect-[9/16] group cursor-pointer"><img src="images/deratisation.jpg" alt="Reel dératisation" class="w-full h-full object-cover" loading="lazy" /><div class="absolute inset-0 bg-black/30 flex flex-col items-center justify-center"><svg viewBox="0 0 24 24" fill="#fff" class="w-10 h-10 opacity-80"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><div class="absolute bottom-3 left-3 right-3"><span class="text-white text-xs font-semibold">6,2K vues</span><p class="text-white text-xs mt-1">Notre protocole dératisation</p></div></div>
+        <div class="relative rounded-2xl overflow-hidden aspect-[9/16] group cursor-pointer"><img src="images/moustiques.jpg" alt="Reel moustiques" class="w-full h-full object-cover" loading="lazy" /><div class="absolute inset-0 bg-black/30 flex flex-col items-center justify-center"><svg viewBox="0 0 24 24" fill="#fff" class="w-10 h-10 opacity-80"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><div class="absolute bottom-3 left-3 right-3"><span class="text-white text-xs font-semibold">4,9K vues</span><p class="text-white text-xs mt-1">Traitement anti-moustiques jardin</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 15. PROCESS STEPS ===== -->
+<section class="py-16 md:py-24 bg-gray-50" id="process">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-12 reveal-el">
+      <span class="inline-block px-4 py-1.5 bg-brand-50 text-brand-600 text-xs font-semibold rounded-full uppercase tracking-wider mb-4">Comment ça marche</span>
+      <h2 class="text-3xl md:text-4xl font-extrabold">Notre <span class="bg-gradient-to-r from-brand-500 to-orange-400 bg-clip-text text-transparent">processus d'intervention</span></h2>
+      <p class="text-gray-500 mt-3">Une méthode éprouvée pour des résultats durables</p>
+    </div>
+    <div class="grid md:grid-cols-4 gap-6">
+      <div class="relative bg-white rounded-2xl p-6 shadow-sm reveal-el">
+        <div class="text-4xl font-extrabold text-brand-100 mb-2">01</div>
+        <div class="text-2xl mb-2">&#128269;</div>
+        <h3 class="font-bold text-lg mb-2">Diagnostic</h3>
+        <p class="text-gray-500 text-sm">Visite gratuite, identification de l'espèce, évaluation de l'infestation et des points d'entrée.</p>
+        <span class="inline-block mt-3 px-3 py-1 bg-gray-50 text-gray-500 text-xs rounded-full">30-60 min</span>
+      </div>
+      <div class="relative bg-white rounded-2xl p-6 shadow-sm reveal-el">
+        <div class="text-4xl font-extrabold text-brand-100 mb-2">02</div>
+        <div class="text-2xl mb-2">&#128221;</div>
+        <h3 class="font-bold text-lg mb-2">Plan d'action</h3>
+        <p class="text-gray-500 text-sm">Protocole sur-mesure, choix des produits, techniques et calendrier d'intervention.</p>
+        <span class="inline-block mt-3 px-3 py-1 bg-gray-50 text-gray-500 text-xs rounded-full">Devis sous 2h</span>
+      </div>
+      <div class="relative bg-white rounded-2xl p-6 shadow-sm reveal-el">
+        <div class="text-4xl font-extrabold text-brand-100 mb-2">03</div>
+        <div class="text-2xl mb-2">&#9881;&#65039;</div>
+        <h3 class="font-bold text-lg mb-2">Intervention</h3>
+        <p class="text-gray-500 text-sm">Traitement professionnel par nos techniciens certifiés avec équipements et produits homologués.</p>
+        <span class="inline-block mt-3 px-3 py-1 bg-gray-50 text-gray-500 text-xs rounded-full">2-4 heures</span>
+      </div>
+      <div class="relative bg-white rounded-2xl p-6 shadow-sm reveal-el">
+        <div class="text-4xl font-extrabold text-brand-100 mb-2">04</div>
+        <div class="text-2xl mb-2">&#128202;</div>
+        <h3 class="font-bold text-lg mb-2">Suivi & Garantie</h3>
+        <p class="text-gray-500 text-sm">Visites de contrôle, rapport d'intervention détaillé et garantie satisfaction 3 mois incluse.</p>
+        <span class="inline-block mt-3 px-3 py-1 bg-gray-50 text-gray-500 text-xs rounded-full">Suivi 3 mois</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 16. ZONES D'INTERVENTION ===== -->
+<section class="py-16 md:py-24 bg-white" id="zones">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-12 reveal-el">
+      <span class="inline-block px-4 py-1.5 bg-brand-50 text-brand-600 text-xs font-semibold rounded-full uppercase tracking-wider mb-4">Couverture géographique</span>
+      <h2 class="text-3xl md:text-4xl font-extrabold">Nos zones <span class="bg-gradient-to-r from-brand-500 to-orange-400 bg-clip-text text-transparent">d'intervention</span></h2>
+      <p class="text-gray-500 mt-3">Dératisation et désinsectisation en Île-de-France et départements limitrophes</p>
+    </div>
+    <div class="grid md:grid-cols-2 gap-8">
+      <div class="space-y-6 reveal-el">
+        <div>
+          <h4 class="font-bold mb-3">Paris & Petite Couronne</h4>
+          <div class="flex flex-wrap gap-2"><span class="px-3 py-1.5 bg-gray-100 rounded-lg text-sm">Paris (75)</span><span class="px-3 py-1.5 bg-gray-100 rounded-lg text-sm">Seine-Saint-Denis (93)</span><span class="px-3 py-1.5 bg-gray-100 rounded-lg text-sm">Val-de-Marne (94)</span><span class="px-3 py-1.5 bg-gray-100 rounded-lg text-sm">Hauts-de-Seine (92)</span></div>
+        </div>
+        <div>
+          <h4 class="font-bold mb-3">Grande Couronne</h4>
+          <div class="flex flex-wrap gap-2"><span class="px-3 py-1.5 bg-gray-100 rounded-lg text-sm">Essonne (91)</span><span class="px-3 py-1.5 bg-gray-100 rounded-lg text-sm">Yvelines (78)</span><span class="px-3 py-1.5 bg-gray-100 rounded-lg text-sm">Val-d'Oise (95)</span><span class="px-3 py-1.5 bg-gray-100 rounded-lg text-sm">Seine-et-Marne (77)</span></div>
+        </div>
+        <div>
+          <h4 class="font-bold mb-3">Villes principales</h4>
+          <div class="flex flex-wrap gap-2"><span class="px-3 py-1.5 bg-gray-100 rounded-lg text-sm">Versailles</span><span class="px-3 py-1.5 bg-gray-100 rounded-lg text-sm">Boulogne-Billancourt</span><span class="px-3 py-1.5 bg-gray-100 rounded-lg text-sm">Saint-Denis</span><span class="px-3 py-1.5 bg-gray-100 rounded-lg text-sm">Créteil</span><span class="px-3 py-1.5 bg-gray-100 rounded-lg text-sm">Nanterre</span><span class="px-3 py-1.5 bg-gray-100 rounded-lg text-sm">Argenteuil</span><span class="px-3 py-1.5 bg-gray-100 rounded-lg text-sm">Évry</span><span class="px-3 py-1.5 bg-gray-100 rounded-lg text-sm">Meaux</span></div>
+        </div>
+        <div class="mt-4">
+          <p class="text-gray-500 text-sm mb-3">Votre ville n'est pas listée ? Appelez-nous !</p>
+          <a href="tel:+33123456789" class="inline-flex px-6 py-3 bg-brand-500 hover:bg-brand-600 text-white font-semibold rounded-xl transition-all duration-300 text-sm">Vérifier ma zone</a>
+        </div>
+      </div>
+      <div class="rounded-2xl overflow-hidden shadow-sm reveal-el">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d671085.8395695044!2d1.7671774!3d48.6616697!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e5e1c403a68c17%3A0x10b82c3688b2570!2s%C3%8Ele-de-France!5e0!3m2!1sfr!2sfr!4v1710000000000" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 17. FAQ ACCORDION ===== -->
+<section class="py-16 md:py-24 bg-gray-50" id="faq">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-12 reveal-el">
+      <span class="inline-block px-4 py-1.5 bg-brand-50 text-brand-600 text-xs font-semibold rounded-full uppercase tracking-wider mb-4">Questions fréquentes</span>
+      <h2 class="text-3xl md:text-4xl font-extrabold">Vos questions, <span class="bg-gradient-to-r from-brand-500 to-orange-400 bg-clip-text text-transparent">nos réponses</span></h2>
+    </div>
+    <div class="space-y-3 reveal-el">
+      <div class="faq-item bg-white rounded-2xl shadow-sm overflow-hidden">
+        <button class="faq-toggle w-full flex items-center justify-between p-5 text-left font-semibold text-gray-900 hover:text-brand-500 transition-colors" onclick="toggleFaq(this)">
+          <span>Quel est le prix d'une intervention de dératisation ?</span>
+          <svg class="w-5 h-5 flex-shrink-0 transition-transform duration-300 faq-chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="faq-answer-content"><div class="px-5 pb-5 text-gray-500 text-sm">Le prix dépend du type de nuisible, de la surface et du degré d'infestation. Une intervention standard démarre à partir de <strong>90&#8364; HT</strong>. Nous établissons systématiquement un devis gratuit. Pas de mauvaise surprise.</div></div>
+      </div>
+      <div class="faq-item bg-white rounded-2xl shadow-sm overflow-hidden">
+        <button class="faq-toggle w-full flex items-center justify-between p-5 text-left font-semibold text-gray-900 hover:text-brand-500 transition-colors" onclick="toggleFaq(this)">
+          <span>Combien de temps dure une intervention ?</span>
+          <svg class="w-5 h-5 flex-shrink-0 transition-transform duration-300 faq-chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="faq-answer-content"><div class="px-5 pb-5 text-gray-500 text-sm">De <strong>1 à 3 heures</strong> pour un appartement, jusqu'a une journée pour de grands locaux professionnels. Nos techniciens prennent le temps nécessaire pour un traitement efficace.</div></div>
+      </div>
+      <div class="faq-item bg-white rounded-2xl shadow-sm overflow-hidden">
+        <button class="faq-toggle w-full flex items-center justify-between p-5 text-left font-semibold text-gray-900 hover:text-brand-500 transition-colors" onclick="toggleFaq(this)">
+          <span>Les produits utilisés sont-ils dangereux pour mes animaux ?</span>
+          <svg class="w-5 h-5 flex-shrink-0 transition-transform duration-300 faq-chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="faq-answer-content"><div class="px-5 pb-5 text-gray-500 text-sm">Nous utilisons des produits biocides <strong>homologués et certifiés</strong>, respectueux de l'homme, des animaux et de l'environnement. Des consignes précises vous seront données avant l'intervention.</div></div>
+      </div>
+      <div class="faq-item bg-white rounded-2xl shadow-sm overflow-hidden">
+        <button class="faq-toggle w-full flex items-center justify-between p-5 text-left font-semibold text-gray-900 hover:text-brand-500 transition-colors" onclick="toggleFaq(this)">
+          <span>Intervenez-vous en urgence le week-end ?</span>
+          <svg class="w-5 h-5 flex-shrink-0 transition-transform duration-300 faq-chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="faq-answer-content"><div class="px-5 pb-5 text-gray-500 text-sm">Oui, nous sommes disponibles <strong>7j/7 et 24h/24</strong> pour les urgences. Appelez-nous directement au <a href="tel:+33123456789" class="text-brand-500 hover:underline">01 23 45 67 89</a>, même le dimanche.</div></div>
+      </div>
+      <div class="faq-item bg-white rounded-2xl shadow-sm overflow-hidden">
+        <button class="faq-toggle w-full flex items-center justify-between p-5 text-left font-semibold text-gray-900 hover:text-brand-500 transition-colors" onclick="toggleFaq(this)">
+          <span>Le traitement est-il garanti contre les récidives ?</span>
+          <svg class="w-5 h-5 flex-shrink-0 transition-transform duration-300 faq-chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="faq-answer-content"><div class="px-5 pb-5 text-gray-500 text-sm">Chaque intervention est garantie avec un <strong>suivi sur 3 mois</strong>. En cas de récidive, nous revenons gratuitement. Notre taux de satisfaction est de 98%.</div></div>
+      </div>
+      <div class="faq-item bg-white rounded-2xl shadow-sm overflow-hidden">
+        <button class="faq-toggle w-full flex items-center justify-between p-5 text-left font-semibold text-gray-900 hover:text-brand-500 transition-colors" onclick="toggleFaq(this)">
+          <span>Dois-je quitter mon logement pendant le traitement ?</span>
+          <svg class="w-5 h-5 flex-shrink-0 transition-transform duration-300 faq-chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="faq-answer-content"><div class="px-5 pb-5 text-gray-500 text-sm">Selon le traitement, une <strong>absence de 2 à 4 heures</strong> peut être nécessaire. Nous vous informons à l'avance de toutes les précautions a prendre.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 18. CONTACT SECTION ===== -->
+<section class="py-16 md:py-24 bg-white" id="contact">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-12 reveal-el">
+      <span class="inline-block px-4 py-1.5 bg-brand-50 text-brand-600 text-xs font-semibold rounded-full uppercase tracking-wider mb-4">Contactez-nous</span>
+      <h2 class="text-3xl md:text-4xl font-extrabold">Obtenez votre <span class="bg-gradient-to-r from-brand-500 to-orange-400 bg-clip-text text-transparent">devis gratuit</span></h2>
+      <p class="text-gray-500 mt-3">Réponse garantie sous 2 heures pendant les heures d'ouverture</p>
+    </div>
+    <div class="grid md:grid-cols-2 gap-10">
+      <!-- Left: contact info -->
+      <div class="reveal-el space-y-6">
+        <div class="bg-gray-900 rounded-2xl p-6 text-center">
+          <h3 class="text-white font-bold text-lg mb-3">Urgence ? Appelez directement</h3>
+          <a href="tel:+33123456789" class="inline-flex items-center gap-2 px-8 py-4 bg-brand-500 hover:bg-brand-600 text-white font-bold text-xl rounded-xl transition-all duration-300">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="w-6 h-6"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11.5 19.79 19.79 0 01.22 2.84 2 2 0 012.18 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.15a16 16 0 006.73 6.73l1.52-1.52a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            01 23 45 67 89
+          </a>
+          <p class="text-gray-400 mt-3 text-sm">Disponible 7j/7 - 8h à 20h<br/><strong class="text-white">Urgences 24h/24</strong></p>
+        </div>
+        <a href="https://wa.me/33123456789" class="flex items-center justify-center gap-2 w-full py-3.5 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-xl transition-all duration-300" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Écrire sur WhatsApp
+        </a>
+        <div class="space-y-4 text-sm">
+          <div class="flex items-start gap-3"><span class="text-lg">&#128205;</span><div><strong>Adresse</strong><p class="text-gray-500">123 Avenue de la République, 75011 Paris</p></div></div>
+          <div class="flex items-start gap-3"><span class="text-lg">&#9993;&#65039;</span><div><strong>Email</strong><p class="text-gray-500">contact@edenvert3d.fr</p></div></div>
+          <div class="flex items-start gap-3"><span class="text-lg">&#128336;</span><div><strong>Horaires</strong><p class="text-gray-500">Lun-Sam : 8h-20h - Dim : urgences uniquement</p></div></div>
+        </div>
+      </div>
+      <!-- Right: contact form -->
+      <form class="reveal-el space-y-4" id="contactForm" onsubmit="handleSubmit(event)">
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div><label class="block text-sm font-medium mb-1">Nom complet *</label><input type="text" name="nom" placeholder="Jean Dupont" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 outline-none transition-all text-sm" /></div>
+          <div><label class="block text-sm font-medium mb-1">Téléphone *</label><input type="tel" name="tel" placeholder="06 12 34 56 78" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 outline-none transition-all text-sm" /></div>
+        </div>
+        <div><label class="block text-sm font-medium mb-1">Email</label><input type="email" name="email" placeholder="jean@exemple.fr" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 outline-none transition-all text-sm" /></div>
+        <div><label class="block text-sm font-medium mb-1">Type de nuisible *</label>
+          <select name="nuisible" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 outline-none transition-all text-sm bg-white">
+            <option value="">Sélectionnez un nuisible</option>
+            <option>Rats / Souris</option><option>Cafards / Blattes</option><option>Punaises de lit</option><option>Frelons / Guêpes</option><option>Fourmis</option><option>Moustiques</option><option>Pigeons / Nuisibles volants</option><option>Chenilles processionnaires</option><option>Désinfection 3D</option><option>Autre</option>
+          </select>
+        </div>
+        <div><label class="block text-sm font-medium mb-2">Niveau d'urgence</label>
+          <div class="flex flex-wrap gap-3">
+            <label class="flex items-center gap-2 px-4 py-2 border border-gray-200 rounded-xl cursor-pointer hover:border-brand-500 transition-colors text-sm"><input type="radio" name="urgence" value="urgent" class="text-brand-500" /><span>Urgent (24h)</span></label>
+            <label class="flex items-center gap-2 px-4 py-2 border border-gray-200 rounded-xl cursor-pointer hover:border-brand-500 transition-colors text-sm"><input type="radio" name="urgence" value="normal" checked class="text-brand-500" /><span>Normal (48h)</span></label>
+            <label class="flex items-center gap-2 px-4 py-2 border border-gray-200 rounded-xl cursor-pointer hover:border-brand-500 transition-colors text-sm"><input type="radio" name="urgence" value="planifié" class="text-brand-500" /><span>Planifié</span></label>
+          </div>
+        </div>
+        <div><label class="block text-sm font-medium mb-1">Décrivez votre problème</label><textarea name="message" rows="3" placeholder="Depuis quand ? Où dans votre logement ? Avez-vous déjà essayé un traitement ?" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 outline-none transition-all text-sm resize-none"></textarea></div>
+        <div>
+          <label class="block text-sm font-medium mb-1">Photo du problème <span class="text-gray-400 font-normal">(optionnel)</span></label>
+          <div class="border-2 border-dashed border-gray-200 rounded-xl p-6 text-center cursor-pointer hover:border-brand-500 transition-colors" id="uploadZone" onclick="document.getElementById('fileInput').click()" ondragover="event.preventDefault();this.classList.add('border-brand-500')" ondragleave="this.classList.remove('border-brand-500')" ondrop="event.preventDefault();this.classList.remove('border-brand-500');document.getElementById('fileInput').files=event.dataTransfer.files;uzPreview(document.getElementById('fileInput'),'uploadPlaceholder','uploadZone')">
+            <input type="file" id="fileInput" name="photo" accept="image/*" style="display:none" onchange="uzPreview(this,'uploadPlaceholder','uploadZone')">
+            <div id="uploadPlaceholder">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-8 h-8 mx-auto text-gray-300 mb-2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              <span class="text-sm text-gray-400">Glissez votre photo ici ou <strong class="text-gray-600">cliquez pour parcourir</strong></span>
+              <small class="block text-xs text-gray-300 mt-1">JPG, PNG, WEBP - max 10 Mo</small>
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="w-full flex items-center justify-center gap-2 px-8 py-4 bg-brand-500 hover:bg-brand-600 text-white font-semibold rounded-xl transition-all duration-300 text-base shadow-sm">
+          Envoyer ma demande de devis gratuit
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+        <p class="text-center text-xs text-gray-400">&#10003; Réponse sous 2h - &#10003; Devis 100% gratuit - &#10003; Sans engagement</p>
+        <div id="formSuccess" class="hidden text-center py-6">
+          <div class="text-4xl mb-2">&#10003;</div>
+          <strong class="text-lg">Demande envoyée !</strong>
+          <p class="text-gray-500 mt-1">Eden Vert 3D vous recontacte sous 2 heures.</p>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 19. CHAT SECTION ===== -->
+<section class="py-16 md:py-24 bg-gray-50" id="chat">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-8 reveal-el">
+      <span class="inline-block px-4 py-1.5 bg-brand-50 text-brand-600 text-xs font-semibold rounded-full uppercase tracking-wider mb-4">Chat en direct</span>
+      <h2 class="text-3xl md:text-4xl font-extrabold">Une <span class="bg-gradient-to-r from-brand-500 to-orange-400 bg-clip-text text-transparent">question ?</span></h2>
+      <p class="text-gray-500 mt-2">Dites-nous tout ici</p>
+    </div>
+    <div class="bg-white rounded-2xl shadow-lg overflow-hidden reveal-el">
+      <!-- Header -->
+      <div class="bg-gray-900 px-5 py-4 flex items-center gap-3">
+        <div class="relative">
+          <img src="https://i.pravatar.cc/150?img=45" class="w-10 h-10 rounded-full" alt="Sophie" />
+          <span class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-gray-900 rounded-full"></span>
+        </div>
+        <div>
+          <strong class="text-white text-sm">Sophie - Eden Vert 3D</strong>
+          <span class="block text-xs text-gray-400">En ligne - Répond en 10 mins max</span>
+        </div>
+      </div>
+      <!-- Messages -->
+      <div class="h-80 overflow-y-auto p-5 space-y-4 bg-gray-50" id="chatMessages"></div>
+      <!-- Typing indicator -->
+      <div class="px-5 py-2 hidden" id="chatTypingRow">
+        <div class="flex items-center gap-2">
+          <img src="https://i.pravatar.cc/150?img=45" class="w-6 h-6 rounded-full" alt="Sophie" />
+          <div class="bg-gray-200 rounded-full px-4 py-2 chat-dot-anim flex gap-1">
+            <span class="w-2 h-2 bg-gray-400 rounded-full inline-block"></span>
+            <span class="w-2 h-2 bg-gray-400 rounded-full inline-block"></span>
+            <span class="w-2 h-2 bg-gray-400 rounded-full inline-block"></span>
+          </div>
+        </div>
+      </div>
+      <!-- Input bar -->
+      <div class="border-t border-gray-100 p-4 flex items-end gap-3">
+        <textarea class="flex-1 px-4 py-3 rounded-xl border border-gray-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 outline-none transition-all text-sm resize-none" id="chatInput" placeholder="Écrivez votre message..." rows="1" onkeydown="chatKeyDown(event)" oninput="chatAutoResize(this)"></textarea>
+        <button class="p-3 bg-brand-500 hover:bg-brand-600 text-white rounded-xl transition-all duration-300" id="chatSendBtn" onclick="chatSend()" aria-label="Envoyer">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="w-5 h-5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 20. FOOTER ===== -->
+<footer class="bg-gray-900 text-white pt-16 pb-8">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+      <div>
+        <img src="logo.png" alt="Eden Vert 3D" class="h-10 w-auto mb-4 brightness-0 invert" />
+        <p class="text-gray-400 text-sm mb-4">Expert en dératisation, désinsectisation et désinfection en Île-de-France depuis 2009.</p>
+        <div class="flex gap-3 text-xs text-gray-400"><span>&#127941; Certibiocide</span><span>&#10003; Assurance RC Pro</span></div>
+      </div>
+      <div>
+        <h5 class="font-semibold mb-4">Prestations</h5>
+        <ul class="space-y-2 text-sm text-gray-400">
+          <li><a href="#prestations" class="hover:text-white transition-colors">Dératisation</a></li>
+          <li><a href="#prestations" class="hover:text-white transition-colors">Désinsectisation</a></li>
+          <li><a href="#prestations" class="hover:text-white transition-colors">Désinfection 3D</a></li>
+          <li><a href="#prestations" class="hover:text-white transition-colors">Pigeons & volants</a></li>
+          <li><a href="#prestations" class="hover:text-white transition-colors">Chenilles processionnaires</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5 class="font-semibold mb-4">Informations</h5>
+        <ul class="space-y-2 text-sm text-gray-400">
+          <li><a href="#process" class="hover:text-white transition-colors">Notre processus</a></li>
+          <li><a href="#zones" class="hover:text-white transition-colors">Zones d'intervention</a></li>
+          <li><a href="#faq" class="hover:text-white transition-colors">FAQ</a></li>
+          <li><a href="#avis" class="hover:text-white transition-colors">Avis clients</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5 class="font-semibold mb-4">Contact</h5>
+        <a href="tel:+33123456789" class="block text-xl font-bold text-brand-500 mb-2">01 23 45 67 89</a>
+        <p class="text-sm text-gray-400">contact@edenvert3d.fr</p>
+        <p class="text-sm text-gray-400 mt-1">123 Av. de la République<br/>75011 Paris</p>
+        <div class="flex gap-3 mt-4">
+          <a href="#" aria-label="Facebook" class="text-gray-400 hover:text-white transition-colors"><svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+          <a href="#" aria-label="Instagram" class="text-gray-400 hover:text-white transition-colors"><svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="border-t border-gray-800 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-500">
+      <p>&copy; 2024 Eden Vert 3D - Tous droits réservés</p>
+      <div class="flex gap-4"><a href="#" class="hover:text-white transition-colors">Mentions légales</a><a href="#" class="hover:text-white transition-colors">Politique de confidentialité</a><a href="#" class="hover:text-white transition-colors">CGV</a></div>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== 21. MODALS ===== -->
+<!-- Nuisible Modal -->
+<div class="modal-overlay-v2 fixed inset-0 z-50 items-center justify-center bg-black/60 backdrop-blur-sm p-4" id="modalOverlay" onclick="closeModal()">
+  <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl" onclick="event.stopPropagation()">
+    <div class="sticky top-0 bg-white border-b border-gray-100 px-6 py-4 flex items-center justify-between rounded-t-2xl z-10">
+      <h3 class="font-bold text-lg" id="modalTitle"></h3>
+      <button onclick="closeModal()" class="p-2 hover:bg-gray-100 rounded-lg transition-colors"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="w-5 h-5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div id="modalContent" class="p-6"></div>
+  </div>
+</div>
+
+<!-- Franchise Modal -->
+<div class="modal-overlay-v2 fixed inset-0 z-50 items-center justify-center bg-black/60 backdrop-blur-sm p-4" id="modalFranchise" onclick="closeFranchiseModal()">
+  <div class="bg-white rounded-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-2xl" onclick="event.stopPropagation()">
+    <button class="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-lg" onclick="closeFranchiseModal()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="w-5 h-5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    <div class="relative h-40 overflow-hidden rounded-t-2xl"><img class="w-full h-full object-cover" id="mfCoverImg" src="" alt=""></div>
+    <div class="p-6">
+      <div class="flex items-center gap-3 mb-4"><img class="w-14 h-14 rounded-full border-4 border-white shadow -mt-10" id="mfPhoto" src="" alt=""><span class="px-3 py-1 bg-green-50 text-green-600 text-xs font-semibold rounded-full">Franchise</span></div>
+      <div class="text-xs text-gray-400 mb-1" id="mfDeptTag"></div>
+      <h3 class="font-bold text-xl mb-1" id="mfTitle"></h3>
+      <p class="text-sm text-gray-500 mb-4" id="mfRole"></p>
+      <div class="grid grid-cols-3 gap-4 mb-4 text-center">
+        <div><span class="block font-bold text-lg" id="mfYear"></span><span class="text-xs text-gray-400">Depuis</span></div>
+        <div><span class="block font-bold text-lg" id="mfDepts"></span><span class="text-xs text-gray-400">Dep. couverts</span></div>
+        <div><span class="block font-bold text-lg" id="mfInterv"></span><span class="text-xs text-gray-400">Interventions/an</span></div>
+      </div>
+      <div class="space-y-2 text-sm mb-6">
+        <div class="flex items-center gap-2"><span>&#128222;</span><a class="text-brand-500 hover:underline" id="mfPhone" href="#"></a></div>
+        <div class="flex items-center gap-2"><span>&#128205;</span><span id="mfAddress"></span></div>
+        <div class="flex items-center gap-2"><span>&#128336;</span><span id="mfHours"></span></div>
+      </div>
+      <div class="flex gap-3">
+        <a class="flex-1 text-center py-3 bg-brand-500 hover:bg-brand-600 text-white font-semibold rounded-xl transition-all" id="mfCallBtn" href="#">Appeler</a>
+        <a class="flex-1 text-center py-3 border border-gray-200 hover:bg-gray-50 font-semibold rounded-xl transition-all" id="mfMailBtn" href="#">Email</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Contact Franchise Modal -->
+<div class="modal-overlay-v2 fixed inset-0 z-50 items-center justify-center bg-black/60 backdrop-blur-sm p-4" id="modalContact" onclick="closeContactModal()">
+  <div class="bg-white rounded-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-2xl p-6" onclick="event.stopPropagation()">
+    <button class="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-lg" onclick="closeContactModal()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="w-5 h-5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    <h3 class="font-bold text-xl mb-2">Devenir <span class="bg-gradient-to-r from-brand-500 to-orange-400 bg-clip-text text-transparent">franchise</span></h3>
+    <p class="text-sm text-gray-500 mb-4">Vous etes intéressé(e) par le département <strong id="mcDeptName"></strong> - remplissez ce formulaire.</p>
+    <form id="mcForm" onsubmit="submitContactForm(event)" class="space-y-3">
+      <input type="hidden" id="mcDeptNum" name="département">
+      <div class="grid grid-cols-2 gap-3">
+        <input type="text" id="mcPrenom" name="prénom" placeholder="Prénom" required class="px-4 py-3 rounded-xl border border-gray-200 text-sm">
+        <input type="text" id="mcNom" name="nom" placeholder="Nom" required class="px-4 py-3 rounded-xl border border-gray-200 text-sm">
+      </div>
+      <input type="email" id="mcEmail" name="email" placeholder="Email" required class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm">
+      <input type="tel" id="mcTel" name="téléphone" placeholder="Téléphone" required class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm">
+      <textarea id="mcMsg" name="message" rows="4" required class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm"></textarea>
+      <button type="submit" class="w-full py-3 bg-brand-500 hover:bg-brand-600 text-white font-semibold rounded-xl transition-all">Envoyer ma demande</button>
+    </form>
+    <div id="mcSuccess" class="hidden text-center py-8">
+      <div class="text-3xl mb-2">&#10003;</div>
+      <h4 class="font-bold text-lg">Demande envoyée !</h4>
+      <p class="text-gray-500 text-sm mt-1">Notre équipe vous contactera sous 48h pour le département <strong id="mcSuccessDept"></strong>.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script src="script.js"></script>
+<script>
+/* ===== MODAL DATA ===== */
+var MODAL_DATA = {
+  rats: { title: 'Dératisation', image: 'images/deratisation.jpg', urgency: 'Urgence haute', description: 'Les rats et souris représentent un danger sanitaire majeur. Ils contaminent les aliments, rongent les câbles électriques et propagent des maladies. Notre protocole de dératisation combine appâts sécurisés, piégeage mécanique et obturation des points d\'entrée pour une élimination définitive.', steps: ['Inspection complète et identification des espèces', 'Pose d\'appâts sécurisés et pièges mécaniques', 'Obturation des points d\'entrée', 'Suivi sur 3 mois avec passages de contrôle'] },
+  cafards: { title: 'Cafards & Blattes', image: 'images/cafards.jpg', urgency: 'Urgence haute', description: 'Les cafards se reproduisent très rapidement et contaminent les surfaces. Notre traitement au gel insecticide professionnel permet une élimination en 72h sans évacuation des locaux, avec des résultats garantis.', steps: ['Diagnostic des zones infestées', 'Application de gel insecticide professionnel', 'Traitement des nids et zones de passage', 'Contrôle à J+15 et garantie 3 mois'] },
+  punaises: { title: 'Punaises de lit', image: 'images/punaises.jpg', urgency: 'Critique', description: 'Les punaises de lit sont extrêmement résistantes et se propagent rapidement. Nous proposons un traitement thermique ou chimique selon la situation, avec rapport certifié pour les professionnels de l\'hôtellerie et les syndics.', steps: ['Inspection visuelle et détection canine', 'Traitement thermique (vapeur sèche 180C) ou chimique', 'Traitement des textiles et literie', 'Contrôle à J+21 avec rapport certifié'] },
+  frelons: { title: 'Frelons & Guêpes', image: 'images/frelons.jpg', urgency: 'Critique', description: 'Les frelons et guêpes représentent un danger immédiat. Nos techniciens interviennent en équipement de protection certifié pour détruire les nids en toute sécurité, même en hauteur ou dans des endroits difficiles d\'accès.', steps: ['Localisation précise du nid', 'Intervention en équipement de protection intégrale', 'Destruction du nid par injection d\'insecticide', 'Vérification et retrait du nid'] },
+  fourmis: { title: 'Fourmis', image: 'images/fourmis.jpg', urgency: 'Modérée', description: 'Les fourmis envahissent les cuisines et peuvent causer des dégâts structurels. Notre traitement par gel appât ciblé permet d\'éliminer la colonie entière à la source, reine comprise.', steps: ['Identification de l\'espèce et localisation de la colonie', 'Pose de gel appât professionnel', 'Traitement des chemins de passage', 'Contrôle et prévention'] },
+  moustiques: { title: 'Moustiques', image: 'images/moustiques.jpg', urgency: 'Modérée', description: 'Les moustiques, notamment le moustique tigre, sont vecteurs de maladies. Notre nébulisation professionnelle combinée au traitement des gîtes larvaires assure une protection durable de vos espaces extérieurs.', steps: ['Identification des zones de reproduction', 'Nébulisation insecticide des espaces verts', 'Traitement des gîtes larvaires', 'Conseils de prévention pour éviter le retour'] },
+  pigeons: { title: 'Pigeons & Nuisibles volants', image: 'images/pigeons.jpg', urgency: 'Modérée', description: 'Les pigeons dégradent les façades, obstruent les gouttières et propagent des maladies. Nous installons des dispositifs de protection durables : pics, filets, répulsifs et systèmes de fil tendu.', steps: ['Audit des zones touchées', 'Installation de pics anti-pigeons', 'Pose de filets de protection', 'Nettoyage et désinfection des fientes'] },
+  chenilles: { title: 'Chenilles processionnaires', image: 'images/chenilles.jpg', urgency: 'Urgence haute', description: 'Les chenilles processionnaires du pin et du chêne représentent un danger allergique grave pour l\'homme et les animaux. Leur poils urticants peuvent provoquer des réactions sévères.', steps: ['Repérage des nids dans les arbres', 'Retrait manuel sécurisé des nids', 'Traitement phytosanitaire préventif', 'Pose de pièges à collier écologiques'] },
+  demoussage: { title: 'Démoussage toiture', image: 'images/demoussage.jpg', urgency: 'Modérée', description: 'La mousse et les lichens endommagent votre toiture, réduisent son étanchéité et sa durée de vie. Notre traitement professionnel comprend le nettoyage et l\'application d\'un hydrofuge protecteur.', steps: ['Inspection de l\'état de la toiture', 'Nettoyage haute pression ou basse pression', 'Application du traitement anti-mousse', 'Protection hydrofuge longue durée'] },
+  desinfection: { title: 'Désinfection', image: 'images/desinfection.jpg', urgency: 'Urgence haute', description: 'La désinfection professionnelle élimine virus, bactéries et champignons de vos locaux. Indispensable après une infestation, un décès, ou pour les établissements recevant du public.', steps: ['Évaluation des risques sanitaires', 'Nébulisation de produits virucides certifiés', 'Désinfection des surfaces de contact', 'Remise d\'une attestation de désinfection'] },
+  taupes: { title: 'Taupes', image: 'images/taupes.jpg', urgency: 'Modérée', description: 'Les taupes ravagent les pelouses, jardins et terrains de sport. Notre méthode de piégeage sélectif et écologique permet de protéger vos espaces verts sans produits chimiques.', steps: ['Repérage des galeries actives', 'Pose de pièges mécaniques sélectifs', 'Traitement préventif des zones à risque', 'Suivi et rebouchage des galeries'] },
+  insectes: { title: 'Insectes nuisibles', image: 'images/insectes.jpg', urgency: 'Modérée', description: 'Mouches, mites, coleopteres, puces... chaque espèce nécessite un traitement adapté. Nos techniciens identifient précisément le nuisible et appliquent le protocole le plus efficace.', steps: ['Identification précise de l\'espèce', 'Choix du protocole adapté', 'Traitement ciblé par pulvérisation ou nébulisation', 'Prévention et conseils pour éviter le retour'] }
+};
+
+function openModal(key) {
+  var d = MODAL_DATA[key];
+  if (!d) return;
+  document.getElementById('modalTitle').textContent = d.title;
+  var html = '<img src="' + d.image + '" alt="' + d.title + '" class="w-full h-48 object-cover rounded-xl mb-4" />';
+  html += '<span class="inline-block px-3 py-1 bg-red-50 text-red-600 text-xs font-semibold rounded-full mb-3">' + d.urgency + '</span>';
+  html += '<p class="text-gray-600 text-sm mb-4">' + d.description + '</p>';
+  html += '<h4 class="font-bold mb-3">Étapes du traitement</h4><ol class="space-y-2 mb-6">';
+  d.steps.forEach(function(s, i) { html += '<li class="flex items-start gap-3 text-sm"><span class="flex-shrink-0 w-6 h-6 bg-brand-50 text-brand-600 rounded-full flex items-center justify-center text-xs font-bold">' + (i+1) + '</span><span class="text-gray-600">' + s + '</span></li>'; });
+  html += '</ol>';
+  html += '<a href="#contact" class="inline-flex px-6 py-3 bg-brand-500 hover:bg-brand-600 text-white font-semibold rounded-xl transition-all duration-300 text-sm" onclick="closeModal()">Demander un devis gratuit</a>';
+  document.getElementById('modalContent').innerHTML = html;
+  document.getElementById('modalOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+/* ===== FRANCHISE MODAL DATA ===== */
+var FRANCHISES = {
+  '06': { name: 'Sophie Martin', role: 'Franchisée Eden Vert 3D - Cote d\'Azur', photo: 'images/boutiques/equipes/2.jpg', cover: 'images/boutiques/laboutique1.jpg', year: '2021', depts: '1', interv: '340+', phone: '06 12 34 56 78', address: '18 av. de la Liberté, 06000 Nice', hours: 'Lun-Ven 8h-18h - Sam 9h-12h', email: 'nice@edenvert3d.fr' },
+  '13': { name: 'Karim Benali', role: 'Franchise Eden Vert 3D - Provence', photo: 'images/boutiques/equipes/2.jpg', cover: 'images/boutiques/laboutique1.jpg', year: '2020', depts: '2', interv: '520+', phone: '06 23 45 67 89', address: '42 rue Paradis, 13008 Marseille', hours: 'Lun-Ven 8h-19h - Sam 9h-13h', email: 'marseille@edenvert3d.fr' },
+  '69': { name: 'Claire Rousseau', role: 'Franchisée Eden Vert 3D - Grand Lyon', photo: 'images/boutiques/equipes/2.jpg', cover: 'images/boutiques/laboutique1.jpg', year: '2022', depts: '1', interv: '280+', phone: '07 11 22 33 44', address: '5 place Bellecour, 69002 Lyon', hours: 'Lun-Ven 9h-18h', email: 'lyon@edenvert3d.fr' },
+  '67': { name: 'Thomas Muller', role: 'Franchise Eden Vert 3D - Alsace', photo: 'images/boutiques/equipes/2.jpg', cover: 'images/boutiques/laboutique1.jpg', year: '2021', depts: '2', interv: '410+', phone: '06 33 44 55 66', address: '8 rue du Général de Gaulle, 67000 Strasbourg', hours: 'Lun-Sam 8h-18h', email: 'strasbourg@edenvert3d.fr' }
+};
+var FRANCHISE_DEFAULT = { name: 'Partenaire Eden Vert 3D', role: 'Franchisé exclusif du département', photo: 'images/boutiques/equipes/2.jpg', cover: 'images/boutiques/laboutique1.jpg', year: '2023', depts: '1', interv: '200+', phone: '01 84 80 00 00', address: 'Coordonnées disponibles sur demande', hours: 'Lun-Ven 9h-18h', email: 'contact@edenvert3d.fr' };
+
+function openFranchiseModal(num, deptName) {
+  var f = FRANCHISES[num] || FRANCHISE_DEFAULT;
+  document.getElementById('mfCoverImg').src = f.cover; document.getElementById('mfCoverImg').alt = 'Boutique ' + deptName;
+  document.getElementById('mfPhoto').src = f.photo; document.getElementById('mfPhoto').alt = f.name;
+  document.getElementById('mfDeptTag').textContent = 'Dep. ' + num + ' - ' + deptName;
+  document.getElementById('mfTitle').textContent = f.name;
+  document.getElementById('mfRole').textContent = f.role;
+  document.getElementById('mfYear').textContent = f.year;
+  document.getElementById('mfDepts').textContent = f.depts;
+  document.getElementById('mfInterv').textContent = f.interv;
+  var phoneEl = document.getElementById('mfPhone'); phoneEl.textContent = f.phone; phoneEl.href = 'tel:' + f.phone.replace(/\s/g,'');
+  document.getElementById('mfAddress').textContent = f.address;
+  document.getElementById('mfHours').textContent = f.hours;
+  document.getElementById('mfCallBtn').href = 'tel:' + f.phone.replace(/\s/g,'');
+  document.getElementById('mfMailBtn').href = 'mailto:' + f.email;
+  document.getElementById('modalFranchise').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeFranchiseModal() { document.getElementById('modalFranchise').classList.remove('active'); document.body.style.overflow = ''; }
+function openContactModal(num, deptName) {
+  document.getElementById('mcDeptNum').value = num;
+  document.getElementById('mcDeptName').textContent = num + ' - ' + deptName;
+  document.getElementById('mcMsg').value = 'Bonjour,\n\nJe suis intéressé(e) par la franchise Eden Vert 3D pour le département ' + num + ' (' + deptName + ').\n\nMerci de me recontacter pour plus d\'informations.';
+  document.getElementById('mcForm').style.display = '';
+  document.getElementById('mcSuccess').style.display = 'none'; document.getElementById('mcSuccess').classList.add('hidden');
+  document.getElementById('modalContact').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeContactModal() { document.getElementById('modalContact').classList.remove('active'); document.body.style.overflow = ''; }
+function submitContactForm(e) {
+  e.preventDefault();
+  document.getElementById('mcSuccessDept').textContent = document.getElementById('mcDeptName').textContent;
+  document.getElementById('mcForm').style.display = 'none';
+  document.getElementById('mcSuccess').style.display = 'block'; document.getElementById('mcSuccess').classList.remove('hidden');
+}
+
+/* Close modals on overlay click / Escape */
+['modalFranchise','modalContact'].forEach(function(id) {
+  document.getElementById(id).addEventListener('click', function(e) { if (e.target === this) { this.id === 'modalFranchise' ? closeFranchiseModal() : closeContactModal(); } });
+});
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') { closeModal(); closeFranchiseModal(); closeContactModal(); } });
+
+/* ===== UPLOAD ZONE ===== */
+function uzPreview(input, placeholderId, zoneId) {
+  var file = input.files[0]; if (!file) return;
+  var zone = document.getElementById(zoneId);
+  var reader = new FileReader();
+  reader.onload = function(ev) {
+    var existing = zone.querySelector('.uz-preview'); if (existing) existing.remove();
+    document.getElementById(placeholderId).style.display = 'none';
+    var wrap = document.createElement('div'); wrap.className = 'uz-preview relative';
+    wrap.innerHTML = '<img src="' + ev.target.result + '" alt="Aperçu" class="w-full h-32 object-cover rounded-lg"><button type="button" onclick="uzRemove(\'' + input.id + '\',\'' + placeholderId + '\',\'' + zoneId + '\')" class="absolute top-2 right-2 w-6 h-6 bg-red-500 text-white rounded-full text-xs flex items-center justify-center">X</button>';
+    zone.appendChild(wrap);
+  };
+  reader.readAsDataURL(file);
+}
+function uzRemove(inputId, placeholderId, zoneId) {
+  document.getElementById(inputId).value = '';
+  document.getElementById(placeholderId).style.display = '';
+  var preview = document.getElementById(zoneId).querySelector('.uz-preview'); if (preview) preview.remove();
+}
+
+/* ===== MOBILE MENU ===== */
+(function() {
+  var toggle = document.getElementById('navToggle');
+  var menu = document.getElementById('mobileMenu');
+  var panel = document.getElementById('mobileMenuPanel');
+  var close = document.getElementById('mobileMenuClose');
+  var backdrop = document.getElementById('mobileMenuBackdrop');
+  function openMenu() { menu.classList.remove('hidden'); setTimeout(function(){ panel.classList.remove('translate-x-full'); }, 10); }
+  function closeMenu() { panel.classList.add('translate-x-full'); setTimeout(function(){ menu.classList.add('hidden'); }, 300); }
+  toggle.addEventListener('click', openMenu);
+  close.addEventListener('click', closeMenu);
+  backdrop.addEventListener('click', closeMenu);
+  document.querySelectorAll('.mobile-menu-link').forEach(function(l) { l.addEventListener('click', closeMenu); });
+})();
+
+/* ===== STICKY HEADER ===== */
+(function() {
+  var header = document.getElementById('header');
+  var lastScroll = 0;
+  window.addEventListener('scroll', function() {
+    var scrollY = window.scrollY;
+    if (scrollY > 50) {
+      header.classList.add('backdrop-blur-xl', 'bg-white/80', 'border-b', 'border-gray-200/50', 'shadow-sm');
+    } else {
+      header.classList.remove('backdrop-blur-xl', 'bg-white/80', 'border-b', 'border-gray-200/50', 'shadow-sm');
+    }
+    lastScroll = scrollY;
+  });
+})();
+
+/* ===== FAQ ACCORDION ===== */
+function toggleFaq(btn) {
+  var item = btn.closest('.faq-item');
+  var isOpen = item.classList.contains('faq-item-open');
+  document.querySelectorAll('.faq-item').forEach(function(i) { i.classList.remove('faq-item-open'); i.querySelector('.faq-chevron').style.transform = ''; });
+  if (!isOpen) { item.classList.add('faq-item-open'); btn.querySelector('.faq-chevron').style.transform = 'rotate(180deg)'; }
+}
+
+/* ===== SOCIAL TABS ===== */
+(function() {
+  document.querySelectorAll('.sp-tab').forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      document.querySelectorAll('.sp-tab').forEach(function(t) { t.classList.remove('bg-brand-500', 'text-white'); t.classList.add('bg-gray-100', 'text-gray-600'); });
+      tab.classList.remove('bg-gray-100', 'text-gray-600'); tab.classList.add('bg-brand-500', 'text-white');
+      document.querySelectorAll('.sp-pane').forEach(function(p) { p.classList.remove('active'); });
+      document.getElementById('sp-' + tab.dataset.tab).classList.add('active');
+    });
+  });
+})();
+
+/* ===== CONTACT FORM HANDLER ===== */
+function handleSubmit(e) {
+  e.preventDefault();
+  document.getElementById('contactForm').style.display = 'none';
+  document.getElementById('formSuccess').classList.remove('hidden');
+}
+
+/* ===== COUNTER ANIMATION ===== */
+(function() {
+  var animated = false;
+  function animateCounters() {
+    if (animated) return;
+    var counters = document.querySelectorAll('.counter-num');
+    var visible = false;
+    counters.forEach(function(c) { var rect = c.getBoundingClientRect(); if (rect.top < window.innerHeight && rect.bottom > 0) visible = true; });
+    if (!visible) return;
+    animated = true;
+    counters.forEach(function(counter) {
+      var target = parseInt(counter.getAttribute('data-count'));
+      var duration = 2000;
+      var start = 0;
+      var startTime = null;
+      function step(timestamp) {
+        if (!startTime) startTime = timestamp;
+        var progress = Math.min((timestamp - startTime) / duration, 1);
+        var eased = 1 - Math.pow(1 - progress, 3);
+        counter.textContent = Math.floor(eased * target);
+        if (progress < 1) requestAnimationFrame(step);
+        else counter.textContent = target;
+      }
+      requestAnimationFrame(step);
+    });
+  }
+  window.addEventListener('scroll', animateCounters);
+  animateCounters();
+})();
+
+/* ===== SCROLL REVEAL ===== */
+(function() {
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) { if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal-el').forEach(function(el) { observer.observe(el); });
+})();
+
+/* ===== SMOOTH SCROLL ===== */
+document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+  a.addEventListener('click', function(e) {
+    var target = document.querySelector(this.getAttribute('href'));
+    if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  });
+});
+
+/* ===== CHAT ===== */
+var OPENAI_API_KEY = 'sk-VOTRE_CLE_API_ICI';
+var CHAT_SYSTEM = "Tu es Sophie, l'assistante virtuelle d'Eden Vert 3D, spécialisée dans la lutte antiparasitaire (dératisation, cafards, punaises de lit, frelons/guêpes, pigeons, fourmis, moustiques, chenilles processionnaires, désinfection 3D) en Île-de-France et partout en France via son réseau de franchises. Réponds en français, de façon professionnelle, rassurante et concise (3-4 phrases max). Le devis est toujours gratuit. Urgences 24h/24 : 01 23 45 67 89. Pour les rendez-vous, oriente vers le formulaire de contact sur le site.";
+var chatHistory = [{ role: 'system', content: CHAT_SYSTEM }];
+var chatBusy = false;
+
+function chatNow() { var d = new Date(); return d.getHours().toString().padStart(2,'0') + ':' + d.getMinutes().toString().padStart(2,'0'); }
+function chatAutoResize(el) { el.style.height = 'auto'; el.style.height = Math.min(el.scrollHeight, 120) + 'px'; }
+function chatKeyDown(e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); chatSend(); } }
+function chatMd(text) { return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>'); }
+
+function chatAddMsg(text, role) {
+  var msgs = document.getElementById('chatMessages');
+  var isClient = role === 'user';
+  var row = document.createElement('div');
+  row.className = 'flex gap-3 ' + (isClient ? 'flex-row-reverse' : '');
+  if (!isClient) {
+    var img = document.createElement('img'); img.src = 'https://i.pravatar.cc/150?img=45'; img.className = 'w-8 h-8 rounded-full flex-shrink-0'; img.alt = 'Sophie'; row.appendChild(img);
+  }
+  var content = document.createElement('div'); content.className = 'max-w-[75%]';
+  var bubble = document.createElement('div');
+  bubble.className = 'px-4 py-3 rounded-2xl text-sm ' + (isClient ? 'bg-brand-500 text-white rounded-br-md' : 'bg-gray-100 text-gray-700 rounded-bl-md');
+  if (isClient) { bubble.textContent = text; } else { bubble.innerHTML = chatMd(text); }
+  var time = document.createElement('span'); time.className = 'text-xs text-gray-400 mt-1 block ' + (isClient ? 'text-right' : '');
+  time.textContent = chatNow();
+  content.appendChild(bubble); content.appendChild(time); row.appendChild(content);
+  msgs.appendChild(row); msgs.scrollTop = msgs.scrollHeight;
+}
+
+async function chatSend() {
+  if (chatBusy) return;
+  var input = document.getElementById('chatInput');
+  var btn = document.getElementById('chatSendBtn');
+  var typing = document.getElementById('chatTypingRow');
+  var text = input.value.trim(); if (!text) return;
+  chatAddMsg(text, 'user');
+  chatHistory.push({ role: 'user', content: text });
+  input.value = ''; chatAutoResize(input);
+  chatBusy = true; btn.disabled = true;
+  typing.classList.remove('hidden');
+  document.getElementById('chatMessages').scrollTop = 99999;
+  if (OPENAI_API_KEY === 'sk-VOTRE_CLE_API_ICI') {
+    await new Promise(function(r) { setTimeout(r, 1600 + Math.random()*800); });
+    typing.classList.add('hidden');
+    chatAddMsg("Bonjour ! Je suis Sophie, votre assistante Eden Vert 3D. Pour un devis gratuit ou une intervention rapide, appelez-nous au 01 23 45 67 89 ou remplissez le formulaire de contact ci-dessus. Nous sommes disponibles 7j/7 !", 'assistant');
+    chatBusy = false; btn.disabled = false; input.focus(); return;
+  }
+  try {
+    var res = await fetch('https://api.openai.com/v1/chat/completions', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + OPENAI_API_KEY }, body: JSON.stringify({ model: 'gpt-4o-mini', messages: chatHistory, max_tokens: 400, temperature: 0.7 }) });
+    var data = await res.json();
+    var reply = (data.choices && data.choices[0]) ? data.choices[0].message.content : "Désolé, je n'ai pas pu traiter votre demande. Appelez-nous au 01 23 45 67 89.";
+    chatHistory.push({ role: 'assistant', content: reply });
+    typing.classList.add('hidden');
+    chatAddMsg(reply, 'assistant');
+  } catch(err) { typing.classList.add('hidden'); chatAddMsg("Une erreur s'est produite. Vous pouvez nous appeler directement au 01 23 45 67 89 (24h/24).", 'assistant'); }
+  chatBusy = false; btn.disabled = false; input.focus();
+}
+
+/* Brancher les clicks sur les paths SVG */
+(function() {
+  var INFO_NAMES = {};
+  document.querySelectorAll('path[data-numerodepartement]').forEach(function(path) {
+    var num = path.getAttribute('data-numerodepartement');
+    var nom = path.getAttribute('data-nom');
+    if (nom) INFO_NAMES[num] = nom;
+  });
+  document.querySelectorAll('path[data-numerodepartement]').forEach(function(path) {
+    path.style.cursor = 'pointer';
+    path.addEventListener('click', function() {
+      var num = path.getAttribute('data-numerodepartement');
+      var nom = INFO_NAMES[num] || num;
+      if (path.classList.contains('réserve')) { openFranchiseModal(num, nom); } else { openContactModal(num, nom); }
+    });
+  });
+})();
+</script>
+</body>
+</html>
