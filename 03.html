@@ -539,6 +539,80 @@
       font-size: 1.05rem;
     }
 
+    /* ===== CONVERSION BRIDGES (entre sections) ===== */
+    .conversion-bridge {
+      padding: 26px 20px;
+      background: linear-gradient(90deg, rgba(234, 95, 10, 0.08) 0%, var(--dark-2) 35%, var(--dark-2) 65%, rgba(234, 95, 10, 0.06) 100%);
+      border-top: 1px solid rgba(234, 95, 10, 0.18);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .conversion-bridge__inner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .conversion-bridge__text {
+      flex: 1 1 260px;
+    }
+
+    .conversion-bridge__hook {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--white);
+      margin: 0 0 6px;
+      line-height: 1.35;
+      letter-spacing: -0.01em;
+    }
+
+    .conversion-bridge__sub {
+      font-size: 0.9rem;
+      color: var(--gray-400);
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    .conversion-bridge__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .conversion-bridge .btn {
+      padding: 10px 20px;
+      font-size: 0.88rem;
+    }
+
+    .conversion-bridge .btn .icon {
+      width: 17px;
+      height: 17px;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 640px) {
+      .conversion-bridge__inner {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+      }
+
+      .conversion-bridge__actions {
+        justify-content: center;
+      }
+
+      .conversion-bridge .btn {
+        flex: 1 1 auto;
+        min-width: 0;
+      }
+    }
+
     .urgence-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -1969,6 +2043,8 @@
   </div>
 </section>
 
+
+
 <!-- Urgence Section -->
 <section class="urgence-section">
   <div class="container">
@@ -2132,6 +2208,22 @@
   </div>
 </section>
 
+<aside class="conversion-bridge" aria-label="Intervention rapide">
+  <div class="conversion-bridge__inner">
+    <div class="conversion-bridge__text">
+      <p class="conversion-bridge__hook">Intervention sous 24h, 7j/7</p>
+      <p class="conversion-bridge__sub">Même processus clair partout en France : diagnostic, traitement, prévention — avec suivi inclus.</p>
+    </div>
+    <div class="conversion-bridge__actions">
+      <a href="#" class="btn btn-danger js-landing-tel">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        Urgence : j’appelle
+      </a>
+      <a href="#contact" class="btn btn-secondary">Message en ligne</a>
+    </div>
+  </div>
+</aside>
+
 <!-- Solution Section -->
 <section class="solution-section">
   <div class="container">
@@ -2159,6 +2251,8 @@
     </div>
   </div>
 </section>
+
+
 
 <!-- Pourquoi Nous Section -->
 <section class="pourquoi-section">
@@ -2217,6 +2311,22 @@
   </div>
 </section>
 
+<aside class="conversion-bridge" aria-label="Garantie et transparence">
+  <div class="conversion-bridge__inner">
+    <div class="conversion-bridge__text">
+      <p class="conversion-bridge__hook">Résultat garanti, devis transparent</p>
+      <p class="conversion-bridge__sub">Si le problème persiste, nous revenons. Aucun frais caché : vous validez avant toute intervention.</p>
+    </div>
+    <div class="conversion-bridge__actions">
+      <a href="#" class="btn btn-danger js-landing-tel">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        Parler à un expert
+      </a>
+      <a href="#contact" class="btn btn-secondary">Devis gratuit</a>
+    </div>
+  </div>
+</aside>
+
 <!-- Confiance Section -->
 <section class="confiance-section">
   <div class="container">
@@ -2269,6 +2379,8 @@
   </div>
 </section>
 
+
+
 <!-- Équipe & Agences -->
 <section class="equipe-section">
   <div class="container">
@@ -2320,6 +2432,22 @@
   </div>
 </section>
 
+<aside class="conversion-bridge" aria-label="Contact agence locale">
+  <div class="conversion-bridge__inner">
+    <div class="conversion-bridge__text">
+      <p class="conversion-bridge__hook">Votre agence locale vous répond directement</p>
+      <p class="conversion-bridge__sub">Créneaux d’intervention, conseils immédiats : un interlocuteur dédié dans votre secteur.</p>
+    </div>
+    <div class="conversion-bridge__actions">
+      <a href="#" class="btn btn-danger js-landing-tel">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        Joindre l’agence
+      </a>
+      <a href="#contact" class="btn btn-secondary">Laisser mes coordonnées</a>
+    </div>
+  </div>
+</aside>
+
 <!-- Avis Clients (extraits — page edenvert3d.fr dératisation Charente-Maritime 17) -->
 <section class="avis-section">
   <div class="container">
@@ -2350,6 +2478,8 @@
     </div>
   </div>
 </section>
+
+
 
 <!-- Contact Section -->
 <section class="contact-section" id="contact">
@@ -2439,6 +2569,8 @@
   </div>
 </section>
 
+
+
 <!-- Localisation Section -->
 <section class="localisation-section">
   <div class="container localisation-content">
@@ -2473,6 +2605,8 @@
   </div>
 </section>
 
+
+
 <!-- CTA Final Section -->
 <section class="cta-final">
   <div class="container">
@@ -2486,6 +2620,8 @@
     </a>
   </div>
 </section>
+
+
 
 <!-- Chat Section -->
 <section class="chat-section" id="chat">
@@ -2997,5 +3133,11 @@ https://info.edenvert3d.fr/ -->
   referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
   <!-- End of Statcounter Code -->
 
+  <!-- 21st.dev Toolbar : actif uniquement avec `npm run dev` (Vite définit import.meta.env.DEV) -->
+  <script type="module">
+    if (import.meta.env?.DEV) {
+      import("/src/dev-21st-toolbar.ts");
+    }
+  </script>
 </body>
 </html>

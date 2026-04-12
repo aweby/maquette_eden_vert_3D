@@ -1,0 +1,7 @@
+node_modules/
+dist/
+scripts/
+templates/
+landing-departements.json
+extensions.json
+dev-21st-toolbar.ts

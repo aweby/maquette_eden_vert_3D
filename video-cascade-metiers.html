@@ -737,5 +737,11 @@
     }
 
   </script>
+  <!-- 21st.dev Toolbar : actif uniquement avec `npm run dev` (Vite définit import.meta.env.DEV) -->
+  <script type="module">
+    if (import.meta.env?.DEV) {
+      import("/src/dev-21st-toolbar.ts");
+    }
+  </script>
 </body>
 </html>
