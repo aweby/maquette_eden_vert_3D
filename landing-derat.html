@@ -2258,7 +2258,7 @@
           <svg class="icon" viewBox="0 0 24 24">
             <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
           </svg>
-          Demander un devis
+          Envoyer la demande
         </button>
 
         <p class="form-note">Champs marqués avec * sont obligatoires</p>
@@ -2427,6 +2427,19 @@
     var formData = new FormData(form);
     formData.append('g-recaptcha-response', token);
 
+    var contenuPreview = String(formData.get('contenu') || '');
+    if (contenuPreview.length > 200) contenuPreview = contenuPreview.slice(0, 200) + '…';
+    console.log('[Formulaire contact] Envoi POST →', CONTACT_MESSAGE_API_URL, {
+      nom: formData.get('nom'),
+      mail: formData.get('mail'),
+      telephone: formData.get('telephone'),
+      ville: formData.get('ville'),
+      departement_id: formData.get('departement_id'),
+      franchise_id: formData.get('franchise_id'),
+      contenu: contenuPreview,
+      'g-recaptcha-response': token ? '[jeton, ' + token.length + ' car.]' : ''
+    });
+
     fetch(CONTACT_MESSAGE_API_URL, {
       method: 'POST',
       body: formData
@@ -2445,6 +2458,7 @@
       .then(function (result) {
         button.disabled = false;
         if (result.ok) {
+          console.log('[Formulaire contact] Réponse OK', result.status, result.parsed != null ? result.parsed : result.text.slice(0, 500));
           if (typeof gtag !== 'undefined') {
             gtag('event', 'contact_form_submit', { form_name: 'contact_form' });
           }
@@ -2466,6 +2480,7 @@
             (result.parsed && (result.parsed.message || result.parsed.error)) ||
             (result.text && result.text.slice(0, 280)) ||
             'Erreur serveur (' + result.status + ').';
+          console.warn('[Formulaire contact] Échec HTTP', result.status, msg, result.text ? result.text.slice(0, 400) : '');
           alert(msg);
           grecaptcha.reset(recaptchaWidgetId);
         }
@@ -2473,7 +2488,7 @@
       .catch(function (err) {
         button.disabled = false;
         button.innerHTML = originalHtml;
-        console.error('Contact API:', err);
+        console.error('[Formulaire contact] Erreur réseau / CORS', err);
         alert('Impossible d\'envoyer le formulaire. Vérifiez votre connexion ou réessayez plus tard.');
         grecaptcha.reset(recaptchaWidgetId);
       });
@@ -2516,7 +2531,7 @@
   var departement_id = 17;
   var franchise_id = 29;
   /* Si la landing est en HTTPS, préférer https://api.aweby.fr/... pour éviter le blocage mixed content */
-  var CONTACT_MESSAGE_API_URL = 'https://api.aweby.fr/api/message_edenvert3d';
+  var CONTACT_MESSAGE_API_URL = 'https://api.aweby.fr/api/messages_edenvert3d';
 
   function landingNormalizeTelHref(value) {
     var raw = String(value).replace(/\s/g, '');
@@ -2686,6 +2701,9 @@
 
     if (!message) return;
 
+    var msgPreview = message.length > 300 ? message.slice(0, 300) + '…' : message;
+    console.log('[Chat] Envoi message →', CHAT_API_URL, { session_id: chatSessionId, message: msgPreview });
+
     chatBusy = true;
     btn.disabled = true;
 
@@ -2726,6 +2744,8 @@
         function showReply() {
           hideTypingIndicator();
           chatApiHistory.pop();
+          var replyPreview = content ? (content.length > 400 ? content.slice(0, 400) + '…' : content) : '(vide)';
+          console.log('[Chat] Réponse reçue', { content_length: content.length, preview: replyPreview });
           if (!content) {
             addChatMessage(
               "Désolé, je n'ai pas pu répondre. Contactez-nous par téléphone pour une prise en charge immédiate.",
