@@ -2230,8 +2230,8 @@
 
         <div class="form-row">
           <div class="form-group">
-            <label for="mail">Email *</label>
-            <input type="email" id="mail" name="mail" placeholder="jean@exemple.fr" required />
+            <label for="email">Email *</label>
+            <input type="email" id="email" name="email" placeholder="jean@exemple.fr" required />
           </div>
           <div class="form-group">
             <label for="ville">Ville *</label>
@@ -2431,7 +2431,7 @@
     if (contenuPreview.length > 200) contenuPreview = contenuPreview.slice(0, 200) + '…';
     console.log('[Formulaire contact] Envoi POST →', CONTACT_MESSAGE_API_URL, {
       nom: formData.get('nom'),
-      email: formData.get('mail'),
+      email: formData.get('email'),
       telephone: formData.get('telephone'),
       ville: formData.get('ville'),
       departement_id: formData.get('departement_id'),
