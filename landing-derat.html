@@ -1404,16 +1404,32 @@
       font-size: 0.95rem;
     }
 
-    .recaptcha-wrap {
-      display: flex;
-      justify-content: flex-start;
+    .recaptcha-legal {
+      font-size: 0.75rem;
+      line-height: 1.55;
+      color: var(--gray-400);
+      margin: 0;
     }
 
-    @media (max-width: 768px) {
-      .recaptcha-wrap {
-        transform-origin: top left;
-        transform: scale(0.92);
-      }
+    .recaptcha-legal a {
+      color: var(--orange);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .recaptcha-legal a:hover {
+      color: #ff8c4d;
+    }
+
+    #recaptcha-container {
+      position: absolute;
+      width: 0;
+      height: 0;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+      padding: 0;
+      margin: 0;
     }
 
     .form-group input,
@@ -1868,7 +1884,7 @@
         </svg>
         Appeler maintenant
       </a>
-      <a href="#contact" class="btn btn-secondary">Demander un devis</a>
+      <a href="#contact" class="btn btn-secondary">Envoyer le message</a>
     </div>
 
     <div class="hero-trust">
@@ -2204,18 +2220,18 @@
         <div class="form-row">
           <div class="form-group">
             <label for="nom">Nom *</label>
-            <input type="text" id="nom" name="name" placeholder="Jean Dupont" required />
+            <input type="text" id="nom" name="nom" placeholder="Jean Dupont" required />
           </div>
           <div class="form-group">
-            <label for="tel">Téléphone *</label>
-            <input type="tel" id="tel" name="phone" placeholder="06 12 34 56 78" required />
+            <label for="telephone">Téléphone *</label>
+            <input type="tel" id="telephone" name="telephone" placeholder="06 12 34 56 78" required />
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-group">
-            <label for="email">Email *</label>
-            <input type="email" id="email" name="email" placeholder="jean@exemple.fr" required />
+            <label for="mail">Email *</label>
+            <input type="email" id="mail" name="mail" placeholder="jean@exemple.fr" required />
           </div>
           <div class="form-group">
             <label for="ville">Ville *</label>
@@ -2223,12 +2239,18 @@
           </div>
         </div>
 
+        <input type="hidden" id="field_departement_id" name="departement_id" value="" />
+        <input type="hidden" id="field_franchise_id" name="franchise_id" value="" />
+
         <div class="form-group">
-          <label for="message">Décrivez votre situation *</label>
-          <textarea id="message" name="message" rows="4" placeholder="Depuis quand ? Où dans votre logement ? Avez-vous déjà essayé un traitement ?" required></textarea>
+          <label for="contenu">Décrivez votre situation *</label>
+          <textarea id="contenu" name="contenu" rows="4" placeholder="Depuis quand ? Où dans votre logement ? Avez-vous déjà essayé un traitement ?" required></textarea>
         </div>
 
-        <div class="form-group recaptcha-wrap">
+        <div class="form-group">
+          <p class="recaptcha-legal">
+            Ce site est protégé par reCAPTCHA. Les <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">règles de confidentialité</a> et les <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer">conditions d’utilisation</a> de Google s’appliquent.
+          </p>
           <div id="recaptcha-container"></div>
         </div>
 
@@ -2385,13 +2407,99 @@
 </div>
 
 <script>
-  /* reCAPTCHA v2 — remplacer par votre clé site (console Google) ; ci-dessous = clé de test Google (toujours valide) */
+  /* reCAPTCHA v2 Invisible — créer une clé « Invisible reCAPTCHA » dans la console Google ; domaine à autoriser */
   var RECAPTCHA_SITE_KEY = '6Ld1QEciAAAAAFZt2gbqGyocaIqNwStZLCw838IN';
+  var recaptchaWidgetId = null;
+
+  function setFormApiHiddenDefaults() {
+    var d = document.getElementById('field_departement_id');
+    if (d) d.value = String(departement_id);
+    var f = document.getElementById('field_franchise_id');
+    if (f) f.value = String(franchise_id);
+  }
+
+  function onRecaptchaVerified(token) {
+    var form = document.getElementById('contactForm');
+    var button = form.querySelector('button[type="submit"]');
+    var originalHtml = button.innerHTML;
+    button.innerHTML = 'Envoi en cours…';
+
+    var formData = new FormData(form);
+    formData.append('g-recaptcha-response', token);
+
+    fetch(CONTACT_MESSAGE_API_URL, {
+      method: 'POST',
+      body: formData
+    })
+      .then(function (res) {
+        return res.text().then(function (text) {
+          var parsed = null;
+          try {
+            parsed = text ? JSON.parse(text) : null;
+          } catch (e) {
+            parsed = null;
+          }
+          return { ok: res.ok, status: res.status, text: text, parsed: parsed };
+        });
+      })
+      .then(function (result) {
+        button.disabled = false;
+        if (result.ok) {
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'contact_form_submit', { form_name: 'contact_form' });
+          }
+          var banner = document.getElementById('contactFormSuccess');
+          if (banner) banner.hidden = false;
+          button.innerHTML = '✓ Demande enregistrée !';
+          button.style.background = 'var(--orange)';
+          form.reset();
+          setFormApiHiddenDefaults();
+          grecaptcha.reset(recaptchaWidgetId);
+          setTimeout(function () {
+            button.innerHTML = originalHtml;
+            button.style.background = '';
+            if (banner) banner.hidden = true;
+          }, 5000);
+        } else {
+          button.innerHTML = originalHtml;
+          var msg =
+            (result.parsed && (result.parsed.message || result.parsed.error)) ||
+            (result.text && result.text.slice(0, 280)) ||
+            'Erreur serveur (' + result.status + ').';
+          alert(msg);
+          grecaptcha.reset(recaptchaWidgetId);
+        }
+      })
+      .catch(function (err) {
+        button.disabled = false;
+        button.innerHTML = originalHtml;
+        console.error('Contact API:', err);
+        alert('Impossible d\'envoyer le formulaire. Vérifiez votre connexion ou réessayez plus tard.');
+        grecaptcha.reset(recaptchaWidgetId);
+      });
+  }
+
+  function recaptchaReleaseSubmitButton() {
+    var form = document.getElementById('contactForm');
+    if (!form) return;
+    var button = form.querySelector('button[type="submit"]');
+    if (button) button.disabled = false;
+  }
 
   window.onRecaptchaLoad = function () {
     var box = document.getElementById('recaptcha-container');
     if (box && typeof grecaptcha !== 'undefined' && !box.getAttribute('data-rendered')) {
-      grecaptcha.render(box, { sitekey: RECAPTCHA_SITE_KEY });
+      recaptchaWidgetId = grecaptcha.render(box, {
+        sitekey: RECAPTCHA_SITE_KEY,
+        size: 'invisible',
+        badge: 'bottomright',
+        callback: onRecaptchaVerified,
+        'expired-callback': recaptchaReleaseSubmitButton,
+        'error-callback': function () {
+          recaptchaReleaseSubmitButton();
+          alert('Erreur reCAPTCHA. Merci de réessayer.');
+        }
+      });
       box.setAttribute('data-rendered', '1');
     }
   };
@@ -2405,6 +2513,10 @@
   var affiche_boutique = true;
   var adresse_boutique = '20 Rue Saint-Sauveur, La Rochelle';
   var photo_boutique = 37;
+  var departement_id = 17;
+  var franchise_id = 29;
+  /* Si la landing est en HTTPS, préférer https://api.aweby.fr/... pour éviter le blocage mixed content */
+  var CONTACT_MESSAGE_API_URL = 'http://api.aweby.fr/api/message_edenvert3d';
 
   function landingNormalizeTelHref(value) {
     var raw = String(value).replace(/\s/g, '');
@@ -2461,6 +2573,8 @@
         boutiqueBloc.setAttribute('aria-hidden', 'true');
       }
     }
+
+    setFormApiHiddenDefaults();
   })();
 
   // Sticky header scroll effect
@@ -2510,47 +2624,17 @@
   function handleContactSubmit(e) {
     e.preventDefault();
     var form = document.getElementById('contactForm');
-    if (typeof grecaptcha === 'undefined') {
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+    if (typeof grecaptcha === 'undefined' || recaptchaWidgetId === null) {
       alert('reCAPTCHA non chargé. Vérifiez votre connexion ou désactivez les bloqueurs.');
       return;
     }
-    var token = grecaptcha.getResponse();
-    if (!token) {
-      alert('Merci de valider « Je ne suis pas un robot ».');
-      return;
-    }
-
-    var formData = new FormData(form);
-    /* En production : envoyer formData + g-recaptcha-response à votre backend et vérifier avec la clé secrète (https://developers.google.com/recaptcha/docs/verify) */
-    console.log('Devis (à traiter côté serveur) :', {
-      name: formData.get('name'),
-      phone: formData.get('phone'),
-      email: formData.get('email'),
-      ville: formData.get('ville'),
-      message: formData.get('message'),
-      'g-recaptcha-response': token
-    });
-
-    if (typeof gtag !== 'undefined') {
-      gtag('event', 'contact_form_submit', { form_name: 'contact_form' });
-    }
-
-    var banner = document.getElementById('contactFormSuccess');
-    if (banner) banner.hidden = false;
-
     var button = form.querySelector('button[type="submit"]');
-    var originalHtml = button.innerHTML;
-    button.innerHTML = '✓ Demande enregistrée !';
-    button.style.background = 'var(--orange)';
-
-    form.reset();
-    grecaptcha.reset();
-
-    setTimeout(function () {
-      button.innerHTML = originalHtml;
-      button.style.background = '';
-      if (banner) banner.hidden = true;
-    }, 5000);
+    button.disabled = true;
+    grecaptcha.execute(recaptchaWidgetId);
   }
 
   // Chat — même API que ChatBotComponent.vue (edenvert3d)
