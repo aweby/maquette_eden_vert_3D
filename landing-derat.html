@@ -2431,7 +2431,7 @@
     if (contenuPreview.length > 200) contenuPreview = contenuPreview.slice(0, 200) + '…';
     console.log('[Formulaire contact] Envoi POST →', CONTACT_MESSAGE_API_URL, {
       nom: formData.get('nom'),
-      mail: formData.get('mail'),
+      email: formData.get('mail'),
       telephone: formData.get('telephone'),
       ville: formData.get('ville'),
       departement_id: formData.get('departement_id'),
