@@ -1,0 +1,13 @@
+# Netlify / plateformes compatibles : placer à la racine du site publié (à côté de index.html / 17.html).
+# Images et logo : cache long (1 an) + revalidation en arrière-plan
+/images/*
+  Cache-Control: public, max-age=31536000, stale-while-revalidate=604800
+
+/logo.png
+  Cache-Control: public, max-age=31536000, stale-while-revalidate=604800
+
+/logo-400w.png
+  Cache-Control: public, max-age=31536000, stale-while-revalidate=604800
+
+/logo-800w.png
+  Cache-Control: public, max-age=31536000, stale-while-revalidate=604800
