@@ -2425,7 +2425,7 @@
     button.innerHTML = 'Envoi en cours…';
 
     var formData = new FormData(form);
-    formData.append('g-recaptcha-response', token);
+    formData.append('recaptcha', token);
 
     var contenuPreview = String(formData.get('contenu') || '');
     if (contenuPreview.length > 200) contenuPreview = contenuPreview.slice(0, 200) + '…';
