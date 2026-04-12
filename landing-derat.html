@@ -2220,11 +2220,11 @@
         <div class="form-row">
           <div class="form-group">
             <label for="nom">Nom *</label>
-            <input type="text" id="nom" name="nom" placeholder="Jean Dupont" required />
+            <input type="text" id="nom" name="name" placeholder="Jean Dupont" required />
           </div>
           <div class="form-group">
             <label for="telephone">Téléphone *</label>
-            <input type="tel" id="telephone" name="telephone" placeholder="06 12 34 56 78" required />
+            <input type="tel" id="telephone" name="phone" placeholder="06 12 34 56 78" required />
           </div>
         </div>
 
@@ -2430,9 +2430,9 @@
     var contenuPreview = String(formData.get('contenu') || '');
     if (contenuPreview.length > 200) contenuPreview = contenuPreview.slice(0, 200) + '…';
     console.log('[Formulaire contact] Envoi POST →', CONTACT_MESSAGE_API_URL, {
-      nom: formData.get('nom'),
+      name: formData.get('name'),
       email: formData.get('email'),
-      telephone: formData.get('telephone'),
+      phone: formData.get('phone'),
       ville: formData.get('ville'),
       departement_id: formData.get('departement_id'),
       franchise_id: formData.get('franchise_id'),
