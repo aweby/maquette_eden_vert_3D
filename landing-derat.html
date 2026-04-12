@@ -2409,6 +2409,18 @@
   /* reCAPTCHA v2 Invisible — créer une clé « Invisible reCAPTCHA » dans la console Google ; domaine à autoriser */
   var RECAPTCHA_SITE_KEY = '6Ld1QEciAAAAAFZt2gbqGyocaIqNwStZLCw838IN';
   var recaptchaWidgetId = null;
+  var LANDING_TECHNICIEN_NOM = 'Stéphane';
+  var LANDING_TECHNICIEN_PHOTO = 'images/boutiques/equipes/38.jpg';
+  var LANDING_DEPARTEMENT = 'Charente-Maritime (17)';
+  var LANDING_TELEPHONE = '+33525230990';
+
+  var affiche_boutique = true;
+  var adresse_boutique = '20 Rue Saint-Sauveur, La Rochelle';
+  var photo_boutique = 37;
+  var departement_id = 17;
+  var franchise_id = 29;
+  /* Si la landing est en HTTPS, préférer https://api.aweby.fr/... pour éviter le blocage mixed content */
+  var CONTACT_MESSAGE_API_URL = 'https://api.aweby.fr/api/messages_edenvert3d';
 
   function setFormApiHiddenDefaults() {
     var d = document.getElementById('field_departement_id');
@@ -2425,6 +2437,7 @@
 
     var formData = new FormData(form);
     formData.append('recaptcha', token);
+    formData.append('departement_nom', LANDING_DEPARTEMENT);
 
     var messagePreview = String(formData.get('message') || '');
     if (messagePreview.length > 200) messagePreview = messagePreview.slice(0, 200) + '…';
@@ -2518,18 +2531,7 @@
   };
 
   /* Configuration landing — personnaliser ici */
-  var LANDING_TECHNICIEN_NOM = 'Stéphane';
-  var LANDING_TECHNICIEN_PHOTO = 'images/boutiques/equipes/38.jpg';
-  var LANDING_DEPARTEMENT = 'Charente-Maritime (17)';
-  var LANDING_TELEPHONE = '+33525230990';
 
-  var affiche_boutique = true;
-  var adresse_boutique = '20 Rue Saint-Sauveur, La Rochelle';
-  var photo_boutique = 37;
-  var departement_id = 17;
-  var franchise_id = 29;
-  /* Si la landing est en HTTPS, préférer https://api.aweby.fr/... pour éviter le blocage mixed content */
-  var CONTACT_MESSAGE_API_URL = 'https://api.aweby.fr/api/messages_edenvert3d';
 
   function landingNormalizeTelHref(value) {
     var raw = String(value).replace(/\s/g, '');
