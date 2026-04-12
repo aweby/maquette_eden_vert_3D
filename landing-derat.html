@@ -2239,12 +2239,11 @@
           </div>
         </div>
 
-        <input type="hidden" id="field_departement_id" name="departement_id" value="" />
-        <input type="hidden" id="field_franchise_id" name="franchise_id" value="" />
+        <input type="hidden" id="field_departement_id" name="departement" value="" />
 
         <div class="form-group">
           <label for="contenu">Décrivez votre situation *</label>
-          <textarea id="contenu" name="contenu" rows="4" placeholder="Depuis quand ? Où dans votre logement ? Avez-vous déjà essayé un traitement ?" required></textarea>
+          <textarea id="contenu" name="message" rows="4" placeholder="Depuis quand ? Où dans votre logement ? Avez-vous déjà essayé un traitement ?" required></textarea>
         </div>
 
         <div class="form-group">
@@ -2427,16 +2426,15 @@
     var formData = new FormData(form);
     formData.append('recaptcha', token);
 
-    var contenuPreview = String(formData.get('contenu') || '');
-    if (contenuPreview.length > 200) contenuPreview = contenuPreview.slice(0, 200) + '…';
+    var messagePreview = String(formData.get('message') || '');
+    if (messagePreview.length > 200) messagePreview = messagePreview.slice(0, 200) + '…';
     console.log('[Formulaire contact] Envoi POST →', CONTACT_MESSAGE_API_URL, {
       name: formData.get('name'),
       email: formData.get('email'),
       phone: formData.get('phone'),
       ville: formData.get('ville'),
-      departement_id: formData.get('departement_id'),
-      franchise_id: formData.get('franchise_id'),
-      contenu: contenuPreview,
+      departement: formData.get('departement'),
+      message: messagePreview,
       'recaptcha': token ? '[jeton, ' + token.length + ' car.]' : ''
     });
 
