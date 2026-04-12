@@ -2437,7 +2437,7 @@
       departement_id: formData.get('departement_id'),
       franchise_id: formData.get('franchise_id'),
       contenu: contenuPreview,
-      'g-recaptcha-response': token ? '[jeton, ' + token.length + ' car.]' : ''
+      'recaptcha': token ? '[jeton, ' + token.length + ' car.]' : ''
     });
 
     fetch(CONTACT_MESSAGE_API_URL, {
