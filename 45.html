@@ -665,6 +665,7 @@
       transition: var(--transition);
       display: flex;
       flex-direction: column;
+      cursor: pointer;
     }
 
     .urgence-card:hover {
@@ -692,6 +693,11 @@
       transform: scale(1.05);
     }
 
+    .urgence-card:focus-visible {
+      outline: 2px solid var(--orange);
+      outline-offset: 3px;
+    }
+
     .urgence-card h3 {
       font-size: 1.3rem;
       margin-top: 20px;
@@ -706,6 +712,89 @@
       font-size: 1rem;
       line-height: 1.6;
       padding: 0 24px 24px;
+    }
+
+    .prestation-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 1200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+    }
+
+    .prestation-modal.is-open {
+      display: flex;
+    }
+
+    .prestation-modal__dialog {
+      width: min(760px, 100%);
+      max-height: 90vh;
+      overflow-y: auto;
+      background: var(--dark-2);
+      border: 1px solid rgba(234,95,10,0.35);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      position: relative;
+    }
+
+    .prestation-modal__close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 42px;
+      height: 42px;
+      border: 0;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.6rem;
+      line-height: 1;
+      color: var(--white);
+      background: rgba(0, 0, 0, 0.45);
+      transition: var(--transition);
+    }
+
+    .prestation-modal__close:hover {
+      background: var(--orange);
+    }
+
+    .prestation-modal__img {
+      width: 100%;
+      max-height: 280px;
+      object-fit: cover;
+      border-radius: var(--radius) var(--radius) 0 0;
+    }
+
+    .prestation-modal__content {
+      padding: 26px 26px 28px;
+    }
+
+    .prestation-modal__title {
+      color: var(--white);
+      font-size: clamp(1.4rem, 2.4vw, 2rem);
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+
+    .prestation-modal__text {
+      color: var(--gray-300);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .prestation-modal__actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .prestation-modal__actions .btn {
+      flex: 1 1 220px;
+      justify-content: center;
     }
 
     /* ===== SOLUTION SECTION ===== */
@@ -2124,7 +2213,7 @@
     <p class="section-subtitle">Des situations concrètes, une expertise éprouvée</p>
 
     <div class="urgence-grid">
-      <div class="urgence-card">
+      <div class="urgence-card" role="button" tabindex="0" aria-haspopup="dialog" data-prestation-title="Rats &amp; Souris" data-prestation-img="images/deratisation-720w.jpg" data-prestation-alt="Dératisation rats et souris" data-prestation-text="Les rongeurs se reproduisent vite et peuvent endommager votre isolation, vos câbles et contaminer les zones de vie. Notre méthode combine un diagnostic précis des points d'entrée, un traitement ciblé et un plan de prévention pour éviter les récidives. Plus l'intervention est rapide, plus vous limitez les dégâts et les coûts.">
         <div class="urgence-card-img">
           <img
             src="images/deratisation-720w.jpg"
@@ -2141,7 +2230,7 @@
         <p>Invasion dans les murs, bruits la nuit, dégâts ? Diagnostic et élimination définitive en 24-48h.</p>
       </div>
 
-      <div class="urgence-card">
+      <div class="urgence-card" role="button" tabindex="0" aria-haspopup="dialog" data-prestation-title="Cafards &amp; Blattes" data-prestation-img="images/cafards-720w.jpg" data-prestation-alt="Cafards et blattes" data-prestation-text="Une présence de cafards indique souvent un foyer déjà installé. Nous traitons les zones actives, les passages cachés et les nids pour casser le cycle de reproduction. Vous recevez ensuite des recommandations simples pour protéger durablement votre cuisine et vos pièces d'eau.">
         <div class="urgence-card-img">
           <img
             src="images/cafards-720w.jpg"
@@ -2158,7 +2247,7 @@
         <p>Apparition soudaine en cuisine ou salle de bain ? Traitement d'urgence sans attendre.</p>
       </div>
 
-      <div class="urgence-card">
+      <div class="urgence-card" role="button" tabindex="0" aria-haspopup="dialog" data-prestation-title="Punaises de lit" data-prestation-img="images/punaises-720w.jpg" data-prestation-alt="Punaises de lit" data-prestation-text="Les punaises peuvent se propager d'une pièce à l'autre en quelques jours. Nous adaptons le protocole (thermique, chimique ou combiné) selon votre niveau d'infestation et le type de logement. Une prise en charge rapide réduit fortement les traitements lourds et le stress au quotidien.">
         <div class="urgence-card-img">
           <img
             src="images/punaises-720w.jpg"
@@ -2175,7 +2264,7 @@
         <p>Piqûres le matin, traces sur le matelas ? Traitement thermique et chimique garantis.</p>
       </div>
 
-      <div class="urgence-card">
+      <div class="urgence-card" role="button" tabindex="0" aria-haspopup="dialog" data-prestation-title="Frelons &amp; Guêpes" data-prestation-img="images/frelons-720w.jpg" data-prestation-alt="Frelons et guêpes" data-prestation-text="Un nid actif représente un risque immédiat pour votre famille, vos voisins et vos animaux. Nos techniciens interviennent avec un équipement adapté pour neutraliser le nid en sécurité, puis vérifier l'environnement pour limiter le retour des essaims.">
         <div class="urgence-card-img">
           <img
             src="images/frelons-720w.jpg"
@@ -2192,7 +2281,7 @@
         <p>Nid dangereux proche de la maison ? Intervention d'urgence sécurisée et certifiée.</p>
       </div>
 
-      <div class="urgence-card">
+      <div class="urgence-card" role="button" tabindex="0" aria-haspopup="dialog" data-prestation-title="Moustiques &amp; Mouches" data-prestation-img="images/moustiques-720w.jpg" data-prestation-alt="Moustiques et mouches" data-prestation-text="Quand l'invasion s'installe, les solutions grand public ne suffisent souvent plus. Nous traitons les points de reproduction et les zones de repos pour réduire rapidement la pression des nuisibles à l'intérieur comme à l'extérieur. Vous retrouvez un cadre de vie plus sain en quelques jours.">
         <div class="urgence-card-img">
           <img
             src="images/moustiques-720w.jpg"
@@ -2209,7 +2298,7 @@
         <p>Invasion saisonnière ? Traitement efficace de votre intérieur et extérieur.</p>
       </div>
 
-      <div class="urgence-card">
+      <div class="urgence-card" role="button" tabindex="0" aria-haspopup="dialog" data-prestation-title="Fourmis &amp; Insectes" data-prestation-img="images/fourmis-720w.jpg" data-prestation-alt="Fourmis et insectes" data-prestation-text="La colonie principale est souvent invisible, ce qui rend les traitements maison peu durables. Nous ciblons le parcours des fourmis et les nids pour stopper l'infestation à la source. Notre approche évite les rechutes et protège les zones sensibles de votre habitation.">
         <div class="urgence-card-img">
           <img
             src="images/fourmis-720w.jpg"
@@ -2226,7 +2315,7 @@
         <p>Colonies de fourmis, autres insectes rampants ? Éradication complète garantie.</p>
       </div>
 
-      <div class="urgence-card">
+      <div class="urgence-card" role="button" tabindex="0" aria-haspopup="dialog" data-prestation-title="Pigeons &amp; Oiseaux" data-prestation-img="images/pigeons-720w.jpg" data-prestation-alt="Pigeons et oiseaux" data-prestation-text="Les déjections dégradent les façades et peuvent poser des risques sanitaires. Nous installons des solutions d'exclusion adaptées (pics, filets, dispositifs dissuasifs) selon votre configuration, avec une intervention propre et durable.">
         <div class="urgence-card-img">
           <img
             src="images/pigeons-720w.jpg"
@@ -2243,7 +2332,7 @@
         <p>Pigeons nuisibles, fientes sur façades et terrasses ? Solutions d'exclusion durables.</p>
       </div>
 
-      <div class="urgence-card">
+      <div class="urgence-card" role="button" tabindex="0" aria-haspopup="dialog" data-prestation-title="Taupes" data-prestation-img="images/taupes-720w.jpg" data-prestation-alt="Taupes" data-prestation-text="Une taupe active peut dégrader rapidement une pelouse ou un terrain entretenu. Nous identifions les galeries principales et appliquons une méthode professionnelle pour stopper l'activité sans perdre de temps. Plus tôt vous agissez, plus vous préservez votre jardin.">
         <div class="urgence-card-img">
           <img
             src="images/taupes-720w.jpg"
@@ -2260,7 +2349,7 @@
         <p>Taupinières dans votre jardin, pelouse endommagée ? Intervention rapide garantie.</p>
       </div>
 
-      <div class="urgence-card">
+      <div class="urgence-card" role="button" tabindex="0" aria-haspopup="dialog" data-prestation-title="Désinfection" data-prestation-img="images/desinfection-720w.jpg" data-prestation-alt="Désinfection" data-prestation-text="Après une infestation ou un incident sanitaire, la désinfection permet de repartir sur une base saine. Nous appliquons un protocole professionnel sur les zones à risque, avec des produits adaptés à votre environnement. C'est l'étape clé pour sécuriser durablement les lieux.">
         <div class="urgence-card-img">
           <img
             src="images/desinfection-720w.jpg"
@@ -2279,6 +2368,21 @@
     </div>
   </div>
 </section>
+
+<div class="prestation-modal" id="prestationModal" aria-hidden="true">
+  <div class="prestation-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="prestationModalTitle">
+    <button type="button" class="prestation-modal__close" id="prestationModalClose" aria-label="Fermer la fenêtre">×</button>
+    <img class="prestation-modal__img" id="prestationModalImg" src="" alt="" loading="lazy" decoding="async">
+    <div class="prestation-modal__content">
+      <h3 class="prestation-modal__title" id="prestationModalTitle"></h3>
+      <p class="prestation-modal__text" id="prestationModalText"></p>
+      <div class="prestation-modal__actions">
+        <a href="#" class="btn btn-danger js-landing-tel">Parler à un expert maintenant</a>
+        <a href="#contact" class="btn btn-secondary" id="prestationModalQuote">Demander un devis gratuit</a>
+      </div>
+    </div>
+  </div>
+</div>
 
 <aside class="conversion-bridge" aria-label="Intervention rapide">
   <div class="conversion-bridge__inner">
@@ -2932,6 +3036,61 @@
       stickyCta.classList.remove('active');
     }
   });
+
+  (function initPrestationsModal() {
+    var modal = document.getElementById('prestationModal');
+    if (!modal) return;
+    var dialog = modal.querySelector('.prestation-modal__dialog');
+    var closeBtn = document.getElementById('prestationModalClose');
+    var titleEl = document.getElementById('prestationModalTitle');
+    var textEl = document.getElementById('prestationModalText');
+    var imgEl = document.getElementById('prestationModalImg');
+    var quoteBtn = document.getElementById('prestationModalQuote');
+    var cards = document.querySelectorAll('.urgence-card[data-prestation-title]');
+
+    function openModal(card) {
+      titleEl.textContent = card.getAttribute('data-prestation-title') || '';
+      textEl.textContent = card.getAttribute('data-prestation-text') || '';
+      imgEl.src = card.getAttribute('data-prestation-img') || '';
+      imgEl.alt = card.getAttribute('data-prestation-alt') || '';
+      modal.classList.add('is-open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      closeBtn.focus();
+    }
+
+    function closeModal() {
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    cards.forEach(function (card) {
+      card.addEventListener('click', function () {
+        openModal(card);
+      });
+      card.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          openModal(card);
+        }
+      });
+    });
+
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', function (event) {
+      if (!dialog.contains(event.target)) {
+        closeModal();
+      }
+    });
+    quoteBtn.addEventListener('click', closeModal);
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && modal.classList.contains('is-open')) {
+        closeModal();
+      }
+    });
+  })();
 
   // Smooth scroll for anchor links
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
