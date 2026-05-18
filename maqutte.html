@@ -53,12 +53,11 @@
   /* HEADER */
   .top{
     position:relative;
-    padding:18px 20px 0;
-    display:flex;justify-content:space-between;align-items:flex-start;
+    padding:8px 8px 0;
     z-index:5;
   }
-  .logo{display:flex;flex:none;align-items:center}
-  .logo-img{display:block;height:52px;width:auto;max-width:200px;object-fit:contain}
+  .logo{display:flex;width:100%;align-items:center;justify-content:center}
+  .logo-img{display:block;width:100%;height:auto;max-width:none;object-fit:contain}
   .nav-desk{display:none;align-items:center;gap:28px}
   .nav-desk a{font-size:13px;font-weight:600;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;transition:color .15s}
   .nav-desk a:hover{color:#fff}
@@ -77,12 +76,19 @@
   .hero{
     position:relative;
     padding:20px 20px 0;
-    isolation:isolate;
   }
   .hero-inner{display:flex;flex-direction:column}
   .hero-main{min-width:0}
   .hero-aside{min-width:0}
   .hero-actions{width:100%}
+  .hero-head{
+    position:relative;
+    margin:0 -20px 18px;
+    padding:0 20px 16px;
+    isolation:isolate;
+    overflow:hidden;
+    border-radius:0 0 18px 18px;
+  }
   .hero-photo{
     position:absolute;inset:0;z-index:-1;overflow:hidden;
   }
@@ -90,9 +96,9 @@
     position:absolute;inset:0;
     background:
       linear-gradient(90deg, rgba(10,10,12,.94) 0%, rgba(10,10,12,.52) 42%, rgba(10,10,12,.14) 62%),
-      linear-gradient(180deg, rgba(10,10,12,.1) 0%, rgba(10,10,12,.86) 88%, rgba(10,10,12,1) 100%),
+      linear-gradient(180deg, rgba(10,10,12,.08) 0%, rgba(10,10,12,.72) 72%, rgba(10,10,12,1) 100%),
       linear-gradient(rgba(0,0,0,.18), rgba(0,0,0,.18)),
-      url('assets/WhatsApp%20Image%202026-05-15%20at%2012.14.43.jpeg') 8% 25% / cover no-repeat,
+      url('images/boutiques/laboutique4_HD.jpg') center center / cover no-repeat,
       #0a0908;
   }
   .hero-photo .figure{display:none}
@@ -108,6 +114,7 @@
     white-space:nowrap;
   }
 
+  .hero-head .h-title{margin:0;color:#fff}
   .h-title{margin:0 0 14px;color:#fff}
   .h-title .l1{display:block;font-size:46px;}
   .h-title .l2{display:block;font-size:62px;margin-top:-4px;}
@@ -402,6 +409,7 @@
     }
     .top{padding:20px 28px 0}
     .hero{padding:24px 28px 0}
+    .hero-head{margin:0 -28px 20px;padding:0 28px 18px}
     .form-wrap{margin:8px 28px 28px}
     .inter-scroll{padding:0 28px 24px}
     .inter-head::before{left:10%}
@@ -418,7 +426,7 @@
       grid-template-columns:1fr 1fr;
       gap:10px;
     }
-    .form-grid .fld:nth-child(3){grid-column:1/-1}
+    .form-grid .fld:nth-child(4){grid-column:1/-1}
     .form-grid .send-btn{grid-column:1/-1}
     .inter{flex:0 0 160px}
     .vid{width:160px}
@@ -433,10 +441,10 @@
       padding:22px 40px 0;
       align-items:center;
     }
-    .logo-img{height:58px;max-width:220px}
     .nav-desk{display:flex}
     .burger{display:none}
     .hero{padding:32px 40px 0}
+    .hero-head{margin:0 -40px 22px;padding:0 40px 20px;border-radius:0 0 20px 20px}
     .hero-inner{
       display:grid;
       grid-template-columns:1fr minmax(260px,34%);
@@ -461,7 +469,7 @@
         linear-gradient(90deg, rgba(10,10,12,.95) 0%, rgba(10,10,12,.55) 38%, rgba(10,10,12,.18) 55%),
         linear-gradient(180deg, rgba(10,10,12,.12) 0%, rgba(10,10,12,.84) 90%, rgba(10,10,12,1) 100%),
         linear-gradient(rgba(0,0,0,.18), rgba(0,0,0,.18)),
-        url('assets/WhatsApp%20Image%202026-05-15%20at%2012.14.43.jpeg') 65% 20% / cover no-repeat,
+        url('images/boutiques/laboutique4_HD.jpg') center center / cover no-repeat,
         #0a0908;
     }
     .trophies{padding:32px 40px}
@@ -480,6 +488,7 @@
     .page{max-width:1024px}
     .top{padding:24px 48px 0}
     .hero{padding:40px 48px 0}
+    .hero-head{margin:0 -48px 24px;padding:0 48px 22px}
     .hero-inner{
       grid-template-columns:1.15fr minmax(300px,380px);
       column-gap:48px;
@@ -524,7 +533,7 @@
     .form-grid{
       grid-template-columns:1fr 1fr 1fr;
     }
-    .form-grid .fld:nth-child(3){grid-column:auto}
+    .form-grid .fld:nth-child(4){grid-column:1/-1}
     .form-grid .send-btn{grid-column:1/-1;max-width:420px;margin:4px auto 0}
     .form-title{font-size:30px}
     .trust{padding:24px}
@@ -539,6 +548,7 @@
     .page{max-width:1280px}
     .top{padding:28px 64px 0}
     .hero{padding:48px 64px 0}
+    .hero-head{margin:0 -64px 28px;padding:0 64px 24px}
     .hero-inner{
       grid-template-columns:1.2fr 400px;
       column-gap:64px;
@@ -569,16 +579,14 @@
       max-width:1000px;
     }
     .form-grid{
-      grid-template-columns:1fr 1fr 1fr minmax(220px,auto);
+      grid-template-columns:1fr 1fr 1fr 1fr;
       align-items:stretch;
       gap:12px;
     }
     .form-grid .send-btn{
-      grid-column:auto;
-      margin:0;
-      max-width:none;
-      white-space:nowrap;
-      padding:0 28px;
+      grid-column:1/-1;
+      margin:4px auto 0;
+      max-width:420px;
     }
     .form-title{font-size:34px}
     .form-sub{font-size:14px;margin-bottom:24px}
@@ -596,34 +604,29 @@
   <!-- ===== HEADER ===== -->
   <header class="top">
     <div class="logo">
-      <img class="logo-img" src="assets/logo.png" alt="Eden Vert 3D — Dératisation, désinsectisation, désinfection depuis 1976" width="200" height="52">
+      <img class="logo-img" src="assets/logo.png" alt="Eden Vert 3D — Dératisation, désinsectisation, désinfection depuis 1976" width="390" height="52">
     </div>
-    <nav class="nav-desk" aria-label="Navigation principale">
-      <a href="#formulaire">Franchise</a>
-      <a href="#interventions">Interventions</a>
-      <a href="#formulaire" class="nav-cta">Mon Département</a>
-    </nav>
-    <button class="burger" aria-label="Menu">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16"></path><path d="M4 12h16"></path><path d="M4 17h16"></path></svg>
-    </button>
+   
   </header>
 
   <!-- ===== HERO ===== -->
   <section class="hero">
-    <div class="hero-photo">
-      <div class="ph"></div>
-      <div class="figure"></div>
-    </div>
-
     <div class="hero-inner">
     <div class="hero-main">
-    <span class="badge-fr">DEVENEZ FRANCHISÉ</span>
-
-    <h1 class="display h-title">
-      <span class="l1">Ouvrez votre</span>
-      <span class="l2">Agence</span>
-      <span class="l3">Eden Vert 3D</span>
-    </h1>
+    <div class="hero-head">
+      <div class="hero-photo">
+        <div class="ph"></div>
+        <div class="figure"></div>
+      </div>
+      <span class="badge-fr">DEVENEZ FRANCHISÉ</span>
+      <h1 class="display h-title">
+        <span class="l1">Ouvrez votre</span>
+        <span class="l2">Agence</span>
+        <span class="l1">Anti</span>
+        <span class="l2">Nuisibles</span>
+        <span class="l3">Eden Vert 3D</span>
+      </h1>
+    </div>
 
     <p class="h-lede">Un métier <b>utile</b>, <b>rentable</b> et humain avec une demande constante partout en France.</p>
 
@@ -807,15 +810,11 @@
     <form class="form-grid" onsubmit="event.preventDefault(); this.querySelector('.send-btn').innerHTML='&lt;svg viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'2.5\'&gt;&lt;path d=\'M5 13l4 4L19 7\'/&gt;&lt;/svg&gt;Demande envoyée';">
       <div class="fld"><input type="text" required="" placeholder="Prénom*"></div>
       <div class="fld"><input type="tel" required="" placeholder="Téléphone*"></div>
+      <div class="fld"><input type="email" required="" placeholder="E-mail*" autocomplete="email"></div>
       <div class="fld">
         <select required="">
           <option value="" disabled="" selected="">Département*</option>
-          <option>01 — Ain</option><option>06 — Alpes-Maritimes</option>
-          <option>13 — Bouches-du-Rhône</option><option>31 — Haute-Garonne</option>
-          <option>33 — Gironde</option><option>37 — Indre-et-Loire</option>
-          <option>44 — Loire-Atlantique</option><option>59 — Nord</option>
-          <option>67 — Bas-Rhin</option><option>69 — Rhône</option>
-          <option>75 — Paris</option><option>Autre</option>
+          <option>01 — Ain</option><option>02 — Aisne</option><option>03 — Allier</option><option>04 — Alpes-de-Haute-Provence</option><option>05 — Hautes-Alpes</option><option>06 — Alpes-Maritimes</option><option>07 — Ardèche</option><option>08 — Ardennes</option><option>09 — Ariège</option><option>10 — Aube</option><option>11 — Aude</option><option>12 — Aveyron</option><option>13 — Bouches-du-Rhône</option><option>14 — Calvados</option><option>15 — Cantal</option><option>16 — Charente</option><option>17 — Charente-Maritime</option><option>18 — Cher</option><option>19 — Corrèze</option><option>21 — Côte-d'Or</option><option>22 — Côtes-d'Armor</option><option>23 — Creuse</option><option>24 — Dordogne</option><option>25 — Doubs</option><option>26 — Drôme</option><option>27 — Eure</option><option>28 — Eure-et-Loir</option><option>29 — Finistère</option><option>30 — Gard</option><option>31 — Haute-Garonne</option><option>32 — Gers</option><option>33 — Gironde</option><option>34 — Hérault</option><option>35 — Ille-et-Vilaine</option><option>36 — Indre</option><option>37 — Indre-et-Loire</option><option>38 — Isère</option><option>39 — Jura</option><option>40 — Landes</option><option>41 — Loir-et-Cher</option><option>42 — Loire</option><option>43 — Haute-Loire</option><option>44 — Loire-Atlantique</option><option>45 — Loiret</option><option>46 — Lot</option><option>47 — Lot-et-Garonne</option><option>48 — Lozère</option><option>49 — Maine-et-Loire</option><option>50 — Manche</option><option>51 — Marne</option><option>52 — Haute-Marne</option><option>53 — Mayenne</option><option>54 — Meurthe-et-Moselle</option><option>55 — Meuse</option><option>56 — Morbihan</option><option>57 — Moselle</option><option>58 — Nièvre</option><option>59 — Nord</option><option>60 — Oise</option><option>61 — Orne</option><option>62 — Pas-de-Calais</option><option>63 — Puy-de-Dôme</option><option>64 — Pyrénées-Atlantiques</option><option>65 — Hautes-Pyrénées</option><option>66 — Pyrénées-Orientales</option><option>67 — Bas-Rhin</option><option>68 — Haut-Rhin</option><option>69 — Rhône</option><option>70 — Haute-Saône</option><option>71 — Saône-et-Loire</option><option>72 — Sarthe</option><option>73 — Savoie</option><option>74 — Haute-Savoie</option><option>75 — Paris</option><option>76 — Seine-Maritime</option><option>77 — Seine-et-Marne</option><option>78 — Yvelines</option><option>79 — Deux-Sèvres</option><option>80 — Somme</option><option>81 — Tarn</option><option>82 — Tarn-et-Garonne</option><option>83 — Var</option><option>84 — Vaucluse</option><option>85 — Vendée</option><option>86 — Vienne</option><option>87 — Haute-Vienne</option><option>88 — Vosges</option><option>89 — Yonne</option><option>90 — Territoire de Belfort</option><option>91 — Essonne</option><option>92 — Hauts-de-Seine</option><option>93 — Seine-Saint-Denis</option><option>94 — Val-de-Marne</option><option>95 — Val-d'Oise</option><option>2A — Corse-du-Sud</option><option>2B — Haute-Corse</option><option>971 — Guadeloupe</option><option>972 — Martinique</option><option>973 — Guyane</option><option>974 — La Réunion</option><option>976 — Mayotte</option>
         </select>
       </div>
       <button class="send-btn" type="submit">
