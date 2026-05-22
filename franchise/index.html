@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="fr"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Devenez franchisé — Eden Vert 3D</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@500;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0E0E10;
+    --bg-2:#1A1A1D;
+    --bg-3:#222226;
+    --ink:#FFFFFF;
+    --muted:#A8A8AE;
+    --line:rgba(255,255,255,.08);
+    --line-2:rgba(255,255,255,.14);
+    --orange:#F26B1F;
+    --orange-2:#FF8A3D;
+    --orange-soft:rgba(242,107,31,.12);
+    --bleu:#1E4FB4;
+    --rouge:#D8232A;
+  }
+  /* Breakpoints (alignés Tailwind) : mobile <640 | sm 640 | md 768 | lg 1024 | xl 1280 */
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:#0A0A0C;
+    color:var(--ink);
+    font-family:"Inter",system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    line-height:1.45;
+  }
+  a{color:inherit;text-decoration:none}
+  button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+  img,svg{display:block;max-width:100%}
+  input,select{font:inherit;color:inherit}
+
+  /* Mobile : maquette 430px (inchangée) */
+  .page{
+    width:100%;
+    max-width:430px;
+    margin:0 auto;
+    background:var(--bg);
+    min-height:100vh;
+    position:relative;
+    overflow-x:hidden;
+  }
+
+  .display{font-family:"Anton",sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:-0.005em;line-height:.92}
+
+  /* HEADER */
+  .top{
+    position:relative;
+    padding:8px 8px 0;
+    z-index:5;
+  }
+  .logo{display:flex;width:100%;align-items:center;justify-content:center}
+  .logo-img{display:block;width:100%;height:auto;max-width:none;object-fit:contain}
+  .nav-desk{display:none;align-items:center;gap:28px}
+  .nav-desk a{font-size:13px;font-weight:600;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;transition:color .15s}
+  .nav-desk a:hover{color:#fff}
+  .nav-desk .nav-cta{
+    background:var(--orange);color:#fff;padding:10px 18px;border-radius:8px;
+    font-weight:800;font-size:12px;letter-spacing:.04em;
+  }
+  .nav-desk .nav-cta:hover{color:#fff;opacity:.92}
+  .burger{
+    width:36px;height:36px;display:grid;place-items:center;
+    color:#fff;flex:none;
+  }
+  .burger svg{width:26px;height:26px}
+
+  /* HERO */
+  .hero{
+    position:relative;
+    padding:20px 20px 0;
+  }
+  .hero-inner{display:flex;flex-direction:column}
+  .hero-main{min-width:0}
+  .hero-aside{min-width:0}
+  .hero-actions{width:100%}
+  .hero-head{
+    position:relative;
+    margin:0 -20px 18px;
+    padding:0 20px 16px;
+    isolation:isolate;
+    overflow:hidden;
+    border-radius:0 0 18px 18px;
+  }
+  .hero-photo{
+    position:absolute;inset:0;z-index:-1;overflow:hidden;
+  }
+  .hero-photo .ph{
+    position:absolute;inset:0;
+    background:
+      linear-gradient(90deg, rgba(10,10,12,.38) 0%, rgba(10,10,12,.2) 42%, rgba(10,10,12,.08) 62%),
+      linear-gradient(180deg, rgba(10,10,12,.1) 0%, rgba(10,10,12,.28) 72%, rgba(10,10,12,.48) 100%),
+      linear-gradient(rgba(0,0,0,.14), rgba(0,0,0,.14)),
+      url('images/boutiques/laboutique4_HD.jpg') center center / cover no-repeat,
+      #211f1e;
+  }
+  .hero-photo .figure{display:none}
+
+  .badge-fr{
+    display:inline-block;
+    background:var(--orange);
+    color:#fff;
+    font-weight:800;font-size:13px;letter-spacing:.04em;
+    padding:8px 14px;border-radius:6px;
+    margin:8px 0 18px;
+    box-shadow:0 6px 16px rgba(242,107,31,.35);
+    white-space:nowrap;
+  }
+
+  .hero-head .h-title{margin:0;color:#fff}
+  .h-title{margin:0 0 14px;color:#fff}
+  .h-title .l1{display:block;font-size:46px;}
+  .h-title .l2{display:block;font-size:62px;margin-top:-4px;}
+  .h-title .l3{display:block;font-size:32px;color:var(--orange);margin-top:6px;letter-spacing:.005em}
+
+  .h-lede{font-size:16.5px;color:#E9E9EC;line-height:1.4;margin:0 0 22px}
+  .h-lede b{color:var(--orange);font-weight:700}
+
+  /* Stats cards */
+  .stat-row{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(0,0,0,.25);border-radius:16px;padding:6px 14px;backdrop-filter:blur(2px);margin-bottom:24px}
+  .stat-item{display:flex;align-items:center;gap:14px;padding:14px 4px;border-bottom:1px solid var(--line)}
+  .stat-item:last-child{border-bottom:0}
+  .stat-ico{
+    width:46px;height:46px;border-radius:50%;
+    background:#1A1A1D;border:1px solid var(--line-2);
+    display:grid;place-items:center;flex:none;color:var(--orange);
+  }
+  .stat-ico svg{width:20px;height:20px}
+  .stat-txt .v{font-weight:800;font-size:18px;color:#fff;line-height:1.1}
+  .stat-txt .v b{color:var(--orange);font-weight:800}
+  .stat-txt .s{font-size:13px;color:var(--muted);margin-top:2px}
+
+  /* Quote */
+  .quote{
+    background:rgba(20,20,22,.78);
+    border:1px solid var(--line-2);
+    border-radius:14px;
+    padding:18px 18px 16px;
+    position:relative;
+    margin:0 0 0 auto;
+    backdrop-filter:blur(6px);
+    margin-bottom:24px;
+  }
+  .quote .quo{color:var(--orange);font-family:"Anton",sans-serif;font-size:36px;line-height:.6;position:absolute;top:14px;left:14px;opacity:.85}
+  .quote p{font-size:14px;line-height:1.5;color:#E2E2E5;margin:6px 0 8px 22px}
+  .quote .sig{font-family:"Caveat",cursive;font-weight:700;font-size:22px;color:var(--orange);text-align:right}
+
+  /* CTA */
+  .cta{
+    width:100%;
+    background:linear-gradient(180deg,var(--orange-2),var(--orange));
+    color:#fff;
+    font-weight:800;font-size:15px;letter-spacing:.02em;
+    padding:18px 18px;border-radius:14px;
+    display:flex;align-items:center;gap:14px;justify-content:flex-start;
+    box-shadow:0 12px 26px rgba(242,107,31,.35), inset 0 -2px 0 rgba(0,0,0,.18);
+    text-transform:uppercase;
+    transition:transform .15s ease, box-shadow .2s ease;
+  }
+  .cta:hover{transform:translateY(-1px);box-shadow:0 16px 32px rgba(242,107,31,.42)}
+  .cta-ico{
+    width:42px;height:42px;border-radius:10px;background:rgba(255,255,255,.18);
+    display:grid;place-items:center;flex:none;
+  }
+  .cta-ico svg{width:22px;height:22px;color:#fff}
+  .cta-label{flex:1;text-align:center;line-height:1.15}
+  .cta-arr{
+    width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.18);
+    display:grid;place-items:center;flex:none;
+  }
+  .cta-arr svg{width:18px;height:18px}
+
+  .cta-foot{
+    display:flex;align-items:center;justify-content:center;gap:8px;
+    color:#C9C9CD;font-size:13px;margin:14px 0 26px;flex-wrap:wrap;text-align:center;
+  }
+  .cta-foot svg{width:14px;height:14px;color:#9A9A9E}
+  .cta-foot .sep{color:var(--orange);font-weight:700}
+
+  .cta-sticky{
+    position:fixed;
+    bottom:0;
+    left:50%;
+    transform:translateX(-50%);
+    width:100%;
+    max-width:430px;
+    padding:10px 20px calc(10px + env(safe-area-inset-bottom, 0px));
+    z-index:50;
+    background:linear-gradient(180deg, rgba(14,14,16,0) 0%, var(--bg) 32%);
+    pointer-events:none;
+  }
+  .cta-sticky .cta{
+    pointer-events:auto;
+    box-shadow:0 -4px 20px rgba(0,0,0,.4), 0 12px 26px rgba(242,107,31,.35), inset 0 -2px 0 rgba(0,0,0,.18);
+  }
+  .page{padding-bottom:calc(82px + env(safe-area-inset-bottom, 0px))}
+
+  /* Trust card */
+  .trust{
+    background:rgba(20,20,22,.7);
+    border:1px solid var(--line-2);
+    border-radius:18px;
+    padding:18px;
+    margin:0 0 28px;
+  }
+  .trust-top{display:flex;justify-content:space-between;gap:14px;align-items:stretch}
+  .trust-l{flex:1}
+  .trust h3{margin:0 0 12px;font-size:13.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#fff}
+  .avatars{display:flex;align-items:center;gap:0;margin-bottom:10px}
+  .av{
+    width:44px;height:44px;border-radius:50%;
+    border:2px solid #1A1A1D;background:#2a2622;
+    margin-left:-10px;display:grid;place-items:center;
+    overflow:hidden;position:relative;flex:none;
+  }
+  .av:first-child{margin-left:0}
+  .av.plus{background:var(--orange);color:#fff;font-weight:800;font-size:13px;border-color:#1A1A1D}
+  .av img{width:100%;height:100%;object-fit:cover}
+
+  .stars-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .stars{display:flex;gap:2px}
+  .stars svg{width:14px;height:14px;color:var(--orange)}
+  .rating-txt{font-size:13.5px;color:#fff;font-weight:700}
+  .rating-google{color:#A8A8AE;font-weight:600}
+  .rating-bul{width:3px;height:3px;border-radius:50%;background:#5a5a60}
+  .rating-avis{color:var(--orange);font-weight:600;font-size:13px}
+
+  /* Video preview */
+  .vid{
+    flex:0 0 138px;width:138px;align-self:stretch;
+    min-height:100%;
+    border-radius:14px;overflow:hidden;
+    background:#0e0e10;
+    position:relative;cursor:pointer;
+  }
+  .vid-bg{
+    position:absolute;inset:0;
+    background:
+      linear-gradient(180deg, rgba(0,0,0,.15) 0%, rgba(0,0,0,.55) 100%),
+      url('assets/insta.jpg') center center / cover no-repeat;
+  }
+  .vid-play{
+    position:absolute;inset:0;display:grid;place-items:center;
+  }
+  .vid-play .ring{
+    width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.92);
+    display:grid;place-items:center;box-shadow:0 6px 18px rgba(0,0,0,.4);
+    transition:transform .2s ease;
+  }
+  .vid:hover .ring{transform:scale(1.08)}
+  .vid-play .ring svg{width:18px;height:18px;color:#0E0E10;margin-left:2px}
+  .vid-cap{
+    position:absolute;left:10px;bottom:8px;color:#fff;
+    font-family:"Caveat",cursive;font-weight:700;font-size:20px;line-height:1;
+    text-shadow:0 2px 6px rgba(0,0,0,.5);
+  }
+
+  /* Trophy stats row */
+  .trophies{
+    display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;
+    padding:24px 0 28px;
+    position:relative;
+  }
+  .trophies::before{
+    content:"";position:absolute;left:14%;right:14%;top:50px;height:1px;
+    background:repeating-linear-gradient(90deg, var(--orange) 0 4px, transparent 4px 10px);
+    opacity:.45;
+  }
+  .trophy{display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;position:relative;z-index:2}
+  .trophy-ico{color:var(--orange);width:36px;height:36px}
+  .trophy-num{font-family:"Anton",sans-serif;font-size:38px;line-height:1;color:#fff;margin-top:2px}
+  .trophy-lbl{font-size:13px;color:#D2D2D6;line-height:1.25}
+
+  /* Interventions */
+  .inter-head{
+    text-align:center;
+    font-weight:800;font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+    color:#fff;
+    padding:18px 0 14px;
+    position:relative;
+  }
+  .inter-head::before,.inter-head::after{
+    content:"";position:absolute;top:50%;width:18%;height:1px;background:var(--line-2);
+  }
+  .inter-head::before{left:14%}
+  .inter-head::after{right:14%}
+
+  .inter-scroll{
+    display:flex;gap:8px;overflow-x:auto;padding:0 20px 20px;
+    scroll-snap-type:x mandatory;scrollbar-width:none;
+  }
+  .inter-scroll::-webkit-scrollbar{display:none}
+  .inter{
+    flex:0 0 138px;scroll-snap-align:start;
+    background:#15151A;border:1px solid var(--line);border-radius:14px;
+    overflow:hidden;display:flex;flex-direction:column;
+  }
+  .inter-img{
+    aspect-ratio:1/1;background:#222;position:relative;overflow:hidden;
+  }
+  .inter-img img{
+    width:100%;height:100%;object-fit:cover;display:block;
+  }
+  .inter-body{padding:10px 10px 12px}
+  .inter-city{
+    font-weight:800;font-size:12px;color:var(--orange);
+    text-transform:uppercase;letter-spacing:.04em;
+    display:flex;align-items:center;gap:4px;margin-bottom:4px;
+  }
+  .inter-city svg{width:11px;height:11px;color:var(--orange)}
+  .inter-txt{font-size:12.5px;line-height:1.3;color:#E2E2E5}
+
+
+  /* Form section */
+  .form-wrap{
+    margin:8px 20px 24px;
+    background:rgba(20,20,22,.6);
+    border:1px solid var(--line-2);
+    border-radius:18px;
+    padding:24px 20px 22px;
+  }
+  .form-title{
+    text-align:center;margin:0 0 6px;
+    font-family:"Anton",sans-serif;font-size:22px;letter-spacing:.005em;
+    text-transform:uppercase;line-height:1.1;color:#fff;
+  }
+  .form-title .o{color:var(--orange)}
+  .form-sub{
+    text-align:center;color:var(--muted);font-size:13px;margin:0 0 18px;
+  }
+  .form-grid{display:flex;flex-direction:column;gap:10px}
+  .fld{position:relative;margin-bottom:0}
+  .fld input,.fld select{
+    width:100%;
+    background:#fff;color:#0E0E10;
+    border:0;border-radius:10px;
+    padding:14px 16px;font-size:14px;font-weight:500;
+    outline:none;
+    appearance:none;
+  }
+  .fld select{background:#fff url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230E0E10' stroke-width='2'><path d='M6 9l6 6 6-6'/></svg>") no-repeat right 14px center;background-size:18px;padding-right:42px}
+  .fld input::placeholder{color:#6A6A6E}
+
+  .send-btn{
+    width:100%;
+    background:linear-gradient(180deg,var(--orange-2),var(--orange));
+    color:#fff;
+    font-weight:800;font-size:14.5px;letter-spacing:.04em;
+    padding:16px;border-radius:12px;
+    display:flex;align-items:center;justify-content:center;gap:10px;
+    text-transform:uppercase;
+    box-shadow:0 10px 22px rgba(242,107,31,.35), inset 0 -2px 0 rgba(0,0,0,.18);
+    transition:transform .15s ease;
+  }
+  .send-btn:hover{transform:translateY(-1px)}
+  .send-btn svg{width:18px;height:18px}
+
+  .form-foot{
+    display:flex;align-items:center;justify-content:center;gap:6px;
+    color:#C9C9CD;font-size:12px;text-align:center;margin-top:14px;
+  }
+  .form-foot svg{width:12px;height:12px;color:#9A9A9E;flex:none}
+  .form-err{margin:0;font-size:12px;color:#ff8a8a;text-align:center}
+  .form-success{
+    display:flex;align-items:flex-start;gap:12px;
+    margin:0;padding:14px 16px;
+    background:rgba(34,197,94,.12);
+    border:1px solid rgba(34,197,94,.45);
+    border-radius:12px;
+    color:#86efac;
+    font-size:13px;line-height:1.45;
+  }
+  .form-success[hidden]{display:none}
+  .form-success svg{width:22px;height:22px;flex:none;margin-top:1px;color:#4ade80}
+  .form-success strong{display:block;color:#bbf7d0;font-size:14px;margin-bottom:4px}
+  .send-btn:disabled{opacity:.65;cursor:not-allowed;transform:none}
+
+  /* tiny “dotted” connector under heading bar */
+  .dotted-divider{
+    height:6px;
+    background:repeating-linear-gradient(90deg, var(--line-2) 0 4px, transparent 4px 10px);
+    margin:0 20px;
+  }
+
+  /* hide horizontal scroll fade */
+  .inter-fade-r{
+    position:absolute;right:0;top:0;bottom:0;width:30px;
+    background:linear-gradient(90deg,transparent,var(--bg));
+    pointer-events:none;
+  }
+  .inter-block{position:relative}
+
+  /* ─── SM (≥640px) ─── */
+  @media (min-width:640px){
+    body{background:#070708}
+    .cta-sticky{max-width:640px}
+    .page{
+      max-width:640px;
+      box-shadow:0 20px 60px rgba(0,0,0,.45);
+      border-radius:20px;
+      overflow:hidden;
+    }
+    .top{padding:20px 28px 0}
+    .hero{padding:24px 28px 0}
+    .hero-head{margin:0 -28px 20px;padding:0 28px 18px}
+    .form-wrap{margin:8px 28px 28px}
+    .inter-scroll{padding:0 28px 24px}
+    .inter-head::before{left:10%}
+    .inter-head::after{right:10%}
+    .stat-row{flex-direction:row}
+    .stat-item{
+      flex:1;flex-direction:column;align-items:flex-start;gap:10px;
+      padding:16px 12px;border-bottom:0;border-right:1px solid var(--line);
+    }
+    .stat-item:last-child{border-right:0}
+    .stat-ico{width:40px;height:40px}
+    .form-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+    }
+    .form-grid .fld:nth-child(4){grid-column:1/-1}
+    .form-grid .send-btn{grid-column:1/-1}
+    .inter{flex:0 0 160px}
+    .vid{width:160px}
+    .cta-label br{display:none}
+  }
+
+  /* ─── MD (≥768px) ─── */
+  @media (min-width:768px){
+    .cta-sticky{max-width:768px}
+    .page{max-width:768px;border-radius:0;box-shadow:none}
+    .top{
+      padding:22px 40px 0;
+      align-items:center;
+    }
+    .nav-desk{display:flex}
+    .burger{display:none}
+    .hero{padding:32px 40px 0}
+    .hero-head{margin:0 -40px 22px;padding:0 40px 20px;border-radius:0 0 20px 20px}
+    .hero-inner{
+      display:grid;
+      grid-template-columns:1fr minmax(260px,34%);
+      grid-template-areas:
+        "main aside"
+        "actions aside"
+        "trust trust";
+      column-gap:32px;
+      row-gap:0;
+    }
+    .hero-main{grid-area:main}
+    .hero-aside{grid-area:aside;align-self:start;padding-top:48px}
+    .hero-actions{grid-area:actions}
+    .hero .trust{grid-area:trust;margin-top:28px}
+    .quote{max-width:none;margin:0}
+    .h-title .l1{font-size:52px}
+    .h-title .l2{font-size:72px}
+    .h-title .l3{font-size:36px}
+    .h-lede{max-width:420px;font-size:17px}
+    .hero-photo .ph{
+      background:
+        linear-gradient(90deg, rgba(10,10,12,.96) 0%, rgba(10,10,12,.62) 38%, rgba(10,10,12,.26) 55%),
+        linear-gradient(180deg, rgba(10,10,12,.18) 0%, rgba(10,10,12,.88) 90%, rgba(10,10,12,1) 100%),
+        linear-gradient(rgba(0,0,0,.24), rgba(0,0,0,.24)),
+        url('images/boutiques/laboutique4_HD.jpg') center center / cover no-repeat,
+        #0a0908;
+    }
+    .trophies{padding:32px 40px}
+    .inter-head{padding:24px 40px 18px}
+    .inter-scroll{padding:0 40px 28px;gap:12px}
+    .inter{flex:0 0 180px}
+    .form-wrap{margin:12px 40px 40px;padding:32px 36px}
+    .form-title{font-size:26px}
+    .trust-top{align-items:stretch}
+    .vid{width:200px}
+  }
+
+  /* ─── LG (≥1024px) ─── */
+  @media (min-width:1024px){
+    .cta-sticky{max-width:1024px}
+    .page{max-width:1024px}
+    .top{padding:24px 48px 0}
+    .hero{padding:40px 48px 0}
+    .hero-head{margin:0 -48px 24px;padding:0 48px 22px}
+    .hero-inner{
+      grid-template-columns:1.15fr minmax(300px,380px);
+      column-gap:48px;
+    }
+    .h-title .l1{font-size:58px}
+    .h-title .l2{font-size:84px}
+    .h-title .l3{font-size:40px}
+    .h-lede{max-width:480px;font-size:18px}
+    .badge-fr{font-size:14px;padding:9px 16px}
+    .cta{
+      max-width:560px;
+      font-size:16px;
+      padding:20px 22px;
+    }
+    .cta-foot{justify-content:flex-start;margin-bottom:32px}
+    .trophies{
+      padding:40px 48px;
+      gap:16px;
+    }
+    .trophy-num{font-size:44px}
+    .trophy-lbl{font-size:14px}
+    .trophy-ico{width:42px;height:42px}
+    .inter-head{font-size:14px;padding:28px 48px 20px}
+    .inter-head::before,.inter-head::after{width:22%}
+    .inter-block .inter-fade-r{display:none}
+    .inter-scroll{
+      display:grid;
+      grid-template-columns:repeat(5,1fr);
+      overflow:visible;
+      padding:0 48px 40px;
+      gap:14px;
+      scroll-snap-type:none;
+    }
+    .inter{flex:none;width:auto}
+    .inter-img{aspect-ratio:4/3}
+    .form-wrap{
+      margin:16px 48px 48px;
+      padding:40px 48px;
+      max-width:920px;
+      margin-left:auto;margin-right:auto;
+    }
+    .form-grid{
+      grid-template-columns:1fr 1fr 1fr;
+    }
+    .form-grid .fld:nth-child(4){grid-column:1/-1}
+    .form-grid .send-btn{grid-column:1/-1;max-width:420px;margin:4px auto 0}
+    .form-title{font-size:30px}
+    .trust{padding:24px}
+    .trust h3{font-size:14px}
+    .av{width:48px;height:48px}
+    .vid{width:220px;border-radius:16px}
+  }
+
+  /* ─── XL (≥1280px) ─── */
+  @media (min-width:1280px){
+    .cta-sticky{max-width:1280px}
+    .page{max-width:1280px}
+    .top{padding:28px 64px 0}
+    .hero{padding:48px 64px 0}
+    .hero-head{margin:0 -64px 28px;padding:0 64px 24px}
+    .hero-inner{
+      grid-template-columns:1.2fr 400px;
+      column-gap:64px;
+    }
+    .hero-aside{padding-top:56px}
+    .h-title .l1{font-size:64px}
+    .h-title .l2{font-size:96px}
+    .h-title .l3{font-size:44px}
+    .h-lede{max-width:520px;font-size:19px;margin-bottom:28px}
+    .stat-row{margin-bottom:32px;padding:8px 20px}
+    .stat-txt .v{font-size:20px}
+    .quote{padding:22px 22px 20px}
+    .quote p{font-size:15px}
+    .cta{max-width:620px;font-size:17px}
+    .trophies{padding:48px 64px 52px}
+    .trophy-num{font-size:52px}
+    .inter-head{padding:32px 64px 24px;font-size:15px}
+    .inter-scroll{
+      grid-template-columns:repeat(6,1fr);
+      padding:0 64px 48px;
+      gap:16px;
+    }
+    .inter-body{padding:12px 12px 14px}
+    .inter-txt{font-size:13px}
+    .form-wrap{
+      margin:20px 64px 64px;
+      padding:48px 56px;
+      max-width:1000px;
+    }
+    .form-grid{
+      grid-template-columns:1fr 1fr 1fr 1fr;
+      align-items:stretch;
+      gap:12px;
+    }
+    .form-grid .send-btn{
+      grid-column:1/-1;
+      margin:4px auto 0;
+      max-width:420px;
+    }
+    .form-title{font-size:34px}
+    .form-sub{font-size:14px;margin-bottom:24px}
+    .trust{margin-bottom:36px}
+    .vid{width:260px}
+    .nav-desk{gap:36px}
+    .nav-desk a{font-size:14px}
+  }
+
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ===== HEADER ===== -->
+  <header class="top">
+    <div class="logo">
+      <img class="logo-img" src="assets/logo.png" alt="Eden Vert 3D — Dératisation, désinsectisation, désinfection depuis 1976" width="390" height="52">
+    </div>
+   
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="hero-inner">
+    <div class="hero-main">
+    <div class="hero-head">
+      <div class="hero-photo">
+        <div class="ph"></div>
+        <div class="figure"></div>
+      </div>
+      <span class="badge-fr">DEVENEZ FRANCHISÉ</span>
+      <h1 class="display h-title">
+        <span class="l1">Ouvrez votre</span>
+        <span class="l2">Agence</span>
+        <span class="l1">Anti</span>
+        <span class="l2">Nuisibles</span>
+        <span class="l3">Eden Vert 3D</span>
+      </h1>
+    </div>
+
+    <p class="h-lede">Un métier <b>utile</b>, <b>rentable</b> et humain face à une demande constante partout en France.</p>
+
+    <!-- Stats stacked -->
+    <div class="stat-row">
+      <div class="stat-item">
+        <div class="stat-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l5-5 4 4 7-8"></path><path d="M14 8h5v5"></path></svg>
+        </div>
+        <div class="stat-txt">
+          <div class="v"><b>200k€</b> de CA moyen</div>
+          <div class="s">la 1<sup>ère</sup> année</div>
+        </div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M3 9h18"></path><path d="M8 3v4M16 3v4"></path></svg>
+        </div>
+        <div class="stat-txt">
+          <div class="v"><b>Rentabilité</b> atteinte</div>
+          <div class="s">dès le 1<sup>er</sup> mois</div>
+        </div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12z"></path><circle cx="12" cy="10" r="2.4"></circle></svg>
+        </div>
+        <div class="stat-txt">
+          <div class="v"><b>+40</b> agences</div>
+          <div class="s">déjà ouvertes en France</div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <div class="hero-aside">
+    <div class="quote">
+      <span class="quo">“</span>
+      <p>J’ai construit un modèle rentable sur le terrain. Aujourd’hui, nous permettons à de nouveaux entrepreneurs de développer leur propre agence Eden Vert 3D partout en France.</p>
+      <div class="sig">Richard Coulon, CEO Eden Vert 3D</div>
+    </div>
+    </div>
+
+    <div class="hero-actions">
+    <div class="cta-foot">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>
+      Réponse rapide <span class="sep">•</span> Sans engagement <span class="sep">•</span> 100% confidentiel
+    </div>
+    </div>
+
+    <!-- Trust -->
+    <div class="trust">
+      <div class="trust-top">
+        <div class="trust-l">
+          <h3>Ils nous font déjà confiance</h3>
+          <div class="avatars">
+            <div class="av"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=88&amp;h=88&amp;fit=crop&amp;crop=face" alt="" width="44" height="44" loading="lazy"></div>
+            <div class="av"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=88&amp;h=88&amp;fit=crop&amp;crop=face" alt="" width="44" height="44" loading="lazy"></div>
+            <div class="av"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=88&amp;h=88&amp;fit=crop&amp;crop=face" alt="" width="44" height="44" loading="lazy"></div>
+            <div class="av"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=88&amp;h=88&amp;fit=crop&amp;crop=face" alt="" width="44" height="44" loading="lazy"></div>
+            <div class="av plus">+40</div>
+          </div>
+          <div class="stars-row">
+            <div class="stars">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7 7 .6-5.4 4.7L18 22l-6-3.6L6 22l1.4-7.7L2 9.6 9 9z"></path></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7 7 .6-5.4 4.7L18 22l-6-3.6L6 22l1.4-7.7L2 9.6 9 9z"></path></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7 7 .6-5.4 4.7L18 22l-6-3.6L6 22l1.4-7.7L2 9.6 9 9z"></path></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7 7 .6-5.4 4.7L18 22l-6-3.6L6 22l1.4-7.7L2 9.6 9 9z"></path></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7 7 .6-5.4 4.7L18 22l-6-3.6L6 22l1.4-7.7L2 9.6 9 9z"></path></svg>
+            </div>
+            <span class="rating-txt">4,8/5 <span class="rating-google">sur Google</span></span>
+            <span class="rating-bul"></span>
+            <span class="rating-avis">+3000 avis clients</span>
+          </div>
+        </div>
+        <div class="vid" role="button" aria-label="Voir la vidéo">
+          <div class="vid-bg"></div>
+          <div class="vid-play"><span class="ring"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 5l12 7-12 7z"></path></svg></span></div>
+          <div class="vid-cap">Voir en action</div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <!-- ===== TROPHIES ===== -->
+  <div class="trophies">
+    <div class="trophy">
+      <svg class="trophy-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 21h8"></path><path d="M12 17v4"></path><path d="M7 4h10v5a5 5 0 0 1-10 0V4z"></path><path d="M17 5h3v3a3 3 0 0 1-3 3"></path><path d="M7 5H4v3a3 3 0 0 0 3 3"></path></svg>
+      <div class="trophy-num">1976</div>
+      <div class="trophy-lbl">Depuis 1976<br>à vos côtés</div>
+    </div>
+    <div class="trophy">
+      <svg class="trophy-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="9" r="3.5"></circle><circle cx="17" cy="10" r="2.8"></circle><path d="M2 20c0-3.5 3-6 7-6s7 2.5 7 6"></path><path d="M14 20c0-2.6 2-4.6 5-4.6"></path></svg>
+      <div class="trophy-num">+120</div>
+      <div class="trophy-lbl">Techniciens<br>experts</div>
+    </div>
+    <div class="trophy">
+      <svg class="trophy-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="5"></circle><circle cx="12" cy="12" r="1.5" fill="currentColor"></circle><path d="M12 3v3M12 18v3M3 12h3M18 12h3"></path></svg>
+      <div class="trophy-num">+30 k</div>
+      <div class="trophy-lbl">Interventions<br>par an</div>
+    </div>
+  </div>
+
+  <!-- ===== INTERVENTIONS ===== -->
+  <div id="interventions">
+  <div class="inter-head">Nos dernières interventions</div>
+
+  <div class="inter-block">
+    <div class="inter-scroll">
+      <article class="inter">
+        <div class="inter-img">
+          <img src="assets/guepes-3.jpg" alt="Traitement guêpes et frelons" loading="lazy" width="138" height="138">
+        </div>
+        <div class="inter-body">
+          <div class="inter-city"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12z"></path><circle cx="12" cy="10" r="2.4" fill="currentColor"></circle></svg>LYON (69)</div>
+          <div class="inter-txt">Intervention guêpes en urgence</div>
+        </div>
+      </article>
+
+      <article class="inter">
+        <div class="inter-img">
+          <img src="assets/deratisation_2.jpg" alt="Dératisation" loading="lazy" width="138" height="138">
+        </div>
+        <div class="inter-body">
+          <div class="inter-city"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12z"></path><circle cx="12" cy="10" r="2.4" fill="currentColor"></circle></svg>TOURS (37)</div>
+          <div class="inter-txt">Dératisation particuliers</div>
+        </div>
+      </article>
+
+      <article class="inter">
+        <div class="inter-img">
+          <img src="assets/fourmis-1.jpg" alt="Traitement fourmis" loading="lazy" width="138" height="138">
+        </div>
+        <div class="inter-body">
+          <div class="inter-city"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12z"></path><circle cx="12" cy="10" r="2.4" fill="currentColor"></circle></svg>NANTES (44)</div>
+          <div class="inter-txt">Désinsectisation fourmis</div>
+        </div>
+      </article>
+
+      <article class="inter">
+        <div class="inter-img">
+          <img src="assets/cafards-2.jpg" alt="Désinsectisation cafards" loading="lazy" width="138" height="138">
+        </div>
+        <div class="inter-body">
+          <div class="inter-city"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12z"></path><circle cx="12" cy="10" r="2.4" fill="currentColor"></circle></svg>BORDEAUX (33)</div>
+          <div class="inter-txt">Traitement blattes et cafards</div>
+        </div>
+      </article>
+
+      <article class="inter">
+        <div class="inter-img">
+          <img src="assets/moustiques-3.jpg" alt="Lutte anti-moustiques" loading="lazy" width="138" height="138">
+        </div>
+        <div class="inter-body">
+          <div class="inter-city"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12z"></path><circle cx="12" cy="10" r="2.4" fill="currentColor"></circle></svg>MARSEILLE (13)</div>
+          <div class="inter-txt">Traitement moustiques tigres</div>
+        </div>
+      </article>
+
+      <article class="inter">
+        <div class="inter-img">
+          <img src="assets/pigeons-4.jpg" alt="Lutte anti-pigeons" loading="lazy" width="138" height="138">
+        </div>
+        <div class="inter-body">
+          <div class="inter-city"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12z"></path><circle cx="12" cy="10" r="2.4" fill="currentColor"></circle></svg>LILLE (59)</div>
+          <div class="inter-txt">Dépigeonnage et protection</div>
+        </div>
+      </article>
+    </div>
+    <div class="inter-fade-r"></div>
+  </div>
+  </div>
+
+  <!-- ===== FORM ===== -->
+  <section class="form-wrap" id="formulaire">
+    <h2 class="form-title">Vérifiez si <span class="o">Votre Département</span> est disponible</h2>
+    <p class="form-sub">Remplissez le formulaire, nous vous recontactons rapidement.</p>
+
+    <form name="contact" class="form-grid" id="franchiseForm" method="POST" action="/" data-netlify="true" data-netlify-honeypot="bot-field" novalidate>
+      <input type="hidden" name="form-name" value="contact">
+      <p hidden aria-hidden="true">
+        <label>Ne pas remplir : <input name="bot-field" tabindex="-1" autocomplete="off"></label>
+      </p>
+      <div class="fld"><input type="text" id="prenom" name="prenom" required placeholder="Prénom*"></div>
+      <div class="fld"><input type="tel" id="telephone" name="telephone" required placeholder="Téléphone*"></div>
+      <div class="fld"><input type="email" id="email" name="email" required placeholder="E-mail*" autocomplete="email"></div>
+      <div class="fld">
+        <select id="departement" name="departement" required>
+          <option value="" disabled selected>Département*</option>
+          <option>01 — Ain</option><option>02 — Aisne</option><option>03 — Allier</option><option>04 — Alpes-de-Haute-Provence</option><option>05 — Hautes-Alpes</option><option>06 — Alpes-Maritimes</option><option>07 — Ardèche</option><option>08 — Ardennes</option><option>09 — Ariège</option><option>10 — Aube</option><option>11 — Aude</option><option>12 — Aveyron</option><option>13 — Bouches-du-Rhône</option><option>14 — Calvados</option><option>15 — Cantal</option><option>16 — Charente</option><option>17 — Charente-Maritime</option><option>18 — Cher</option><option>19 — Corrèze</option><option>21 — Côte-d'Or</option><option>22 — Côtes-d'Armor</option><option>23 — Creuse</option><option>24 — Dordogne</option><option>25 — Doubs</option><option>26 — Drôme</option><option>27 — Eure</option><option>28 — Eure-et-Loir</option><option>29 — Finistère</option><option>30 — Gard</option><option>31 — Haute-Garonne</option><option>32 — Gers</option><option>33 — Gironde</option><option>34 — Hérault</option><option>35 — Ille-et-Vilaine</option><option>36 — Indre</option><option>37 — Indre-et-Loire</option><option>38 — Isère</option><option>39 — Jura</option><option>40 — Landes</option><option>41 — Loir-et-Cher</option><option>42 — Loire</option><option>43 — Haute-Loire</option><option>44 — Loire-Atlantique</option><option>45 — Loiret</option><option>46 — Lot</option><option>47 — Lot-et-Garonne</option><option>48 — Lozère</option><option>49 — Maine-et-Loire</option><option>50 — Manche</option><option>51 — Marne</option><option>52 — Haute-Marne</option><option>53 — Mayenne</option><option>54 — Meurthe-et-Moselle</option><option>55 — Meuse</option><option>56 — Morbihan</option><option>57 — Moselle</option><option>58 — Nièvre</option><option>59 — Nord</option><option>60 — Oise</option><option>61 — Orne</option><option>62 — Pas-de-Calais</option><option>63 — Puy-de-Dôme</option><option>64 — Pyrénées-Atlantiques</option><option>65 — Hautes-Pyrénées</option><option>66 — Pyrénées-Orientales</option><option>67 — Bas-Rhin</option><option>68 — Haut-Rhin</option><option>69 — Rhône</option><option>70 — Haute-Saône</option><option>71 — Saône-et-Loire</option><option>72 — Sarthe</option><option>73 — Savoie</option><option>74 — Haute-Savoie</option><option>75 — Paris</option><option>76 — Seine-Maritime</option><option>77 — Seine-et-Marne</option><option>78 — Yvelines</option><option>79 — Deux-Sèvres</option><option>80 — Somme</option><option>81 — Tarn</option><option>82 — Tarn-et-Garonne</option><option>83 — Var</option><option>84 — Vaucluse</option><option>85 — Vendée</option><option>86 — Vienne</option><option>87 — Haute-Vienne</option><option>88 — Vosges</option><option>89 — Yonne</option><option>90 — Territoire de Belfort</option><option>91 — Essonne</option><option>92 — Hauts-de-Seine</option><option>93 — Seine-Saint-Denis</option><option>94 — Val-de-Marne</option><option>95 — Val-d'Oise</option><option>2A — Corse-du-Sud</option><option>2B — Haute-Corse</option><option>971 — Guadeloupe</option><option>972 — Martinique</option><option>973 — Guyane</option><option>974 — La Réunion</option><option>976 — Mayotte</option>
+        </select>
+      </div>
+      <input type="hidden" name="departement_nom" id="departement_nom" value="">
+      <input type="hidden" name="message" id="message" value="">
+      <button class="send-btn" type="submit" id="franchiseSubmitBtn">
+        Envoyer ma demande
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg>
+      </button>
+      <p class="form-err" id="franchiseFormErr" hidden role="alert"></p>
+    </form>
+
+    <div class="form-success" id="franchiseFormSuccess" hidden role="status">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg>
+      <div>
+        <strong>Demande envoyée avec succès</strong>
+        Merci pour votre confiance. Votre message a bien été transmis à notre équipe. Nous vous recontactons très rapidement pour vous informer de la disponibilité de votre département.
+      </div>
+    </div>
+
+    <div class="form-foot">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>
+      Vos données sont 100% confidentielles et ne seront jamais partagées.
+    </div>
+  </section>
+
+  <div class="cta-sticky">
+    <button class="cta" type="button" onclick="document.getElementById('formulaire').scrollIntoView({behavior:'smooth'})">
+      <span class="cta-ico">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2.5"></rect><path d="M3 9h18"></path><path d="M8 2v4M16 2v4"></path><path d="M8 14l3 3 5-6"></path></svg>
+      </span>
+      <span class="cta-label">Voir si mon département<br>est disponible</span>
+      <span class="cta-arr">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg>
+      </span>
+    </button>
+  </div>
+
+</div>
+
+<!-- Formulaire fantôme : détection des champs par Netlify au build -->
+<form name="contact" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
+  <input type="text" name="prenom">
+  <input type="tel" name="telephone">
+  <input type="email" name="email">
+  <input type="text" name="departement">
+  <input type="text" name="departement_nom">
+  <input type="text" name="message">
+  <input type="text" name="bot-field">
+</form>
+
+<script>
+(function () {
+  var form = document.getElementById('franchiseForm');
+  if (!form) return;
+
+  var btn = document.getElementById('franchiseSubmitBtn');
+  var errEl = document.getElementById('franchiseFormErr');
+  var okEl = document.getElementById('franchiseFormSuccess');
+  var btnDefaultHtml = btn.innerHTML;
+
+  function parseDepartement(sel) {
+    var opt = sel.options[sel.selectedIndex];
+    var text = (opt && opt.text) ? opt.text.trim() : '';
+    var code = text.split(' — ')[0].trim();
+    return { code: code, label: text };
+  }
+
+  function showError(msg) {
+    errEl.textContent = msg;
+    errEl.hidden = false;
+  }
+
+  function clearError() {
+    errEl.hidden = true;
+    errEl.textContent = '';
+  }
+
+  function hideSuccess() {
+    okEl.hidden = true;
+  }
+
+  function showSuccess() {
+    clearError();
+    form.reset();
+    okEl.hidden = false;
+    okEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  if (window.location.search.indexOf('success=true') !== -1) {
+    showSuccess();
+    if (window.history.replaceState) {
+      window.history.replaceState(null, '', window.location.pathname);
+    }
+  }
+
+  form.addEventListener('input', hideSuccess);
+  form.addEventListener('change', hideSuccess);
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    clearError();
+    hideSuccess();
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    var dept = parseDepartement(document.getElementById('departement'));
+    document.getElementById('departement_nom').value = dept.label;
+    document.getElementById('message').value =
+      'Demande franchise Eden Vert 3D — département ' + dept.code + ' (' + dept.label + ').';
+
+    var formData = new FormData(form);
+    formData.set('departement', dept.code);
+    formData.set('form-name', 'contact');
+
+    btn.disabled = true;
+    btn.innerHTML = 'Envoi en cours…';
+
+    fetch(form.getAttribute('action') || '/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(formData).toString()
+    })
+      .then(function (res) {
+        btn.disabled = false;
+        if (res.ok) {
+          btn.innerHTML = btnDefaultHtml;
+          showSuccess();
+          return;
+        }
+        btn.innerHTML = btnDefaultHtml;
+        showError('Erreur lors de l\'envoi (' + res.status + '). Réessayez ou contactez-nous par téléphone.');
+      })
+      .catch(function () {
+        btn.disabled = false;
+        btn.innerHTML = btnDefaultHtml;
+        showError('Impossible d\'envoyer le formulaire. Vérifiez votre connexion ou réessayez.');
+      });
+  });
+})();
+</script>
+
+</body></html>
