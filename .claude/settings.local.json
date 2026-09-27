@@ -5,7 +5,10 @@
       "Bash(python3)",
       "Bash(open /Users/alexisyon/Sites/test_claude/landing-derat.html)",
       "WebFetch(domain:www.edenvert3dloire42.fr)",
-      "Bash(python3 -m http.server 8000)"
+      "Bash(python3 -m http.server 8000)",
+      "Bash(grep -n -E '^\\\\.header\\\\{|^\\\\.header \\\\.container|^\\\\.logo img|^\\\\.topbar\\\\{|^\\\\.topbar \\\\.container|^\\\\.nav\\\\{|  \\\\.logo img|position:sticky|is-scrolled' index.html; cmp -s index.html /Users/alexisyon/Sites/claude_code/index.html && echo SAME || echo DIFFERENT)",
+      "Bash(sips -g pixelWidth -g pixelHeight assets/laboutique4.jpg)",
+      "Bash(sips -g pixelWidth -g pixelHeight particuliers.jpg restaurants.jpg)"
     ]
   }
 }
