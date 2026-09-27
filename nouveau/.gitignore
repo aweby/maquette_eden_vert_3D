@@ -1,0 +1,2 @@
+# Exports de base de données (données personnelles clients) : ne jamais publier
+*.sql

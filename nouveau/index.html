@@ -345,7 +345,8 @@ svg.i{width:1em;height:1em;flex:none;stroke-width:2}
 .article-img img{width:100%;height:100%;object-fit:cover;outline:1px solid oklch(0 0 0/.1);outline-offset:-1px}
 .article-tag{position:absolute;top:10px;left:10px;background:#fff;color:var(--ink);font-size:var(--text-caption);font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:3px}
 .article-body{padding:18px;display:flex;flex-direction:column;gap:14px;flex:1}
-.article h3{font-size:var(--text-body);font-weight:700;color:var(--ink);line-height:1.3;flex:1}
+.article h3{font-size:var(--text-body);font-weight:700;color:var(--ink);line-height:1.3}
+.article-excerpt{font-size:var(--text-ui);color:var(--muted);line-height:1.45;flex:1}
 .article .link-more{font-size:var(--text-caption)}
 .newsletter{background:var(--ink);color:#fff;border-radius:6px;padding:28px}
 .newsletter h3{font-size:var(--text-lead);font-weight:800;text-transform:uppercase;margin-bottom:10px}
@@ -354,6 +355,45 @@ svg.i{width:1em;height:1em;flex:none;stroke-width:2}
 .newsletter input:focus{border-color:var(--orange)}
 .newsletter .btn{width:100%;justify-content:center}
 .form-msg{font-size:var(--text-label);margin-top:10px;min-height:1em;color:#9ee6a6}
+
+/* ---------- FAQ ---------- */
+.faq{background:var(--bg-soft);padding:clamp(64px,7vw,112px) 0}
+.faq .container{display:grid;grid-template-columns:minmax(280px,.8fr) 2fr;gap:clamp(32px,5vw,72px);align-items:start}
+.faq-intro{position:sticky;top:96px}
+.faq-intro .eyebrow{color:var(--muted)}
+.faq-lead{color:var(--muted);margin:16px 0 28px;max-width:360px}
+.faq-help{background:var(--ink);color:#fff;border-radius:16px;padding:24px;display:flex;flex-direction:column;align-items:flex-start;gap:10px}
+.faq-help b{font-size:var(--text-lead);line-height:1.25}
+.faq-help p{color:rgba(255,255,255,.72);font-size:var(--text-ui);margin-bottom:6px}
+.faq-help .btn{font-variant-numeric:tabular-nums}
+.faq-help-link{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:var(--text-label);letter-spacing:.05em;text-transform:uppercase;color:#fff;opacity:.8;transition:opacity .15s cubic-bezier(0.2,0,0,1)}
+.faq-help-link:hover{opacity:1}
+.faq-filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.faq-chip{border:0;cursor:pointer;font:inherit;font-size:var(--text-label);font-weight:600;padding:9px 16px;border-radius:999px;background:#fff;color:var(--text);box-shadow:inset 0 0 0 1px rgb(0 0 0/.08);transition-property:background-color,color,box-shadow,scale;transition-duration:.15s;transition-timing-function:cubic-bezier(0.2,0,0,1)}
+.faq-chip:hover{box-shadow:inset 0 0 0 1px rgb(0 0 0/.2)}
+.faq-chip:active{scale:.96}
+.faq-chip[aria-pressed="true"]{background:var(--ink);color:#fff;box-shadow:none}
+.faq-chip:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.faq-list{display:flex;flex-direction:column;gap:10px}
+.faq-item{background:#fff;border-radius:14px;box-shadow:0 0 0 1px rgb(0 0 0/.05),0 1px 2px rgb(0 0 0/.03);transition:box-shadow .2s cubic-bezier(0.2,0,0,1)}
+.faq-item[hidden]{display:none}
+.faq-item[open]{box-shadow:0 0 0 1px rgb(0 0 0/.06),0 10px 30px rgb(18 20 23/.08)}
+.faq-item summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 22px;font-weight:700;font-size:var(--text-body);color:var(--ink);line-height:1.35}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary:focus-visible{outline:2px solid var(--orange);outline-offset:-2px;border-radius:14px}
+.faq-icon{position:relative;width:30px;height:30px;border-radius:50%;background:var(--bg-soft);flex:none;transition:background-color .2s cubic-bezier(0.2,0,0,1),rotate .25s cubic-bezier(0.2,0,0,1)}
+.faq-icon::before,.faq-icon::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:2px;margin:-1px 0 0 -6px;border-radius:2px;background:var(--ink);transition:rotate .25s cubic-bezier(0.2,0,0,1),background-color .2s cubic-bezier(0.2,0,0,1)}
+.faq-icon::after{rotate:90deg}
+.faq-item summary:hover .faq-icon{background:#EDEEF0}
+.faq-item[open] .faq-icon{background:var(--orange);rotate:180deg}
+.faq-item[open] .faq-icon::before,.faq-item[open] .faq-icon::after{background:#fff}
+.faq-item[open] .faq-icon::after{rotate:0deg}
+.faq-answer{padding:0 22px 22px;color:var(--text);max-width:720px}
+.faq-answer p{line-height:1.6}
+.faq-answer a{color:var(--ink);font-weight:600;text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:from-font}
+.faq-answer strong{color:var(--ink)}
+.faq-item[open] .faq-answer{animation:faqIn .3s cubic-bezier(0.2,0,0,1)}
+@keyframes faqIn{from{opacity:0;translate:0 -4px}to{opacity:1;translate:0 0}}
 
 /* ---------- Contact ---------- */
 .contact{background:#fff;padding:clamp(64px,7vw,112px) 0}
@@ -473,6 +513,8 @@ svg.i{width:1em;height:1em;flex:none;stroke-width:2}
   .newsletter{grid-column:1/-1}
   .footer-grid{grid-template-columns:repeat(3,1fr)}
   .contact-card{grid-template-columns:1fr}
+  .faq .container{grid-template-columns:1fr}
+  .faq-intro{position:static}
   .social .container{grid-template-columns:1fr}
   .social-links{max-width:none}
   .history-card{grid-template-columns:1fr 1.3fr}
@@ -963,18 +1005,17 @@ svg.i{width:1em;height:1em;flex:none;stroke-width:2}
     <h2 class="section-title center">Conseils &amp; actualités</h2>
     <div class="news-grid reveal stagger">
       <a href="#" class="article">
-        <div class="article-img"><img src="https://edenvert3d-occitanie.fr/wp-content/uploads/2024/03/Image-23.png" alt="" loading="lazy"><span class="article-tag">Conseils</span></div>
-        <div class="article-body"><h3>Punaises de lit&nbsp;: les bons réflexes à adopter</h3><span class="link-more">Lire l’article <svg class="i"><use href="#i-arrow"/></svg></span></div>
+        <div class="article-img"><img src="assets/social/rats.jpg" alt="Technicien Eden Vert 3D posant des postes d’appâtage contre les rats" loading="lazy"><span class="article-tag">Rongeurs</span></div>
+        <div class="article-body"><h3>Bruits dans le plafond&nbsp;: rat, souris, loir ou fouine&nbsp;?</h3><p class="article-excerpt">Grattements la nuit, crottes, isolation abîmée&nbsp;: les signes pour identifier l’animal et réagir vite.</p><span class="link-more">Lire l’article <svg class="i"><use href="#i-arrow"/></svg></span></div>
       </a>
       <a href="#" class="article">
-        <div class="article-img"><img src="https://edenvert3d-occitanie.fr/wp-content/uploads/2024/02/gros-plan-guepe-frelon-asiatique-pattes-jaunes-vespa-velutina-scaled-1.jpg" alt="" loading="lazy"><span class="article-tag">Actualités</span></div>
-        <div class="article-body"><h3>Frelons asiatiques&nbsp;: la vigilance de printemps</h3><span class="link-more">Lire l’article <svg class="i"><use href="#i-arrow"/></svg></span></div>
+        <div class="article-img"><img src="assets/articles/frelon-asiatique.jpg" alt="Gros plan sur un frelon asiatique" loading="lazy"><span class="article-tag">Frelons · en ce moment</span></div>
+        <div class="article-body"><h3>Nid de frelons asiatiques&nbsp;: que faire et combien ça coûte&nbsp;?</h3><p class="article-excerpt">Nid dans un arbre à 10&nbsp;m, sous le toit ou invisible&nbsp;: comment se passe la destruction et ce qui fait varier le prix.</p><span class="link-more">Lire l’article <svg class="i"><use href="#i-arrow"/></svg></span></div>
       </a>
       <a href="#" class="article">
-        <div class="article-img"><img src="https://edenvert3d-occitanie.fr/wp-content/uploads/2024/03/Image-21.png" alt="" loading="lazy"><span class="article-tag">Conseils</span></div>
-        <div class="article-body"><h3>Souris dans la maison&nbsp;: comment les éviter&nbsp;?</h3><span class="link-more">Lire l’article <svg class="i"><use href="#i-arrow"/></svg></span></div>
+        <div class="article-img"><img src="assets/articles/cafards.jpg" alt="Cafards sur une grille de cuisine" loading="lazy"><span class="article-tag">Cafards</span></div>
+        <div class="article-body"><h3>Cafards dans la cuisine&nbsp;: pourquoi <span class="nowrap">reviennent-ils</span> malgré les bombes&nbsp;?</h3><p class="article-excerpt">Canalisations, immeuble, produits du commerce&nbsp;: comprendre la récidive et s’en débarrasser durablement.</p><span class="link-more">Lire l’article <svg class="i"><use href="#i-arrow"/></svg></span></div>
       </a>
-      
       <form class="newsletter" id="newsletter">
         <h3>Restez informé</h3>
         <p>Recevez nos conseils et actualités pour un environnement sain.</p>
@@ -984,6 +1025,81 @@ svg.i{width:1em;height:1em;flex:none;stroke-width:2}
       </form>
     </div>
   </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="faq" id="faq">
+  <div class="container">
+    <aside class="faq-intro reveal">
+      <p class="eyebrow">Questions fréquentes</p>
+      <h2 class="section-title">Vos questions,<br><span class="accent">nos réponses.</span></h2>
+      <p class="faq-lead">Les questions que vous nous posez le plus souvent, par téléphone, par mail et sur le chat.</p>
+      <div class="faq-help">
+        <b>Votre question n’est pas dans la liste&nbsp;?</b>
+        <p>Un conseiller vous répond et vous oriente vers l’agence la plus proche.</p>
+        <a href="tel:0184802122" class="btn btn-primary"><svg class="i"><use href="#i-phone"/></svg>01&nbsp;84&nbsp;80&nbsp;21&nbsp;22</a>
+        <a href="#contact" class="faq-help-link">Nous écrire <svg class="i"><use href="#i-arrow"/></svg></a>
+      </div>
+    </aside>
+    <div class="faq-main reveal">
+      <div class="faq-filters" role="group" aria-label="Filtrer les questions"><button type="button" class="faq-chip" data-filter="tous" aria-pressed="true">Toutes</button><button type="button" class="faq-chip" data-filter="tarifs" aria-pressed="false">Tarifs & délais</button><button type="button" class="faq-chip" data-filter="rongeurs" aria-pressed="false">Rongeurs</button><button type="button" class="faq-chip" data-filter="frelons" aria-pressed="false">Frelons & guêpes</button><button type="button" class="faq-chip" data-filter="insectes" aria-pressed="false">Insectes</button><button type="button" class="faq-chip" data-filter="pros" aria-pressed="false">Pros & boutique</button></div>
+      <div class="faq-list">
+        <details class="faq-item" data-cat="tarifs" open>
+          <summary><span>Combien coûte une intervention&nbsp;?</span><span class="faq-icon" aria-hidden="true"></span></summary>
+          <div class="faq-answer"><p>Le tarif dépend du nuisible, de la surface à traiter, de l’accès (hauteur, combles, toiture) et du nombre de passages nécessaires. C’est pourquoi nous établissons un <strong>devis gratuit et sans engagement</strong> avant toute intervention&nbsp;: vous connaissez le prix avant que le technicien ne commence.</p></div>
+        </details>
+        <details class="faq-item" data-cat="tarifs">
+          <summary><span>Le devis est-il vraiment gratuit&nbsp;?</span><span class="faq-icon" aria-hidden="true"></span></summary>
+          <div class="faq-answer"><p>Oui. Décrivez votre problème via le <a href="#contact">formulaire</a> ou par téléphone&nbsp;: l’agence la plus proche vous rappelle avec un devis, gratuit et sans engagement. Une photo du nuisible ou des dégâts nous aide à être plus précis.</p></div>
+        </details>
+        <details class="faq-item" data-cat="tarifs">
+          <summary><span>Intervenez-vous rapidement, même le week-end&nbsp;?</span><span class="faq-icon" aria-hidden="true"></span></summary>
+          <div class="faq-answer"><p>Oui, nos équipes interviennent 7j/7, et <strong>sans majoration le week-end ni les jours fériés</strong>. En cas d’urgence (nid de frelons près d’une porte, punaises de lit, rongeurs dans la cuisine), appelez directement le <a href="tel:0184802122">01&nbsp;84&nbsp;80&nbsp;21&nbsp;22</a>.</p></div>
+        </details>
+        <details class="faq-item" data-cat="rongeurs">
+          <summary><span>J’entends gratter dans le plafond la nuit&nbsp;: quel animal est-ce&nbsp;?</span><span class="faq-icon" aria-hidden="true"></span></summary>
+          <div class="faq-answer"><p>C’est souvent un rongeur (souris, rat), mais ce peut être un loir ou une fouine, surtout dans les combles et sous la toiture. Quelques indices&nbsp;: des petits grattements rapides évoquent la souris, des bruits plus lourds le rat ou la fouine, des allers-retours bruyants au printemps et en été le loir. Le technicien identifie l’animal (crottes, traces, points d’entrée) avant de choisir le traitement.</p></div>
+        </details>
+        <details class="faq-item" data-cat="rongeurs">
+          <summary><span>Les produits de dératisation sont-ils dangereux pour mes enfants et mes animaux&nbsp;?</span><span class="faq-icon" aria-hidden="true"></span></summary>
+          <div class="faq-answer"><p>Nos techniciens certifiés utilisent des <strong>postes d’appâtage sécurisés</strong>, fermés et fixés, placés hors de portée des enfants et des animaux domestiques. Signalez-nous la présence d’un chien, d’un chat ou d’un jeune enfant&nbsp;: le dispositif est adapté en conséquence.</p></div>
+        </details>
+        <details class="faq-item" data-cat="frelons">
+          <summary><span>Pouvez-vous détruire un nid de frelons situé très en hauteur&nbsp;?</span><span class="faq-icon" aria-hidden="true"></span></summary>
+          <div class="faq-answer"><p>Oui. Nids dans un arbre, sous une toiture, dans une cheminée&nbsp;: nos techniciens sont équipés pour traiter les nids difficiles d’accès (perches télescopiques, matériel adapté selon la configuration). Indiquez-nous la hauteur approximative et l’emplacement lors de votre demande.</p></div>
+        </details>
+        <details class="faq-item" data-cat="frelons">
+          <summary><span>J’ai un nid de guêpes dans un volet roulant ou sous les tuiles&nbsp;: que faire en attendant&nbsp;?</span><span class="faq-icon" aria-hidden="true"></span></summary>
+          <div class="faq-answer"><p>Ne touchez pas au nid et n’actionnez plus le volet. N’essayez pas de le boucher ni de le détruire vous-même&nbsp;: les guêpes défendent leur nid et peuvent piquer en nombre. Tenez enfants et animaux à distance et contactez-nous&nbsp;: l’intervention est rapide.</p></div>
+        </details>
+        <details class="faq-item" data-cat="frelons">
+          <summary><span>Je vois des frelons asiatiques mais pas de nid&nbsp;: que faire&nbsp;?</span><span class="faq-icon" aria-hidden="true"></span></summary>
+          <div class="faq-answer"><p>Le nid est souvent caché en hauteur (cime des arbres, haies, charpentes). Observez la direction de vol des frelons et notez l’endroit où ils semblent se regrouper. Notre technicien peut repérer le nid sur place avant de le détruire.</p></div>
+        </details>
+        <details class="faq-item" data-cat="insectes">
+          <summary><span>Les cafards reviennent malgré les bombes insecticides&nbsp;: pourquoi&nbsp;?</span><span class="faq-icon" aria-hidden="true"></span></summary>
+          <div class="faq-answer"><p>Les aérosols tuent les insectes visibles mais pas les œufs ni les colonies cachées dans les gaines, canalisations et appareils électroménagers. En immeuble, ils circulent aussi d’un logement à l’autre. Un traitement professionnel cible les foyers (gel, pulvérisation) et prévoit un suivi pour éviter la récidive.</p></div>
+        </details>
+        <details class="faq-item" data-cat="insectes">
+          <summary><span>Faut-il quitter le logement pendant un traitement contre les punaises de lit&nbsp;?</span><span class="faq-icon" aria-hidden="true"></span></summary>
+          <div class="faq-answer"><p>Selon la méthode, il faut généralement s’absenter quelques heures. Avant l’intervention, lavez le linge de lit et les vêtements à 60&nbsp;°C, dégagez l’accès au lit et aux plinthes et évitez de déplacer les affaires vers d’autres pièces. Le technicien vous donne la marche à suivre exacte lors de la prise de rendez-vous.</p></div>
+        </details>
+        <details class="faq-item" data-cat="insectes">
+          <summary><span>Comment savoir si j’ai des punaises de lit&nbsp;?</span><span class="faq-icon" aria-hidden="true"></span></summary>
+          <div class="faq-answer"><p>Les signes les plus fréquents&nbsp;: des piqûres alignées au réveil, de petites taches noires ou de sang sur le matelas et les draps, des insectes bruns et plats de quelques millimètres dans les coutures du matelas ou du sommier. Un doute&nbsp;? Envoyez-nous une photo via le <a href="#contact">formulaire</a>.</p></div>
+        </details>
+        <details class="faq-item" data-cat="pros">
+          <summary><span>Intervenez-vous pour les professionnels, syndics et collectivités&nbsp;?</span><span class="faq-icon" aria-hidden="true"></span></summary>
+          <div class="faq-answer"><p>Oui&nbsp;: restaurants, commerces, hôtels, entrepôts, immeubles et parties communes, bâtiments publics. Nous proposons des interventions ponctuelles et des <strong>contrats d’entretien</strong> adaptés à vos obligations sanitaires, avec des interventions discrètes en dehors des horaires d’ouverture.</p></div>
+        </details>
+        <details class="faq-item" data-cat="pros">
+          <summary><span>Vendez-vous des produits anti-nuisibles&nbsp;?</span><span class="faq-icon" aria-hidden="true"></span></summary>
+          <div class="faq-answer"><p>Oui, nos boutiques proposent des produits et du matériel professionnels, avec les conseils de nos techniciens pour les utiliser en toute sécurité. Pour une infestation installée, une intervention reste la solution la plus efficace et la plus durable.</p></div>
+        </details>
+      </div>
+    </div>
+  </div>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Combien coûte une intervention ?", "acceptedAnswer": {"@type": "Answer", "text": "Le tarif dépend du nuisible, de la surface à traiter, de l’accès (hauteur, combles, toiture) et du nombre de passages nécessaires. C’est pourquoi nous établissons un devis gratuit et sans engagement avant toute intervention : vous connaissez le prix avant que le technicien ne commence."}}, {"@type": "Question", "name": "Le devis est-il vraiment gratuit ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui. Décrivez votre problème via le formulaire ou par téléphone : l’agence la plus proche vous rappelle avec un devis, gratuit et sans engagement. Une photo du nuisible ou des dégâts nous aide à être plus précis."}}, {"@type": "Question", "name": "Intervenez-vous rapidement, même le week-end ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui, nos équipes interviennent 7j/7, et sans majoration le week-end ni les jours fériés. En cas d’urgence (nid de frelons près d’une porte, punaises de lit, rongeurs dans la cuisine), appelez directement le 01 84 80 21 22."}}, {"@type": "Question", "name": "J’entends gratter dans le plafond la nuit : quel animal est-ce ?", "acceptedAnswer": {"@type": "Answer", "text": "C’est souvent un rongeur (souris, rat), mais ce peut être un loir ou une fouine, surtout dans les combles et sous la toiture. Quelques indices : des petits grattements rapides évoquent la souris, des bruits plus lourds le rat ou la fouine, des allers-retours bruyants au printemps et en été le loir. Le technicien identifie l’animal (crottes, traces, points d’entrée) avant de choisir le traitement."}}, {"@type": "Question", "name": "Les produits de dératisation sont-ils dangereux pour mes enfants et mes animaux ?", "acceptedAnswer": {"@type": "Answer", "text": "Nos techniciens certifiés utilisent des postes d’appâtage sécurisés, fermés et fixés, placés hors de portée des enfants et des animaux domestiques. Signalez-nous la présence d’un chien, d’un chat ou d’un jeune enfant : le dispositif est adapté en conséquence."}}, {"@type": "Question", "name": "Pouvez-vous détruire un nid de frelons situé très en hauteur ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui. Nids dans un arbre, sous une toiture, dans une cheminée : nos techniciens sont équipés pour traiter les nids difficiles d’accès (perches télescopiques, matériel adapté selon la configuration). Indiquez-nous la hauteur approximative et l’emplacement lors de votre demande."}}, {"@type": "Question", "name": "J’ai un nid de guêpes dans un volet roulant ou sous les tuiles : que faire en attendant ?", "acceptedAnswer": {"@type": "Answer", "text": "Ne touchez pas au nid et n’actionnez plus le volet. N’essayez pas de le boucher ni de le détruire vous-même : les guêpes défendent leur nid et peuvent piquer en nombre. Tenez enfants et animaux à distance et contactez-nous : l’intervention est rapide."}}, {"@type": "Question", "name": "Je vois des frelons asiatiques mais pas de nid : que faire ?", "acceptedAnswer": {"@type": "Answer", "text": "Le nid est souvent caché en hauteur (cime des arbres, haies, charpentes). Observez la direction de vol des frelons et notez l’endroit où ils semblent se regrouper. Notre technicien peut repérer le nid sur place avant de le détruire."}}, {"@type": "Question", "name": "Les cafards reviennent malgré les bombes insecticides : pourquoi ?", "acceptedAnswer": {"@type": "Answer", "text": "Les aérosols tuent les insectes visibles mais pas les œufs ni les colonies cachées dans les gaines, canalisations et appareils électroménagers. En immeuble, ils circulent aussi d’un logement à l’autre. Un traitement professionnel cible les foyers (gel, pulvérisation) et prévoit un suivi pour éviter la récidive."}}, {"@type": "Question", "name": "Faut-il quitter le logement pendant un traitement contre les punaises de lit ?", "acceptedAnswer": {"@type": "Answer", "text": "Selon la méthode, il faut généralement s’absenter quelques heures. Avant l’intervention, lavez le linge de lit et les vêtements à 60 °C, dégagez l’accès au lit et aux plinthes et évitez de déplacer les affaires vers d’autres pièces. Le technicien vous donne la marche à suivre exacte lors de la prise de rendez-vous."}}, {"@type": "Question", "name": "Comment savoir si j’ai des punaises de lit ?", "acceptedAnswer": {"@type": "Answer", "text": "Les signes les plus fréquents : des piqûres alignées au réveil, de petites taches noires ou de sang sur le matelas et les draps, des insectes bruns et plats de quelques millimètres dans les coutures du matelas ou du sommier. Un doute ? Envoyez-nous une photo via le formulaire."}}, {"@type": "Question", "name": "Intervenez-vous pour les professionnels, syndics et collectivités ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui : restaurants, commerces, hôtels, entrepôts, immeubles et parties communes, bâtiments publics. Nous proposons des interventions ponctuelles et des contrats d’entretien adaptés à vos obligations sanitaires, avec des interventions discrètes en dehors des horaires d’ouverture."}}, {"@type": "Question", "name": "Vendez-vous des produits anti-nuisibles ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui, nos boutiques proposent des produits et du matériel professionnels, avec les conseils de nos techniciens pour les utiliser en toute sécurité. Pour une infestation installée, une intervention reste la solution la plus efficace et la plus durable."}}]}</script>
 </section>
 
 <!-- ============ CONTACT ============ -->
@@ -1097,7 +1213,7 @@ svg.i{width:1em;height:1em;flex:none;stroke-width:2}
       </div>
       <div class="footer-col">
         <h4>Liens rapides</h4>
-        <ul><li><a href="#">Particuliers</a></li><li><a href="#">Professionnels</a></li><li><a href="#">Collectivités</a></li><li><a href="#reseau">Nos agences</a></li><li><a href="#">La franchise</a></li><li><a href="#">Actualités</a></li></ul>
+        <ul><li><a href="#">Particuliers</a></li><li><a href="#">Professionnels</a></li><li><a href="#">Collectivités</a></li><li><a href="#reseau">Nos agences</a></li><li><a href="#">La franchise</a></li><li><a href="#">Actualités</a></li><li><a href="#faq">Questions fréquentes</a></li></ul>
       </div>
       <div class="footer-col">
         <h4>Le groupe</h4>
@@ -1175,6 +1291,15 @@ svg.i{width:1em;height:1em;flex:none;stroke-width:2}
       setTimeout(() => { btn.innerHTML = label; }, 1800);
     });
   });
+
+  // FAQ : filtres par thème
+  const faqChips = document.querySelectorAll('.faq-chip');
+  const faqItems = document.querySelectorAll('.faq-item');
+  faqChips.forEach(chip => chip.addEventListener('click', () => {
+    const f = chip.dataset.filter;
+    faqChips.forEach(c => c.setAttribute('aria-pressed', String(c === chip)));
+    faqItems.forEach(it => { it.hidden = f !== 'tous' && it.dataset.cat !== f; });
+  }));
 
   // Formulaire de contact : validation, photo, confirmation (envoi à brancher côté serveur)
   const cform = document.getElementById('contactForm');
