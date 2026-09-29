@@ -752,7 +752,7 @@ const clock = new THREE.Clock(); let visible = false, raf;
 const tmp = new THREE.Vector3(), dir = new THREE.Vector3(), orb = new THREE.Spherical(), occRay = new THREE.Raycaster();
 function frame() {
   raf = requestAnimationFrame(frame);
-  const t = clock.getElapsedTime(), k = 1 - Math.exp(-Math.min(.25, t - (frame.last ?? t)) * 3.6); frame.last = t;
+  const t = clock.getElapsedTime(), k = window.__K ?? 1 - Math.exp(-Math.min(.25, t - (frame.last ?? t)) * 3.6); frame.last = t;
   if (!reduced) anim.forEach(fn => fn(t));
   // glissement doux vers la cible (focus / vue d'ensemble)
   controls.target.lerp(goal.target, k);
@@ -790,7 +790,7 @@ new IntersectionObserver(([en]) => {
   clearInterval(timer);
   if (visible && auto) timer = setInterval(() => show(keys[(keys.indexOf(current) + 1) % keys.length]), 4500);
 }, { threshold: .15 }).observe(stage);
-resize(); renderer.render(scene, camera);
+resize(); renderer.render(scene, camera); window.__nh = { camera, controls, frame, V, HOME, S: THREE.Spherical };
 stage.querySelector('.nh-loading').style.opacity = 0; setTimeout(() => stage.querySelector('.nh-loading')?.remove(), 500);
 </script>
 </body>
