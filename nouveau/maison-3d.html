@@ -749,6 +749,31 @@ function rodent({ body = '#6E6259', len = .5, tailLen = .55, tailR = .03 } = {})
   const tm = add(new THREE.Mesh(tg, col('#C48A84', { roughness: .5 })), g); tm.name = 'tail';
   return g;
 }
+// segment arrondi entre deux points (pattes, museau, cou…)
+function seg(g, a, b, r, mat) {
+  const A = new THREE.Vector3(...a), B = new THREE.Vector3(...b), d = B.clone().sub(A), L = d.length();
+  const m = add(new THREE.Mesh(new THREE.CapsuleGeometry(r, Math.max(.001, L), 5, 10), mat), g);
+  m.position.copy(A).add(B).multiplyScalar(.5); m.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), d.normalize()); return m;
+}
+// cafard (blatte germanique/orientale) : carapace brillante, bouclier clair, antennes, 6 pattes articulées
+function roach(L = .24) {
+  const g = new THREE.Group(), shell = col('#5E3217', { roughness: .22, metalness: .15 }), pron = col('#8A5530', { roughness: .25, metalness: .1 }), dark = col('#2A160B', { roughness: .4 });
+  sph(-.08 * L, .12 * L, 0, .5 * L, shell, 1, .26, .6, g);                                   // ailes / abdomen
+  box(-.5 * L, .245 * L, -.004, .22 * L, .255 * L, .004, dark, g);                            // jointure des ailes
+  sph(.36 * L, .12 * L, 0, .19 * L, pron, .9, .35, 1.25, g);                                  // pronotum
+  sph(.36 * L, .15 * L, 0, .09 * L, dark, .8, .3, .9, g);                                     // tache du pronotum
+  sph(.52 * L, .09 * L, 0, .075 * L, dark, 1, .8, 1, g);                                      // tête
+  for (const s of [-1, 1]) {
+    const ant = new THREE.CatmullRomCurve3([new THREE.Vector3(.56 * L, .1 * L, s * .03 * L), new THREE.Vector3(.95 * L, .22 * L, s * .22 * L), new THREE.Vector3(1.5 * L, .12 * L, s * .5 * L)]);
+    add(new THREE.Mesh(new THREE.TubeGeometry(ant, 12, .012 * L, 5), dark), g, false, false);                   // antennes
+    const c = add(new THREE.Mesh(new THREE.ConeGeometry(.02 * L, .14 * L, 6), dark), g, false, false); c.rotation.z = Math.PI / 2; c.position.set(-.6 * L, .1 * L, s * .08 * L);   // cerques
+    for (const [x, fx] of [[.26, .55], [.02, .1], [-.18, -.55]]) {                               // 3 paires de pattes
+      const hip = [x * L, .1 * L, s * .24 * L], knee = [(x + fx * .35) * L, .18 * L, s * .55 * L], foot = [(x + fx * .7) * L, .005, s * .78 * L];
+      seg(g, hip, knee, .028 * L, dark); seg(g, knee, foot, .02 * L, dark);
+    }
+  }
+  return g;
+}
 function insect({ c = '#5A3319', l = .16, legs = true, flat = .45 } = {}) {
   const g = new THREE.Group(), m = col(c, { roughness: .35 });
   sph(0, l * .3, 0, l * .5, m, 1.2, flat, .75, g); sph(l * .62, l * .3, 0, l * .18, m, 1, .8, 1, g);
@@ -787,19 +812,47 @@ const wasps = TX.stripes();
 }
 // Cuisine : cafards + colonne de fourmis
 { const f = LV.rdc + .312;
-  const roaches = [[-3.0, Z0 + .8, 0], [-2.2, Z0 + .95, 1], [-3.8, 1.7, 2], [-.7, Z0 + .9, 3]].map(([x, z, i]) => { const r = insect({ l: .2 }); r.position.set(x, f, z); r.rotation.y = i; scene.add(r); return r; });
-  anim.push(t => roaches.forEach((r, i) => { r.position.x += Math.sin(t * 1.3 + i * 2) * .004; r.position.z += Math.cos(t * 1.1 + i) * .003; r.rotation.y = i + Math.sin(t + i) * .6; }));
+  const roaches = [[-3.0, Z0 + .85, .5, .25], [-2.1, Z0 + 1.0, .4, .3], [-3.7, 1.6, .45, .35], [-.8, Z0 + .95, .35, .25], [-1.6, 1.9, .3, .4]].map(([x, z, rx, rz], i) => {
+    const r = roach(.2 + (i % 2) * .04); r.position.set(x, f, z); scene.add(r); return { r, x, z, rx, rz, i }; });
+  anim.push(t => roaches.forEach(({ r, x, z, rx, rz, i }) => {                        // course rapide, pauses, demi-tours
+    const a = t * .9 + Math.sin(t * 2.3 + i * 1.7) * 1.1 + i * 2, nx = x + Math.cos(a) * rx, nz = z + Math.sin(a * 1.3) * rz;
+    const dx = nx - r.position.x, dz = nz - r.position.z; if (dx * dx + dz * dz > 1e-7) r.rotation.y = Math.atan2(-dz, dx);
+    r.position.set(nx, f + Math.abs(Math.sin(t * 40 + i)) * .004, nz);
+  }));
   const path = new THREE.CatmullRomCurve3([new THREE.Vector3(X0 + .3, f, 2.6), new THREE.Vector3(-4.2, f, 1.2), new THREE.Vector3(-3.9, f, Z0 + .75), new THREE.Vector3(-3.9, f + .86, Z0 + .66), new THREE.Vector3(-3.6, f + .93, Z0 + .4)]);
   const ants = []; for (let i = 0; i < 22; i++) { const a = insect({ c: '#151515', l: .07, legs: false, flat: .6 }); scene.add(a); ants.push(a); }
   anim.push(t => ants.forEach((a, i) => { const u = ((t * .05 + i / ants.length) % 1); a.position.copy(path.getPointAt(u)); const tg = path.getTangentAt(u); a.rotation.y = Math.atan2(-tg.z, tg.x); }));
 }
-// Salon : chien dans son panier + puces qui sautent
-{ const f = LV.rdc + .3, dog = new THREE.Group(), fur = matFur('#C98D51');
-  sph(0, .3, 0, .38, fur, 1.4, .75, .85, dog); sph(.5, .42, .05, .2, fur, 1.1, 1, 1, dog); sph(.66, .38, .05, .09, fur, 1.3, .8, .9, dog); sph(.74, .39, .05, .035, M.black, 1, 1, 1, dog);
-  for (const s of [-1, 1]) sph(.46, .55, s * .14, .08, col('#A06A38'), .6, 1.4, .5, dog);
-  dog.position.set(3.4, f + .05, 2.2); dog.rotation.y = -.5; scene.add(dog);
-  anim.push(t => { dog.scale.y = 1 + Math.sin(t * 2) * .02; });
-  const fleas = []; for (let i = 0; i < 9; i++) { const p = sph(3.4 + (rnd() - .5) * 1.4, f + .1, 2.2 + (rnd() - .5) * 1.4, .025, col('#2A1C12')); fleas.push([p, rnd() * 5, p.position.y]); }
+// Salon : chien assis dans son panier qui se gratte (signe typique des puces) + puces qui sautent
+{ const f = LV.rdc + .3, dog = new THREE.Group(), fur = matFur('#C98D51'), furD = matFur('#9E6534'), furL = matFur('#E2B982'), eye = col('#120C08', { roughness: .15 });
+  dog.position.set(3.4, f + .1, 2.2); dog.rotation.y = -.5; scene.add(dog);
+  sph(-.16, .27, 0, .25, fur, 1.15, .95, 1.05, dog);                                        // arrière-train assis
+  seg(dog, [-.1, .33, 0], [.18, .62, 0], .19, fur);                                         // buste incliné
+  sph(.22, .5, 0, .16, furL, .85, 1.15, 1, dog);                                            // poitrail clair
+  for (const s of [-1, 1]) { seg(dog, [.22, .5, s * .09], [.25, .07, s * .09], .05, fur); sph(.29, .035, s * .09, .055, furL, 1.4, .6, 1, dog); }   // pattes avant
+  sph(-.12, .22, -.19, .15, fur, 1.35, 1, .55, dog); seg(dog, [-.04, .05, -.19], [.14, .04, -.19], .048, fur); sph(.17, .035, -.19, .05, furL, 1.3, .6, 1, dog);   // patte arrière posée
+  const hip = new THREE.Group(); hip.position.set(-.1, .26, .19); dog.add(hip);            // patte arrière qui gratte
+  sph(0, 0, 0, .15, fur, 1.35, 1, .55, hip); seg(hip, [.04, -.08, .02], [.25, -.18, .04], .048, fur); sph(.29, -.19, .04, .05, furL, 1.3, .6, 1, hip);
+  const head = new THREE.Group(); head.position.set(.22, .7, 0); dog.add(head);
+  seg(head, [0, -.1, 0], [.05, .1, 0], .1, fur);                                            // cou
+  sph(.08, .2, 0, .13, fur, 1.1, 1, .95, head);                                             // crâne
+  seg(head, [.14, .16, 0], [.3, .13, 0], .065, furL);                                       // museau
+  sph(.35, .14, 0, .033, M.black, 1.1, .9, 1, head);                                        // truffe
+  seg(head, [.2, .09, 0], [.3, .09, 0], .012, furD);                                        // babines
+  for (const s of [-1, 1]) {
+    sph(.18, .25, s * .07, .022, eye, 1, 1, 1, head);
+    const ear = sph(.05, .17, s * .13, .09, furD, .5, 1.35, .32, head); ear.rotation.x = s * .35; ear.rotation.z = .15;   // oreilles tombantes
+  }
+  const tailC = new THREE.CatmullRomCurve3([new THREE.Vector3(-.38, .12, 0), new THREE.Vector3(-.52, .06, -.12), new THREE.Vector3(-.5, .04, -.34)]);
+  const tail = add(new THREE.Mesh(new THREE.TubeGeometry(tailC, 16, .035, 8), fur), dog);
+  anim.push(t => {
+    const cyc = t % 7, scratch = cyc > 3.8 && cyc < 6.4;                                    // se gratte ~2,5 s toutes les 7 s
+    const target = scratch ? 1.25 + Math.sin(t * 30) * .14 : 0;
+    hip.rotation.z += (target - hip.rotation.z) * (scratch ? .35 : .12);
+    head.rotation.x += ((scratch ? .38 : 0) - head.rotation.x) * .1; head.rotation.z += ((scratch ? -.12 : Math.sin(t * .8) * .06) - head.rotation.z) * .1;
+    tail.rotation.y = Math.sin(t * (scratch ? 2 : 5)) * .25; dog.scale.y = 1 + Math.sin(t * 2) * .012;
+  });
+  const fleas = []; for (let i = 0; i < 12; i++) { const a = rnd() * Math.PI * 2, r = .3 + rnd() * .9; const p = sph(3.4 + Math.cos(a) * r, f + .08 + (i < 4 ? .45 : 0), 2.2 + Math.sin(a) * r, .022, col('#2A1C12')); fleas.push([p, rnd() * 5, p.position.y]); }
   anim.push(t => fleas.forEach(([p, o, y0]) => { const k = ((t * 1.6 + o) % 1); p.position.y = y0 + Math.max(0, Math.sin(k * Math.PI)) * .35; }));
 }
 // Chambre : punaises de lit sur la couette
