@@ -288,6 +288,73 @@ svg.i{width:1em;height:1em;flex:none;stroke-width:2}
 .review-tag{display:inline-block;margin-top:14px;font-size:var(--text-caption);font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);background:var(--bg-soft);border-radius:4px;padding:4px 8px}
 .reviews-foot{text-align:center;margin-top:16px}
 
+/* ---------- Agence locale : responsable + avis ---------- */
+.agency{background:#fff;padding:clamp(64px,7vw,104px) 0}
+.agency-head{text-align:center;max-width:680px;margin:0 auto clamp(28px,4vw,44px)}
+.agency-head .eyebrow{color:var(--muted)}
+.agency-head p:not(.eyebrow){color:var(--muted);margin-top:12px;text-wrap:pretty}
+.agency-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:24px;align-items:stretch}
+.agency-card,.score-card{background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 0 0 1px rgb(0 0 0/.06),0 2px 4px rgb(0 0 0/.04),0 24px 60px rgb(18 20 23/.08);display:flex;flex-direction:column}
+.agency-cover{position:relative;aspect-ratio:16/7;overflow:hidden}
+.agency-cover img{width:100%;height:100%;object-fit:cover;object-position:center 30%}
+.agency-cover::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(18,20,23,0) 45%,rgba(18,20,23,.55))}
+.agency-body{position:relative;padding:0 clamp(22px,3vw,36px) 26px;display:flex;flex-direction:column;gap:20px;flex:1}
+.agency-id{display:flex;align-items:flex-start;gap:18px;margin-top:-52px;position:relative;z-index:1}
+.agency-id > div{padding-top:64px}
+.agency-photo{width:112px;height:112px;border-radius:50%;object-fit:cover;flex:none;background:#fff;box-shadow:0 0 0 4px #fff,0 0 0 7px var(--orange),0 12px 28px rgb(18 20 23/.25)}
+.agency-id h3{font-size:var(--text-h3);font-weight:800;text-transform:uppercase;color:var(--ink);line-height:1.05}
+.agency-role{font-size:var(--text-label);font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--orange);margin-top:4px}
+.agency-loc{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:var(--text-ui);margin-top:6px}
+.agency-loc .i{color:var(--orange)}
+.agency-ctas{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.agency-ctas .btn{justify-content:center;padding:15px 16px}
+.agency-ctas .btn-tel{font-size:var(--text-body);letter-spacing:.02em;font-variant-numeric:tabular-nums}
+.agency-facts{list-style:none;display:flex;flex-direction:column;gap:12px;padding-top:18px;border-top:1px solid var(--line)}
+.agency-facts li{display:flex;gap:12px;align-items:flex-start;color:var(--text);font-size:var(--text-ui);line-height:1.45}
+.agency-facts .i{color:var(--orange);font-size:18px;flex:none;margin-top:1px}
+.agency-facts b{color:var(--ink)}
+.agency-shop{display:flex;align-items:center;gap:16px;margin:0 clamp(12px,2vw,20px) clamp(12px,2vw,20px);padding:18px 20px;border-radius:14px;background:var(--ink);color:#fff}
+.agency-shop .pill-ico{background:var(--orange);color:#fff}
+.agency-shop strong{display:block;font-size:var(--text-body);font-weight:800;text-transform:uppercase;letter-spacing:.02em}
+.agency-shop div span{display:block;color:rgba(255,255,255,.72);font-size:var(--text-ui);line-height:1.4}
+.agency-shop a{margin-left:auto;flex:none;color:#fff;font-weight:700;font-size:var(--text-label);letter-spacing:.05em;text-transform:uppercase;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.agency-shop a:hover{color:var(--orange)}
+.score-card{padding:clamp(24px,3vw,36px);gap:22px}
+.score-top{display:flex;align-items:center;gap:18px;padding-bottom:22px;border-bottom:1px solid var(--line)}
+.score-big{font-size:56px;font-weight:800;line-height:.9;color:var(--ink);font-variant-numeric:tabular-nums}
+.score-big small{font-size:var(--text-h4);color:var(--muted);font-weight:700}
+.score-top .stars{font-size:18px}
+.score-top p{color:var(--muted);font-size:var(--text-ui);margin-top:6px}
+.score-top p b{color:var(--ink)}
+.score-bars{list-style:none;display:flex;flex-direction:column;gap:16px}
+.score-bars li{display:grid;grid-template-columns:34px 1fr 44px;align-items:center;gap:14px;font-size:var(--text-ui);font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums}
+.score-bars li span:first-child{display:inline-flex;align-items:center;gap:3px}
+.score-bars li span:first-child::after{content:"★";color:var(--orange);font-size:14px}
+.score-bars li span:last-child{text-align:right;color:var(--muted);font-weight:600}
+.score-bar{height:10px;border-radius:999px;background:var(--bg-soft);box-shadow:inset 0 0 0 1px rgb(0 0 0/.04);overflow:hidden}
+.score-bar i{display:block;height:100%;min-width:8px;border-radius:inherit;background:linear-gradient(90deg,var(--orange-dark),var(--orange))}
+.score-ask{margin-top:auto;padding:22px;border-radius:14px;background:var(--bg-soft)}
+.score-ask h4{font-size:var(--text-h4);font-weight:800;text-transform:uppercase;color:var(--ink)}
+.score-ask p{color:var(--muted);margin:6px 0 16px;text-wrap:pretty}
+@media (max-width:900px){.agency-grid{grid-template-columns:1fr}}
+@media (max-width:640px){
+  .agency-cover{aspect-ratio:16/9}
+  .agency-id{flex-direction:column;align-items:flex-start;gap:12px;margin-top:-56px}
+  .agency-id > div{padding-top:0}
+  .agency-photo{width:96px;height:96px}
+  .agency-ctas{grid-template-columns:1fr}
+  .agency-shop{flex-wrap:wrap}
+  .agency-shop a{margin-left:60px}
+  .score-big{font-size:46px}
+}
+
+/* carte « votre interlocuteur » dans le bloc noir du contact */
+.contact-person{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:14px;background:rgba(255,255,255,.06);box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)}
+.contact-person img{width:64px;height:64px;border-radius:50%;object-fit:cover;flex:none;background:#fff;box-shadow:0 0 0 3px var(--ink),0 0 0 5px var(--orange)}
+.contact-person b{display:block;font-size:var(--text-body);font-weight:800;text-transform:uppercase;letter-spacing:.02em}
+.contact-person small{display:block;color:var(--orange);font-size:var(--text-caption);font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-top:2px}
+.contact-person q{display:block;color:rgba(255,255,255,.72);font-size:var(--text-ui);line-height:1.45;margin-top:6px;quotes:"« " " »"}
+
 /* ---------- Équipe ---------- */
 .team-band{background:var(--ink);color:#fff;overflow:hidden}
 .team-content{padding-top:clamp(56px,6vw,90px);text-align:center;display:flex;flex-direction:column;align-items:center;position:relative;z-index:1}
@@ -539,7 +606,7 @@ svg.i{width:1em;height:1em;flex:none;stroke-width:2}
 .follow .socials{justify-content:center;gap:22px;margin-top:14px}
 .follow .socials .i{font-size:18px}
 .footer-bottom{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:var(--text-label);opacity:.65;padding-top:18px;border-top:1px solid rgba(255,255,255,.08)}
-.footer-bottom nav{display:flex;gap:18px}
+.footer-bottom nav{display:flex;flex-wrap:wrap;gap:8px 18px}
 .footer-bottom a:hover{color:var(--orange)}
 
 /* ---------- Reveal ---------- */
@@ -1116,6 +1183,67 @@ svg.i{width:1em;height:1em;flex:none;stroke-width:2}
   </div>
 </section>
 
+<!-- ============ AGENCE LOCALE ============ -->
+<section class="agency" id="agence" aria-labelledby="agence-title">
+  <div class="container">
+    <div class="agency-head reveal">
+      <p class="eyebrow">Votre agence locale</p>
+      <h2 class="section-title" id="agence-title">Un interlocuteur <span class="accent">près de chez vous.</span></h2>
+      <p>Un responsable joignable en direct, une boutique ouverte au public et des avis clients vérifiés.</p>
+    </div>
+    <div class="agency-grid reveal stagger">
+      <article class="agency-card">
+        <div class="agency-cover"><img src="assets/boutique-jouars.jpg" alt="Façade de la boutique Eden Vert 3D à Jouars-Pontchartrain" width="800" height="450" loading="lazy"></div>
+        <div class="agency-body">
+          <div class="agency-id">
+            <img class="agency-photo" src="assets/richard.jpg" alt="Richard, responsable d’agences Eden Vert 3D" width="562" height="563" loading="lazy">
+            <div>
+              <h3>Richard</h3>
+              <p class="agency-role">Responsable d’agences</p>
+              <p class="agency-loc"><svg class="i"><use href="#i-pin"/></svg>Yvelines (78)</p>
+            </div>
+          </div>
+          <div class="agency-ctas">
+            <a class="btn btn-primary btn-tel" href="tel:0134593130"><svg class="i"><use href="#i-phone"/></svg>01&nbsp;34&nbsp;59&nbsp;31&nbsp;30</a>
+            <a class="btn btn-dark" href="#contact"><svg class="i"><use href="#i-mail"/></svg>Lui écrire</a>
+          </div>
+          <ul class="agency-facts">
+            <li><svg class="i"><use href="#i-mapin"/></svg><span>Déplacements dans tout le département&nbsp;: <b>78 Yvelines</b></span></li>
+            <li><svg class="i"><use href="#i-clock"/></svg><span>Interventions du <b>lundi au samedi, de 9h à 20h</b></span></li>
+          </ul>
+        </div>
+        <div class="agency-shop">
+          <span class="pill-ico"><svg class="i"><use href="#i-building"/></svg></span>
+          <div><strong>Retrouvez-nous en boutique</strong><span>22 route de Paris, 78760 Jouars-Pontchartrain</span><span>Vente de produits professionnels</span></div>
+          <a href="https://www.google.com/maps/search/?api=1&amp;query=22+Route+de+Paris+78760+Jouars-Pontchartrain" target="_blank" rel="noopener">Itinéraire <svg class="i"><use href="#i-arrow"/></svg></a>
+        </div>
+      </article>
+
+      <article class="score-card" aria-labelledby="score-title">
+        <div class="score-top">
+          <div class="score-big">4,7<small>/5</small></div>
+          <div>
+            <div class="stars" aria-hidden="true">★★★★★</div>
+            <p id="score-title"><b>308 avis clients</b> sur l’agence des Yvelines</p>
+          </div>
+        </div>
+        <ul class="score-bars" aria-label="Répartition des notes">
+          <li aria-label="5 étoiles : 88 %"><span>5</span><span class="score-bar"><i style="width:88%"></i></span><span>88&nbsp;%</span></li>
+          <li aria-label="4 étoiles : 4 %"><span>4</span><span class="score-bar"><i style="width:4%"></i></span><span>4&nbsp;%</span></li>
+          <li aria-label="3 étoiles : 1 %"><span>3</span><span class="score-bar"><i style="width:1%"></i></span><span>1&nbsp;%</span></li>
+          <li aria-label="2 étoiles : 1 %"><span>2</span><span class="score-bar"><i style="width:1%"></i></span><span>1&nbsp;%</span></li>
+          <li aria-label="1 étoile : 6 %"><span>1</span><span class="score-bar"><i style="width:6%"></i></span><span>6&nbsp;%</span></li>
+        </ul>
+        <div class="score-ask">
+          <h4>Laissez-moi un avis</h4>
+          <p>Suite à mon conseil ou à mon intervention, vous pouvez partager votre expérience en quelques secondes.</p>
+          <a class="btn btn-dark" href="#"><svg class="i"><use href="#i-star"/></svg>Écrire un avis</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
 <!-- ============ CTA : rappel ============ -->
 <section class="cta-band cta-on-soft" aria-label="Être rappelé">
   <div class="container">
@@ -1389,6 +1517,10 @@ svg.i{width:1em;height:1em;flex:none;stroke-width:2}
         <p class="eyebrow">Contactez-nous</p>
         <h2 class="section-title">Votre devis<br><span class="accent">gratuit.</span></h2>
         <p class="contact-lead">Décrivez votre problème&nbsp;: l’agence la plus proche de chez vous vous rappelle pour convenir d’une intervention.</p>
+        <div class="contact-person">
+          <img src="assets/richard.jpg" alt="" width="562" height="563" loading="lazy">
+          <div><b>Richard</b><small>Responsable d’agences</small><q>Je lis chaque demande et je vous rappelle rapidement.</q></div>
+        </div>
         <a class="contact-urgent" href="tel:0184802122">
           <span class="pill-ico"><svg class="i"><use href="#i-phone"/></svg></span>
           <span><small>Urgence&nbsp;? Appelez directement</small><b>01&nbsp;84&nbsp;80&nbsp;21&nbsp;22</b></span>
@@ -1517,7 +1649,7 @@ svg.i{width:1em;height:1em;flex:none;stroke-width:2}
       </div>
     </div>
     <div class="footer-bottom">
-      <nav><a href="#">Mentions légales</a><a href="#">Politique de confidentialité</a><a href="#">Plan du site</a></nav>
+      <nav><a href="#">Mentions légales</a><a href="#">Politique de confidentialité</a><a href="#">Plan du site</a><a href="maison-3d.html">Où se cachent les nuisibles ? (3D)</a></nav>
       <span>© <span id="year">2026</span> Eden Vert 3D – Tous droits réservés</span>
     </div>
   </div>

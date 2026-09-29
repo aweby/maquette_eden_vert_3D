@@ -1,4 +1,0 @@
-<!doctype html><body style="margin:0"><iframe id=f src="_dbg.html" style="border:0;width:1440px;height:1300px"></iframe>
-<script>f.onload=()=>setTimeout(()=>{const w=f.contentWindow;w.requestAnimationFrame=()=>0;w.__K=0;const n=w.__nh;const [az,pol,d,x,y,z]=location.hash.slice(1).split(',').map(Number);
-n.controls.minAzimuthAngle=-Infinity;n.controls.maxAzimuthAngle=Infinity;n.controls.minPolarAngle=0;n.controls.maxPolarAngle=3;
-const T=n.V(x,y,z);n.controls.target.copy(T);n.camera.position.copy(T).add(n.V(0,0,0).setFromSpherical(new n.S(d,pol,az)));n.frame();},2500)</script>
